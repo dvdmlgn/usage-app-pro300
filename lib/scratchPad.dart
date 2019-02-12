@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'backend/miscella.dart';
 import 'backend/transactionLog.dart';
 import 'models/consumable.dart';
+import 'app/logic.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -29,6 +30,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String plainText = 'why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,..';
   String encryptedText = '';
   String decryptedText = '';
+
+  
 
   Consumable consumable = Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 );
 
@@ -72,6 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    Products.create();
 
     conListString += "[";
 
