@@ -17,33 +17,100 @@ class Consumables {
       oldState: 'nil',
       newState: item.jsonify()
     );
-    
   }
 
-  static edit() {
+  static edit(int index, Consumable item) {
+    final oldState = consumables[index];
 
+    consumables.insert(index, item);
+
+    Transaction(
+      action: 'edit',
+      dataType: 'consumable',
+      oldState: oldState.jsonify(),
+      newState: item.jsonify()
+    );
   }
 
-  static delete() {
+  static delete(int index) {
+    final oldState = consumables[index];
 
+    consumables.removeAt(index);
+
+    Transaction(
+      action: 'delete',
+      dataType: 'consumable',
+      oldState: oldState.jsonify(),
+      newState: 'nil'
+    );
   }
 
+  static consumed(int index) {
+    final oldState = consumables[index];
+
+    consumables.removeAt(index);
+
+    Transaction(
+      action: 'consumed',
+      dataType: 'consumable',
+      oldState: oldState.jsonify(),
+      newState: 'nil'
+    );
+  }
+
+  static wasted(int index) {
+    final oldState = consumables[index];
+
+    consumables.removeAt(index);
+
+    Transaction(
+      action: 'wasted',
+      dataType: 'consumable',
+      oldState: oldState.jsonify(),
+      newState: 'nil'
+    );
+  }
 
 }
 
 
 class Products {
 
-  static create() {
+  static create(Product item) {
+    products.add(item);
 
+    Transaction(
+      action: 'create',
+      dataType: 'product',
+      oldState: 'nil',
+      newState: item.jsonify()
+    );
   }
 
-  static edit() {
+  static edit(int index, Product item) {
+    final oldState = products[index];
 
+    products.insert(index, item);
+
+    Transaction(
+      action: 'edit',
+      dataType: 'product',
+      oldState: oldState.jsonify(),
+      newState: item.jsonify()
+    );
   }
 
-  static delete() {
+  static delete(int index) {
+    final oldState = products[index];
 
+    products.removeAt(index);
+
+    Transaction(
+      action: 'delete',
+      dataType: 'product',
+      oldState: oldState.jsonify(),
+      newState: 'nil'
+    );
   }
 
 }
@@ -51,17 +118,41 @@ class Products {
 
 class Groceries {
 
-  static create() {
+  static create(Grocery item) {
+    groceries.add(item);
     
+    Transaction(
+      action: 'create',
+      dataType: 'grocery',
+      oldState: 'nil',
+      newState: item.jsonify()
+    );
   }
 
-  static edit() {
+  static edit(int index, Grocery item) {
+    final oldState = groceries[index];
 
+    groceries.insert(index, item);
+
+    Transaction(
+      action: 'edit',
+      dataType: 'grocery',
+      oldState: oldState.jsonify(),
+      newState: item.jsonify()
+    );
   }
 
-  static delete() {
+  static delete(int index) {
+    final oldState = groceries[index];
 
+    groceries.removeAt(index);
+
+    Transaction(
+      action: 'deleted',
+      dataType: 'grocery',
+      oldState: oldState.jsonify(),
+      newState: 'nil'
+    );
   }
-
 
 }

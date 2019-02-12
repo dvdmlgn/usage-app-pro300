@@ -88,6 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     conListString += "[";
 
+    // Consumables.consumed(consumable);
+
     // for (var consumable in conList) {
     //   conListString += consumable.jsonify();
     // }
