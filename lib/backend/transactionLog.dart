@@ -4,10 +4,11 @@ class Transaction {
   String id;
   String timestamp;
   String action;
+  String dataType;
   String oldState;
   String newState;
 
-  Transaction({this.action, this.oldState, this.newState}) {
+  Transaction({this.action, this.dataType, this.oldState, this.newState}) {
     id = newId();
     timestamp = newTimestamp();
 
