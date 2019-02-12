@@ -42,7 +42,7 @@ String encrypt(String content) {
 
     debugPrint("slice: ${slice}");
 
-  debugPrint("slice length: ${slice.length}");
+    debugPrint("slice length: ${slice.length}");
 
     cipher += encrypter.encrypt(slice);
 
