@@ -3,11 +3,20 @@ import '../models/consumable.dart';
 import '../models/grocery.dart';
 
 import './dataStore.dart';
+import '../backend/transactionLog.dart';
 
 
 class Consumables {
   
-  static create() {
+  static create(Consumable item) {
+    consumables.add(item);
+
+    Transaction(
+      action: 'create',
+      dataType: 'consumable',
+      oldState: 'nil',
+      newState: item.jsonify()
+    );
     
   }
 

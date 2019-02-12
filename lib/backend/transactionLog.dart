@@ -15,6 +15,20 @@ class Transaction {
     transactionLog.add(this);
   }
 
+  String jsonify() {
+    return {
+      'id' : id,
+      'timestamp' : timestamp,
+      'action' : action,
+      'dataTypes' : dataType,
+      'oldState' : oldState,
+      'newState' : newState
+    }
+    .toString();
+
+  }
+
+
 }
 
 final transactionLog = <Transaction>[];

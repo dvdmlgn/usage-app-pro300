@@ -3,6 +3,7 @@ import 'backend/miscella.dart';
 import 'backend/transactionLog.dart';
 import 'models/consumable.dart';
 import 'app/logic.dart';
+import 'app/dataStore.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -35,30 +36,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Consumable consumable = Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 );
 
-  var conList = <Consumable>[
-    Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
-    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 )
-  ];
+  // var conList = <Consumable>[
+  //   Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+  //   // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 )
+  // ];
 
   String conListString = '';
 
@@ -76,13 +77,39 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    Products.create();
+    for (var item in transactionLog) {
+      debugPrint("transaction:");
+      debugPrint(item.jsonify());
+    }
+
+    debugPrint(transactionLog.length.toString());
+
+    // Products.create();
 
     conListString += "[";
 
-    for (var consumable in conList) {
-      conListString += consumable.jsonify();
+    // for (var consumable in conList) {
+    //   conListString += consumable.jsonify();
+    // }
+
+    Consumables.create( Consumable(
+      productId: 'vv23',
+      name: 'cherry',
+      quantity: 4.0
+    ));
+
+    for (var item in consumables) {
+      debugPrint("consumable");
+      debugPrint(item.jsonify());
     }
+
+    for (var item in transactionLog) {
+      debugPrint("transaction:");
+      debugPrint(item.jsonify());
+    }
+
+    debugPrint(transactionLog.length.toString());
+
 
     conListString += ']';
 
