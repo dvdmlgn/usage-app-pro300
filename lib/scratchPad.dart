@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'backend/miscella.dart';
+import 'backend/transactionLog.dart';
+import 'models/consumable.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -14,12 +17,47 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  // String plainText     = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ........';
+  String plainText = 'why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,..';
+  String encryptedText = '';
+  String decryptedText = '';
+
+  Consumable consumable = Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 );
+
+  var conList = <Consumable>[
+    Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
+    // Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 )
+  ];
+
+  String conListString = '';
 
   void _incrementCounter() {
     setState(() {
@@ -34,6 +72,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    conListString += "[";
+
+    for (var consumable in conList) {
+      conListString += consumable.jsonify();
+    }
+
+    conListString += ']';
+
+    encryptedText = encrypt( conListString );
+    decryptedText = decrypt(encryptedText);
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -66,13 +116,10 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
+            Text( conListString ),
+            Text( encryptedText ),
+            Text( decryptedText ),
+            
           ],
         ),
       ),

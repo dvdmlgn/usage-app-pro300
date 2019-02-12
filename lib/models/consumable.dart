@@ -23,4 +23,14 @@ class Consumable {
     );
   }
 
+  Map<String, dynamic> toJson() => {
+    'id' : id,
+    'productId' : productId,
+    'name' : name,
+    'quantity' : quantity 
+  };
+
+  String jsonify() => toJson().toString();
+
+
 }

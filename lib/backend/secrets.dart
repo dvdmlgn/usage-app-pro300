@@ -1,1 +1,1 @@
-const String encryptionKey = "'my32lengthsupersecretnooneknows1'";
+const String encryptionKey = 'my32lengthsupersecretnooneknows1';
