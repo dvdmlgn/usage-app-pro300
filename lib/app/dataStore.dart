@@ -1,10 +1,12 @@
 import '../models/product.dart';
 import '../models/consumable.dart';
 import '../models/grocery.dart';
+import '../models/post.dart';
 
 var products = <Product>[];
 var consumables = <Consumable>[];
 var groceries = <Grocery>[];
+var posts = <Post>[];
 
 var i1 = new Consumable(productId: "1", name: 'Apple', quantity: 2);
 var i2 = new Consumable(productId: "2", name: 'Banana', quantity: 3);
