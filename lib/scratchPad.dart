@@ -131,12 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
-        body: Center(
-          child: RaisedButton(
-            onPressed: () => biometricTest(),
-            child: Text('test biometrics'),
-          ),
-        )
+        body: InventoryGallery()
         // Center(
         //   // Center is a layout widget. It takes a single child and positions it
         //   // in the middle of the parent.
@@ -172,3 +167,12 @@ class _MyHomePageState extends State<MyHomePage> {
         );
   }
 }
+
+
+
+final biometricTest = Center(
+  child: RaisedButton(
+    onPressed: () => biometricTest(),
+    child: Text('test biometrics'),
+  ),
+);

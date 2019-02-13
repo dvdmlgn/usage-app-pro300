@@ -23,6 +23,9 @@ void biometricInit() async {
   
 }
 
+// NOTE:
+// biometrics have only been tested with faseID right now,
+// still have to test touchID and android Fingerprint
 void biometricTest() async {
   isAuthorised = await biometricAuth.authenticateWithBiometrics(
     localizedReason: 'Please enter in your biometrics',
