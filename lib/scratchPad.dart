@@ -6,6 +6,8 @@ import 'app/logic.dart';
 import 'app/dataStore.dart';
 import './inventory/inventory_page.dart';
 import './inventory/gallery.dart';
+import './backend/auth.dart';
+
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -77,6 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    biometricInit();
+
     for (var item in transactionLog) {
       debugPrint("transaction:");
       debugPrint(item.jsonify());
@@ -126,7 +131,12 @@ class _MyHomePageState extends State<MyHomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
-        body: InventoryGallery()
+        body: Center(
+          child: RaisedButton(
+            onPressed: () => biometricTest(),
+            child: Text('test biometrics'),
+          ),
+        )
         // Center(
         //   // Center is a layout widget. It takes a single child and positions it
         //   // in the middle of the parent.
