@@ -6,6 +6,8 @@ import 'app/logic.dart';
 import 'app/dataStore.dart';
 import './inventory/inventory_page.dart';
 import './inventory/gallery.dart';
+import './backend/auth.dart';
+
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -77,6 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    Biometric.init();
+
     for (var item in transactionLog) {
       debugPrint("transaction:");
       debugPrint(item.jsonify());
@@ -162,3 +167,12 @@ class _MyHomePageState extends State<MyHomePage> {
         );
   }
 }
+
+
+
+final biometricTest = Center(
+  child: RaisedButton(
+    onPressed: () => Biometric.authenticate(),
+    child: Text('test biometrics'),
+  ),
+);

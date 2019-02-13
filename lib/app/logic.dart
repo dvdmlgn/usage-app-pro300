@@ -1,6 +1,8 @@
 import '../models/product.dart';
 import '../models/consumable.dart';
 import '../models/grocery.dart';
+import '../models/post.dart';
+import '../models/user.dart';
 
 import './dataStore.dart';
 import '../backend/transactionLog.dart';
@@ -169,6 +171,61 @@ class Groceries {
       oldState: oldState.jsonify(),
       newState: 'nil'
     );
+  }
+
+  static toBasket(int index) {
+    
+  }
+
+}
+
+
+class Posts {
+
+  static create(Post item) {
+    posts.add(item);
+
+    Transaction(
+      action: 'create',
+      dataType: 'post',
+      oldState: 'nil',
+      newState: item.jsonify()
+    );
+  }
+
+  static edit(int index, Post item) {
+    final oldState = posts[index];
+
+    posts.add(item);
+
+    Transaction(
+      action: 'edit',
+      dataType: 'post',
+      oldState: oldState.jsonify(),
+      newState: item.jsonify()
+    );
+  }
+
+  static delete(int index) {
+    final oldState = posts[index];
+
+    posts.removeAt(index);
+
+    Transaction(
+      action: 'delete',
+      dataType: 'post',
+      oldState: oldState.jsonify(),
+      newState: 'nil'
+    );
+  }
+
+}
+
+
+class Users {
+
+  static edit(User item) {
+
   }
 
 }
