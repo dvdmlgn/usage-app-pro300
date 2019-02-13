@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 LocalAuthentication biometricAuth;
 bool canUseBiometric = false;
-bool isAuthorised = false;
+bool didAuthenticate = false;
 var availableBiometrics = <BiometricType>[];
 
 void biometricInit() async {
@@ -26,12 +26,18 @@ void biometricInit() async {
 // NOTE:
 // biometrics have only been tested with faseID right now,
 // still have to test touchID and android Fingerprint
-void biometricTest() async {
-  isAuthorised = await biometricAuth.authenticateWithBiometrics(
+void authenticateWithBiometric() async {
+  didAuthenticate = await biometricAuth.authenticateWithBiometrics(
     localizedReason: 'Please enter in your biometrics',
     stickyAuth: true,
     useErrorDialogs: true
   );
 
-  debugPrint(isAuthorised.toString());
+   debugPrint(didAuthenticate.toString());
+
+  // return isAuthorised;
 }
+
+
+
+var auth0;

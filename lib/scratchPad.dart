@@ -172,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 final biometricTest = Center(
   child: RaisedButton(
-    onPressed: () => biometricTest(),
+    onPressed: () => authenticateWithBiometric(),
     child: Text('test biometrics'),
   ),
 );
