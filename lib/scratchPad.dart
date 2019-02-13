@@ -5,6 +5,7 @@ import 'models/consumable.dart';
 import 'app/logic.dart';
 import 'app/dataStore.dart';
 import './inventory/inventory_page.dart';
+import './inventory/gallery.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -125,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
         ),
-        body: InventoryPage()
+        body: InventoryGallery()
         // Center(
         //   // Center is a layout widget. It takes a single child and positions it
         //   // in the middle of the parent.
