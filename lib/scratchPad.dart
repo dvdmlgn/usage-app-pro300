@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    biometricInit();
+    Biometric.init();
 
     for (var item in transactionLog) {
       debugPrint("transaction:");
@@ -172,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 final biometricTest = Center(
   child: RaisedButton(
-    onPressed: () => authenticateWithBiometric(),
+    onPressed: () => Biometric.authenticate(),
     child: Text('test biometrics'),
   ),
 );

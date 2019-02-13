@@ -2,42 +2,45 @@ import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
-LocalAuthentication biometricAuth;
-bool canUseBiometric = false;
-bool didAuthenticate = false;
-var availableBiometrics = <BiometricType>[];
 
-void biometricInit() async {
-  biometricAuth = LocalAuthentication();
+class Biometric {
+  static LocalAuthentication _biometricAuth;
+  static bool canUseBiometric;
+  static bool didAuthenticate;
+  static var  availableBiometrics = <BiometricType>[];
 
-  try {
-    canUseBiometric = await biometricAuth.canCheckBiometrics;
-    availableBiometrics = await biometricAuth.getAvailableBiometrics();
+  static init() async {
+    _biometricAuth = LocalAuthentication();
 
-    debugPrint(canUseBiometric.toString());
-    debugPrint(availableBiometrics.toString());
+    try {
+      canUseBiometric     = await _biometricAuth.canCheckBiometrics;
+      availableBiometrics = await _biometricAuth.getAvailableBiometrics();
 
-  } on PlatformException catch (error) {
-    print(error);
+      debugPrint(canUseBiometric.toString());
+      debugPrint(availableBiometrics.toString());
+
+    } on PlatformException catch (error) {
+      print(error);
+    }
   }
+
+
+  static authenticate() async {
+    didAuthenticate = await _biometricAuth.authenticateWithBiometrics(
+      localizedReason: 'Please enter in your biometrics',
+      stickyAuth: true,
+      useErrorDialogs: true
+    );
+
+    debugPrint(didAuthenticate.toString());
+  }
+
+
+}
+
+
+
+
+class Auth0 {
   
 }
-
-// NOTE:
-// biometrics have only been tested with faseID right now,
-// still have to test touchID and android Fingerprint
-void authenticateWithBiometric() async {
-  didAuthenticate = await biometricAuth.authenticateWithBiometrics(
-    localizedReason: 'Please enter in your biometrics',
-    stickyAuth: true,
-    useErrorDialogs: true
-  );
-
-   debugPrint(didAuthenticate.toString());
-
-  // return isAuthorised;
-}
-
-
-
-var auth0;
