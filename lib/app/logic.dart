@@ -32,6 +32,22 @@ class Consumables {
     );
   }
 
+  static quickEdit(int index, double quantity) {
+    final oldState = consumables[index];
+    final newState = consumables[index];
+
+    newState.quantity = quantity;
+    consumables.insert(index, newState);
+
+    Transaction(
+      action: 'quick edit',
+      dataType: 'consumable',
+      oldState: oldState.jsonify(),
+      newState: newState.jsonify()
+    );
+
+  }
+
   static delete(int index) {
     final oldState = consumables[index];
 
