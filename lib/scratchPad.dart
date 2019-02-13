@@ -4,6 +4,7 @@ import 'backend/transactionLog.dart';
 import 'models/consumable.dart';
 import 'app/logic.dart';
 import 'app/dataStore.dart';
+import './inventory/inventory_page.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -19,7 +20,6 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -28,13 +28,13 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   // String plainText     = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ........';
-  String plainText = 'why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,..';
+  String plainText =
+      'why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,.. why hello there,..';
   String encryptedText = '';
   String decryptedText = '';
 
-  
-
-  Consumable consumable = Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 );
+  Consumable consumable =
+      Consumable(name: 'cherry', productId: 'vvv32', quantity: 5.0);
 
   // var conList = <Consumable>[
   //   Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
@@ -76,7 +76,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     for (var item in transactionLog) {
       debugPrint("transaction:");
       debugPrint(item.jsonify());
@@ -94,11 +93,8 @@ class _MyHomePageState extends State<MyHomePage> {
     //   conListString += consumable.jsonify();
     // }
 
-    Consumables.create( Consumable(
-      productId: 'vv23',
-      name: 'cherry',
-      quantity: 4.0
-    ));
+    Consumables.create(
+        Consumable(productId: 'vv23', name: 'cherry', quantity: 4.0));
 
     for (var item in consumables) {
       debugPrint("consumable");
@@ -112,10 +108,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     debugPrint(transactionLog.length.toString());
 
-
     conListString += ']';
 
-    encryptedText = encrypt( conListString );
+    encryptedText = encrypt(conListString);
     decryptedText = decrypt(encryptedText);
 
     // This method is rerun every time setState is called, for instance as done
@@ -125,43 +120,44 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text( conListString ),
-            Text( encryptedText ),
-            Text( decryptedText ),
-            
-          ],
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        body: InventoryPage()
+        // Center(
+        //   // Center is a layout widget. It takes a single child and positions it
+        //   // in the middle of the parent.
+        //   child: Column(
+        //     // Column is also layout widget. It takes a list of children and
+        //     // arranges them vertically. By default, it sizes itself to fit its
+        //     // children horizontally, and tries to be as tall as its parent.
+        //     //
+        //     // Invoke "debug painting" (press "p" in the console, choose the
+        //     // "Toggle Debug Paint" action from the Flutter Inspector in Android
+        //     // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+        //     // to see the wireframe for each widget.
+        //     //
+        //     // Column has various properties to control how it sizes itself and
+        //     // how it positions its children. Here we use mainAxisAlignment to
+        //     // center the children vertically; the main axis here is the vertical
+        //     // axis because Columns are vertical (the cross axis would be
+        //     // horizontal).
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: <Widget>[
+        //       Text( conListString ),
+        //       Text( encryptedText ),
+        //       Text( decryptedText ),
+
+        //     ],
+        //   ),
+        // ),
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: _incrementCounter,
+        //   tooltip: 'Increment',
+        //   child: Icon(Icons.add),
+        // ), // This trailing comma makes auto-formatting nicer for build methods.
+        );
   }
 }
