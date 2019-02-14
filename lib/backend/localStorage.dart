@@ -114,7 +114,7 @@ read() async {
   _transactionsList  = jsonDecode(_tranactionLog);
 
   for (var product in _productsList) {
-    products.add( Product.fromJson(product) );
+    // products.add( Product.fromJson(product) );
   }
   
 
