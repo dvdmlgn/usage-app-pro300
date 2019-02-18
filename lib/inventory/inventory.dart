@@ -24,12 +24,18 @@ class InventoryState extends State<Inventory> {
     // if (task.length > 0) {
     // Putting our code inside "setState" tells the app that our state has changed, and
     // it will automatically re-render the list
-    setState(() => _consumables.add(Consumable(name: name, quantity: qty)));
+    // setState(() => _consumables.add(Consumable(name: name, quantity: qty)));
+    setState(() => Consumables.create(Consumable(name: name, quantity: qty)));
+
+    for (var item in _consumables) {
+      print(item.name);
+    }
     // }
   }
 
   void _removeConsumable(int index) {
-    setState(() => _consumables.removeAt(index));
+    // setState(() => _consumables.removeAt(index));
+    setState(() => Consumables.delete(index));
   }
 
   void _promptRemoveConsumable(int index) {
@@ -54,6 +60,145 @@ class InventoryState extends State<Inventory> {
         });
   }
 
+  Future<bool> _viewDialog(BuildContext context, Consumable item, int index) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Theme(
+            data: Theme.of(context)
+                .copyWith(dialogBackgroundColor: Colors.transparent),
+            child: SimpleDialog(
+              children: <Widget>[
+                Card(
+                  elevation: 4,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Text(
+                          item.name.toUpperCase(),
+                          style: TextStyle(fontSize: 40.0),
+                        ),
+                      ),
+                      Divider(),
+                      Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text('PRODUCT ID:'),
+                              flex: 1,
+                            ),
+                            Expanded(
+                              child: Text(
+                                item.productId,
+                              ),
+                              flex: 1,
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Row(children: <Widget>[
+                          Expanded(child: Text('QUANTITY: '), flex: 1),
+                          Expanded(
+                              child: Text(item.quantity.toString()), flex: 1),
+                        ]),
+                      ),
+                      Row(
+                        children: <Widget>[
+                          CloseButton(),
+                          FlatButton.icon(
+                            icon: Icon(Icons.edit),
+                            label: Text('EDIT'),
+                            onPressed: () {
+                              editDialog(context, item, index);
+                            },
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  Future<bool> editDialog(BuildContext context, Consumable item, int index) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Theme(
+            data: Theme.of(context)
+                .copyWith(dialogBackgroundColor: Colors.transparent),
+            child: SimpleDialog(
+              children: <Widget>[
+                Card(
+                  elevation: 4,
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: TextFormField(
+                          initialValue: item.name.toUpperCase(),
+                          style: TextStyle(fontSize: 40.0, color: Colors.red),
+                        ),
+                      ),
+                      Divider(),
+                      Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text('PRODUCT ID:'),
+                              flex: 1,
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                initialValue: item.productId,
+                                enabled: false,
+                              ),
+                              flex: 1,
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Row(children: <Widget>[
+                          Expanded(child: Text('QUANTITY: '), flex: 1),
+                          Expanded(
+                              child: TextFormField(
+                                initialValue: item.quantity.toString(),
+                              ),
+                              flex: 1),
+                        ]),
+                      ),
+                      Row(
+                        children: <Widget>[
+                          BackButton(),
+                          FlatButton.icon(
+                            icon: Icon(Icons.save),
+                            label: Text('SAVE'),
+                            onPressed: () {
+                              setState(() => Consumables.edit(index, item));
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
   // Build the whole list of todo items
   Widget _buildInventoryList() {
     return new ListView.builder(
@@ -74,7 +219,8 @@ class InventoryState extends State<Inventory> {
       child: new ListTile(
           title: new Text(consumable.name),
           trailing: new Text(consumable.quantity.toString().split('.')[0]),
-          onTap: () => _promptRemoveConsumable(index)),
+          // onTap: () => _promptRemoveConsumable(index)),
+          onTap: () => _viewDialog(context, consumable, index)),
       key: ObjectKey(consumable),
       secondaryBackground: Container(color: Colors.red),
       onDismissed: (direction) {
@@ -164,27 +310,6 @@ class InventoryState extends State<Inventory> {
                 ],
               ),
             ),
-
-            // new TextField(
-            //   autofocus: true,
-            //   onSubmitted: (name) {
-            //     _addConsumable(name);
-            //     Navigator.pop(context); // Close the add todo screen
-            //   },
-            //   decoration: new InputDecoration(
-            //       hintText: 'Enter name',
-            //       contentPadding: const EdgeInsets.all(16.0)),
-            // ),
-            // new TextField(
-            //   autofocus: true,
-            //   onSubmitted: (qty) {
-            //     _addConsumable(qty);
-            //     Navigator.pop(context); // Close the add todo screen
-            //   },
-            //   decoration: new InputDecoration(
-            //       hintText: 'Enter quantity',
-            //       contentPadding: const EdgeInsets.all(16.0)),
-            // ),
           ));
     }));
   }
