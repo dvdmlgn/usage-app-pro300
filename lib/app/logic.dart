@@ -7,18 +7,15 @@ import '../models/user.dart';
 import './dataStore.dart';
 import '../backend/transactionLog.dart';
 
-
 class Consumables {
-  
   static create(Consumable item) {
     consumables.add(item);
 
     Transaction(
-      action: 'create',
-      dataType: 'consumable',
-      oldState: 'nil',
-      newState: item.jsonify()
-    );
+        action: 'create',
+        dataType: 'consumable',
+        oldState: 'nil',
+        newState: item.jsonify());
   }
 
   static edit(int index, Consumable item) {
@@ -27,11 +24,10 @@ class Consumables {
     consumables.insert(index, item);
 
     Transaction(
-      action: 'edit',
-      dataType: 'consumable',
-      oldState: oldState.jsonify(),
-      newState: item.jsonify()
-    );
+        action: 'edit',
+        dataType: 'consumable',
+        oldState: oldState.jsonify(),
+        newState: item.jsonify());
   }
 
   static quickEdit(int index, double quantity) {
@@ -42,12 +38,10 @@ class Consumables {
     consumables.insert(index, newState);
 
     Transaction(
-      action: 'quick edit',
-      dataType: 'consumable',
-      oldState: oldState.jsonify(),
-      newState: newState.jsonify()
-    );
-
+        action: 'quick edit',
+        dataType: 'consumable',
+        oldState: oldState.jsonify(),
+        newState: newState.jsonify());
   }
 
   static delete(int index) {
@@ -56,11 +50,10 @@ class Consumables {
     consumables.removeAt(index);
 
     Transaction(
-      action: 'delete',
-      dataType: 'consumable',
-      oldState: oldState.jsonify(),
-      newState: 'nil'
-    );
+        action: 'delete',
+        dataType: 'consumable',
+        oldState: oldState.jsonify(),
+        newState: 'nil');
   }
 
   static consumed(int index) {
@@ -69,11 +62,10 @@ class Consumables {
     consumables.removeAt(index);
 
     Transaction(
-      action: 'consumed',
-      dataType: 'consumable',
-      oldState: oldState.jsonify(),
-      newState: 'nil'
-    );
+        action: 'consumed',
+        dataType: 'consumable',
+        oldState: oldState.jsonify(),
+        newState: 'nil');
   }
 
   static wasted(int index) {
@@ -82,27 +74,22 @@ class Consumables {
     consumables.removeAt(index);
 
     Transaction(
-      action: 'wasted',
-      dataType: 'consumable',
-      oldState: oldState.jsonify(),
-      newState: 'nil'
-    );
+        action: 'wasted',
+        dataType: 'consumable',
+        oldState: oldState.jsonify(),
+        newState: 'nil');
   }
-
 }
 
-
 class Products {
-
   static create(Product item) {
     products.add(item);
 
     Transaction(
-      action: 'create',
-      dataType: 'product',
-      oldState: 'nil',
-      newState: item.jsonify()
-    );
+        action: 'create',
+        dataType: 'product',
+        oldState: 'nil',
+        newState: item.jsonify());
   }
 
   static edit(int index, Product item) {
@@ -111,11 +98,10 @@ class Products {
     products.insert(index, item);
 
     Transaction(
-      action: 'edit',
-      dataType: 'product',
-      oldState: oldState.jsonify(),
-      newState: item.jsonify()
-    );
+        action: 'edit',
+        dataType: 'product',
+        oldState: oldState.jsonify(),
+        newState: item.jsonify());
   }
 
   static delete(int index) {
@@ -124,27 +110,22 @@ class Products {
     products.removeAt(index);
 
     Transaction(
-      action: 'delete',
-      dataType: 'product',
-      oldState: oldState.jsonify(),
-      newState: 'nil'
-    );
+        action: 'delete',
+        dataType: 'product',
+        oldState: oldState.jsonify(),
+        newState: 'nil');
   }
-
 }
 
-
 class Groceries {
-
   static create(Grocery item) {
     groceries.add(item);
-    
+
     Transaction(
-      action: 'create',
-      dataType: 'grocery',
-      oldState: 'nil',
-      newState: item.jsonify()
-    );
+        action: 'create',
+        dataType: 'grocery',
+        oldState: 'nil',
+        newState: item.jsonify());
   }
 
   static edit(int index, Grocery item) {
@@ -153,11 +134,10 @@ class Groceries {
     groceries.insert(index, item);
 
     Transaction(
-      action: 'edit',
-      dataType: 'grocery',
-      oldState: oldState.jsonify(),
-      newState: item.jsonify()
-    );
+        action: 'edit',
+        dataType: 'grocery',
+        oldState: oldState.jsonify(),
+        newState: item.jsonify());
   }
 
   static delete(int index) {
@@ -166,31 +146,24 @@ class Groceries {
     groceries.removeAt(index);
 
     Transaction(
-      action: 'deleted',
-      dataType: 'grocery',
-      oldState: oldState.jsonify(),
-      newState: 'nil'
-    );
+        action: 'deleted',
+        dataType: 'grocery',
+        oldState: oldState.jsonify(),
+        newState: 'nil');
   }
 
-  static toBasket(int index) {
-    
-  }
-
+  static toBasket(int index) {}
 }
 
-
 class Posts {
-
   static create(Post item) {
     posts.add(item);
 
     Transaction(
-      action: 'create',
-      dataType: 'post',
-      oldState: 'nil',
-      newState: item.jsonify()
-    );
+        action: 'create',
+        dataType: 'post',
+        oldState: 'nil',
+        newState: item.jsonify());
   }
 
   static edit(int index, Post item) {
@@ -199,11 +172,10 @@ class Posts {
     posts.add(item);
 
     Transaction(
-      action: 'edit',
-      dataType: 'post',
-      oldState: oldState.jsonify(),
-      newState: item.jsonify()
-    );
+        action: 'edit',
+        dataType: 'post',
+        oldState: oldState.jsonify(),
+        newState: item.jsonify());
   }
 
   static delete(int index) {
@@ -212,20 +184,13 @@ class Posts {
     posts.removeAt(index);
 
     Transaction(
-      action: 'delete',
-      dataType: 'post',
-      oldState: oldState.jsonify(),
-      newState: 'nil'
-    );
+        action: 'delete',
+        dataType: 'post',
+        oldState: oldState.jsonify(),
+        newState: 'nil');
   }
-
 }
 
-
 class Users {
-
-  static edit(User item) {
-
-  }
-
+  static edit(User item) {}
 }
