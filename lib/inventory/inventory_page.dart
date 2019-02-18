@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../app/dataStore.dart';
 import '../app/logic.dart';
-import '../backend/transactionLog.dart';
+// import '../backend/transactionLog.dart';
 import '../models/consumable.dart';
 // var i1 = new Consumable(productId: "1", name: 'Apple', quantity: 2);
 // var i2 = new Consumable(productId: "2", name: 'Banana', quantity: 3);
@@ -13,13 +13,13 @@ import '../models/consumable.dart';
 
 // List<Consumable> consumableList = [];
 
-class Inventory extends StatefulWidget {
+class InventoryPage extends StatefulWidget {
   @override
   State createState() => new InventoryList();
 }
 
-class InventoryList extends State<Inventory> {
-  List<Consumable> myList = consumables;
+class InventoryList extends State<InventoryPage> {
+  List<Consumable> _consumables = consumables;
   String reason;
   bool doFill = true;
 
@@ -30,9 +30,6 @@ class InventoryList extends State<Inventory> {
       doFill = false;
     }
 
-    // myList = consumables;
-
-    // consumableList = consumables;
     return new Scaffold(
       floatingActionButton: new FloatingActionButton(
         onPressed: () {
@@ -43,9 +40,9 @@ class InventoryList extends State<Inventory> {
         child: new Icon(Icons.add),
       ),
       body: ListView.builder(
-        itemCount: myList.length,
+        itemCount: _consumables.length,
         itemBuilder: (context, index) {
-          final consumable = myList[index];
+          final consumable = _consumables[index];
 
           return Dismissible(
             key: ObjectKey(consumable),
@@ -60,28 +57,28 @@ class InventoryList extends State<Inventory> {
               //HERE LIES THE PROBLEM
               setState(() {
                 // consumables.removeAt(index);
-                // myList.remove(consumable);
+                // _consumables.remove(consumable);
 
-                // myList.removeAt(index);
+                // _consumables.removeAt(index);
               }
 
                   // this.deactivate();
                   );
-              print('consumableList');
-              for (var item in consumables) {
-                print(item.jsonify());
-              }
-              print('transaction log');
-              for (var item in transactionLog) {
-                print(item.jsonify());
-              }
-              print(
-                  '-----------------------------------------------------------');
+              // print('consumableList');
+              // for (var item in consumables) {
+              //   print(item.jsonify());
+              // }
+              // print('transaction log');
+              // for (var item in transactionLog) {
+              //   print(item.jsonify());
+              // }
+              // print(
+              //     '-----------------------------------------------------------');
 
-              print('consumables');
-              for (var item in consumables) {
-                print(item.name);
-              }
+              // print('consumables');
+              // for (var item in consumables) {
+              //   print(item.name);
+              // }
 
               // print("TRANSACTION LOG");
               // for (var item in transactionLog) {
@@ -103,7 +100,16 @@ class InventoryList extends State<Inventory> {
                 viewDialog(context, consumable);
               },
               onLongPress: () {
-                quickEditDialog(context, consumable, index);
+                print("BEFORE");
+                for (var item in consumables) {
+                  print(item.jsonify());
+                }
+                // quickEditDialog(context, consumable, index).then(true);
+                print("AFTER");
+                for (var item in consumables) {
+                  print(item.jsonify());
+                }
+                // setState(() {});
               },
             ),
           );
@@ -271,6 +277,9 @@ Future<bool> addDialog(BuildContext context) {
 }
 
 Future<bool> quickEditDialog(BuildContext context, Consumable item, int index) {
+  final myController = TextEditingController();
+  myController.text = item.quantity.toString();
+
   return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -291,7 +300,9 @@ Future<bool> quickEditDialog(BuildContext context, Consumable item, int index) {
                         ),
                         Expanded(
                           child: TextFormField(
-                              initialValue: item.quantity.toString()),
+                            controller: myController,
+                            // initialValue: item.quantity.toString(),
+                          ),
                           flex: 1,
                         )
                       ],
@@ -299,8 +310,8 @@ Future<bool> quickEditDialog(BuildContext context, Consumable item, int index) {
                     FlatButton(
                       child: Text('Save'),
                       onPressed: () {
-                        Consumables.quickEdit(index, item.quantity);
-                        InventoryList(); //HERE
+                        Consumables.quickEdit(
+                            index, double.parse(myController.text));
                         Navigator.pop(context);
                       },
                     )
