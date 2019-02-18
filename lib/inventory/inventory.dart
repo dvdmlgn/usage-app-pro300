@@ -127,7 +127,60 @@ class InventoryState extends State<Inventory> {
         });
   }
 
+  Future<bool> quickEditDialog(
+      BuildContext context, Consumable item, int index) {
+    final myController = TextEditingController();
+    myController.text = item.quantity.toString();
+
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Theme(
+            data: Theme.of(context)
+                .copyWith(dialogBackgroundColor: Colors.transparent),
+            child: SimpleDialog(
+              children: <Widget>[
+                Card(
+                  elevation: 4,
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text('Quantity: '),
+                            flex: 1,
+                          ),
+                          Expanded(
+                            child: TextFormField(
+                              controller: myController,
+                              // initialValue: item.quantity.toString(),
+                            ),
+                            flex: 1,
+                          )
+                        ],
+                      ),
+                      FlatButton(
+                        child: Text('Save'),
+                        onPressed: () {
+                          setState(() => Consumables.quickEdit(
+                              index, double.parse(myController.text)));
+                          Navigator.pop(context);
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
   Future<bool> editDialog(BuildContext context, Consumable item, int index) {
+    final nameCtrl = TextEditingController();
+    final qtyCtrl = TextEditingController();
+    nameCtrl.text = item.name;
+    qtyCtrl.text = item.quantity.toString();
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -143,7 +196,9 @@ class InventoryState extends State<Inventory> {
                       Padding(
                         padding: EdgeInsets.all(16.0),
                         child: TextFormField(
-                          initialValue: item.name.toUpperCase(),
+                          // initialValue: item.name.toUpperCase(),
+                          controller: nameCtrl,
+
                           style: TextStyle(fontSize: 40.0, color: Colors.red),
                         ),
                       ),
@@ -172,7 +227,8 @@ class InventoryState extends State<Inventory> {
                           Expanded(child: Text('QUANTITY: '), flex: 1),
                           Expanded(
                               child: TextFormField(
-                                initialValue: item.quantity.toString(),
+                                // initialValue: qtyCtrl.text,
+                                controller: qtyCtrl,
                               ),
                               flex: 1),
                         ]),
@@ -184,6 +240,9 @@ class InventoryState extends State<Inventory> {
                             icon: Icon(Icons.save),
                             label: Text('SAVE'),
                             onPressed: () {
+                              item.name = nameCtrl.text;
+                              item.quantity = double.parse(qtyCtrl.text);
+
                               setState(() => Consumables.edit(index, item));
                               Navigator.of(context).pop();
                             },
@@ -220,7 +279,10 @@ class InventoryState extends State<Inventory> {
           title: new Text(consumable.name),
           trailing: new Text(consumable.quantity.toString().split('.')[0]),
           // onTap: () => _promptRemoveConsumable(index)),
-          onTap: () => _viewDialog(context, consumable, index)),
+          onTap: () => _viewDialog(context, consumable, index),
+          onLongPress: () {
+            quickEditDialog(context, consumable, index);
+          }),
       key: ObjectKey(consumable),
       secondaryBackground: Container(color: Colors.red),
       onDismissed: (direction) {

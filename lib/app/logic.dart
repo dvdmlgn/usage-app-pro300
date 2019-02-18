@@ -30,6 +30,8 @@ class Consumables {
         dataType: 'consumable',
         oldState: oldState.jsonify(),
         newState: item.jsonify());
+
+    print(consumables[index].name);
   }
 
   static quickEdit(int index, double quantity) {
@@ -37,6 +39,8 @@ class Consumables {
     final newState = consumables[index];
 
     newState.quantity = quantity;
+    consumables.removeAt(index);
+
     consumables.insert(index, newState);
 
     Transaction(
