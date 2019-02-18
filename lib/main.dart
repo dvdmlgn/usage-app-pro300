@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './scratchPad.dart';
+import './darranScratchPad.dart';
 
 void main() => runApp(MyApp());
 
