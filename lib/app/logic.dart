@@ -22,6 +22,7 @@ class Consumables {
     final oldState = consumables[index];
 
     consumables.insert(index, item);
+    consumables.removeAt(index -1);
 
     Transaction(
         action: 'edit',
