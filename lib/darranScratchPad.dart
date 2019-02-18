@@ -5,9 +5,9 @@ import 'models/consumable.dart';
 import 'app/logic.dart';
 import 'app/dataStore.dart';
 import './inventory/inventory_page.dart';
-import './inventory/gallery.dart';
+import './inventory/inventory.dart';
+// import './inventory/gallery.dart';
 import './backend/auth.dart';
-
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -36,8 +36,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String encryptedText = '';
   String decryptedText = '';
 
-  Consumable consumable =
-      Consumable(name: 'cherry', productId: 'vvv32', quantity: 5.0);
+  // Consumable consumable =
+  //     Consumable(name: 'cherry', productId: 'vvv32', quantity: 5.0);
 
   // var conList = <Consumable>[
   //   Consumable( name: 'cherry', productId: 'vvv32', quantity: 5.0 ),
@@ -79,7 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     Biometric.init();
 
     for (var item in transactionLog) {
@@ -99,8 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
     //   conListString += consumable.jsonify();
     // }
 
-    Consumables.create(
-        Consumable(productId: 'vv23', name: 'cherry', quantity: 4.0));
+    // Consumables.create(
+    //     Consumable(productId: 'vv23', name: 'cherry', quantity: 4.0));
 
     for (var item in consumables) {
       debugPrint("consumable");
@@ -168,8 +167,6 @@ class _MyHomePageState extends State<MyHomePage> {
         );
   }
 }
-
-
 
 final biometricTest = Center(
   child: RaisedButton(
