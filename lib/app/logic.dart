@@ -24,8 +24,9 @@ class Consumables {
   static edit(int index, Consumable item) {
     final oldState = consumables[index];
 
+    consumables.removeAt(index);
     consumables.insert(index, item);
-    consumables.removeAt(index -1);
+    // consumables.removeAt(index -1);
 
     Transaction(
       action: 'edit',
