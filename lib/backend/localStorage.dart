@@ -193,15 +193,28 @@ class LocalCache {
     var _cache    = Map<String, String>();
     var _snapshot = Map<String, String>();
 
-    _snapshot['consumables'] = JsonParse.fromConsumables();
+    _snapshot.addAll( await _takeSnapshot() );
 
-    debugPrint('');
-    debugPrint('snapshot consumables');
-
-    debugPrint( _snapshot['consumables'] );
-
-
+    debugPrint('we got em');
 
     return false;
   }
+}
+
+
+Future< Map<String, String> > _takeSnapshot() async {
+  var _snapshot = Map<String, String>();
+
+  _snapshot['consumables'] = JsonParse.fromConsumables();
+  // _snapshot['products'] = JsonParse.fromProducts();
+  // _snapshot['groceries'] = JsonParse.fromGroceries();
+  // put rest of data lsits here..
+  // _snapshot['transactionLog'] = JsonParse.fromTransactionLog();
+
+    // debugPrint('');
+    // debugPrint('snapshot consumables');
+
+    // debugPrint( _snapshot['consumables'] );
+
+  return _snapshot;
 }
