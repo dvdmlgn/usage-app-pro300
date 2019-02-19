@@ -1,13 +1,14 @@
-// import 'dart:io';
-// import 'dart:convert';
-// import 'package:path_provider/path_provider.dart';
-// import './miscella.dart';
-// import '../app/dataStore.dart';
-// import './transactionLog.dart';
-// import '../models/product.dart';
-// import '../models/consumable.dart';
-// import '../models/grocery.dart';
-// import 'package:flutter/material.dart';
+import 'dart:io';
+import 'dart:convert';
+import 'package:path_provider/path_provider.dart';
+import './miscella.dart';
+import '../app/dataStore.dart';
+import './transactionLog.dart';
+import '../models/product.dart';
+import '../models/consumable.dart';
+import '../models/grocery.dart';
+import 'package:flutter/material.dart';
+import 'jsonParse.dart';
 
 // final String filename = 'cache.json';
 // String directory = '';
@@ -184,3 +185,23 @@
 
 //   return 'hello there,';
 // }
+
+
+class LocalCache {
+
+  static Future<bool> backup() async {
+    var _cache    = Map<String, String>();
+    var _snapshot = Map<String, String>();
+
+    _snapshot['consumables'] = JsonParse.fromConsumables();
+
+    debugPrint('');
+    debugPrint('snapshot consumables');
+
+    debugPrint( _snapshot['consumables'] );
+
+
+
+    return false;
+  }
+}

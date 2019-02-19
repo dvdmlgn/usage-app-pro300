@@ -38,6 +38,8 @@ class StorageTest extends StatelessWidget {
       debugPrint( item.stringify() );
     }
 
+    var didBackup = LocalCache.backup();
+
 
     return Center(
       child: Column(
