@@ -8,10 +8,12 @@ import './inventory/inventory_page.dart';
 import './inventory/gallery.dart';
 import './backend/auth.dart';
 import 'backend/localStorage.dart';
+import 'dart:convert';
+import 'backend/jsonParse.dart';
 
 
 class StorageTest extends StatelessWidget {
-  var _productsString = '';
+  var _consumablesString = '';
   var _transactionsString = '';
 
 
@@ -21,15 +23,32 @@ class StorageTest extends StatelessWidget {
 
     fillList();
 
+    // _consumablesString = jsonifyLists();
+
+    _consumablesString = consumables[0].stringify();
+    var parsed = jsonDecode(_consumablesString);
+
+    Consumable thiswon = Consumable.fromJson(parsed);
+    debugPrint( thiswon.stringify() );
+
+    var encodedJson = JsonParse.fromConsumables();
+    var decodedJson = JsonParse.toConsumabes(encodedJson);
+
+    for (var item in decodedJson) {
+      debugPrint( item.stringify() );
+    }
 
 
     return Center(
       child: Column(
         children: [
-          Text('products to string:'),
-          Text(_productsString),
-          Text('transactions to string:'),
-          Text(_transactionsString),
+          // Text( consumables[0].jsonify() ),
+          // Text( _consumablesString ),
+          // Text( parsed['name'] ),
+          // Text( thiswon.name ),
+          Text( encodedJson),
+          Text( decodedJson[0].name ),
+          Text( decodedJson[5].quantity.toString() ),
         ],
       ),
     );
