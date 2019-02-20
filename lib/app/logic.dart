@@ -18,8 +18,10 @@ class Consumables {
         newState: item.jsonify());
   }
 
-  static edit(int index, Consumable item) {
+  static edit(int index, Consumable item, String newName, double newQty) {
     final oldState = consumables[index];
+    item.name = newName;
+    item.quantity = newQty;
 
     consumables.removeAt(index);
     consumables.insert(index, item);

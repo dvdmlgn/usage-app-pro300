@@ -1,72 +1,118 @@
 import 'package:flutter/material.dart';
 import '../app/dataStore.dart';
 import '../app/logic.dart';
-import '../models/consumable.dart';
+// import '../models/grocery.dart';
+import '../models/grocery.dart';
 import 'package:usage/widgets/fab.dart';
 import 'package:usage/widgets/inputField.dart';
 
-class Inventory extends StatefulWidget {
+class Shopping extends StatefulWidget {
   @override
-  createState() => new InventoryState();
+  createState() => new ShoppingState();
 }
 
-class InventoryState extends State<Inventory> {
+class ShoppingState extends State<Shopping> {
   bool doFill = true;
-  List<Consumable> _consumables = consumables;
+  List<Grocery> _groceries = groceries;
+  List<Grocery> _basket = [];
+  bool switchValue = false;
+  var selectedScreen;
+  String title;
   @override
-  // BUILD THE INVENTORY SCAFFOLD
+  // BUILD THE SHOPPING LIST SCAFFOLD
   Widget build(BuildContext context) {
+    print('_groceries');
+    for (var item in _groceries) {
+      print(item.toJson());
+    }
+    print('_basket');
+    for (var item in _basket) {
+      print(item.toJson());
+    }
+    if (switchValue == false) {
+      //INVENTORY SCREEN
+      title = "Shopping List";
+      selectedScreen = _buildShoppingList();
+    } else {
+      //BASKET SCREEN
+      title = "Basket";
+      selectedScreen = _buildBasket();
+    }
     _addDummyData();
     return Scaffold(
-      body: _buildInventoryList(),
+      body: selectedScreen,
       appBar: AppBar(
-        title: Text("Inventory"),
+        title: Text(title),
+        actions: <Widget>[
+          Switch.adaptive(
+              value: switchValue,
+              onChanged: (bool value) {
+                setState(() {
+                  switchValue = value;
+                });
+              }),
+        ],
       ),
       floatingActionButton:
-          Fabs.addListItemFab("Consumable", _pushAddConsumableScreen),
+          Fabs.addListItemFab("Grocery", _pushAddConsumableScreen),
     );
   }
 
   //BUILD THE LIST
-  Widget _buildInventoryList() {
+  Widget _buildShoppingList() {
     return ListView.builder(
       itemBuilder: (context, index) {
-        if (index < _consumables.length) {
-          return _buildConsumable(_consumables[index], index);
+        if (index < _groceries.length) {
+          if (_groceries[index].inBasket == false) {
+            print(
+                '_groceries[index] = ' + _groceries[index].toJson().toString());
+            return _buildConsumable(_groceries[index], index);
+          }
+        }
+      },
+    );
+  }
+
+  Widget _buildBasket() {
+    // return Text("THIS IS WHERE THE BASKET IS GOING TO BE");
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        if (index < _basket.length) {
+          return _buildConsumable(_basket[index], index);
         }
       },
     );
   }
 
   //BUILD THE DISMISSABLE
-  Widget _buildConsumable(Consumable consumable, int index) {
+  Widget _buildConsumable(Grocery grocery, int index) {
     return Dismissible(
-      key: ObjectKey(consumable),
-      child: _inventoryListConsuable(consumable, index),
+      key: ObjectKey(grocery),
+      child: _shoppingListGrocery(grocery, index),
       background: Container(color: Colors.green),
       secondaryBackground: Container(color: Colors.red),
       onDismissed: (direction) {
-        _handleConsuableDismissed(direction, index, consumable);
+        _handleGroceryDismissed(direction, index, grocery);
       },
     );
   }
 
-  //BUILD INVENTORY LIST ITEM
-  Widget _inventoryListConsuable(Consumable consumable, int index) {
+  //BUILD SHOPPING LIST LIST ITEM
+  Widget _shoppingListGrocery(Grocery grocery, int index) {
     return ListTile(
-        title: Text(consumable.name),
-        trailing: Text(consumable.quantity.toString().split('.')[0]),
-        onTap: () => _pushViewConsumableScreen(context, consumable, index),
+        title: Text(grocery.name),
+        trailing: Text(grocery.quantity.toString().split('.')[0]),
+        onTap: () => _pushViewConsumableScreen(context, grocery, index),
         onLongPress: () {
-          quickEditDialog(context, consumable, index);
+          quickEditDialog(context, grocery, index);
         });
   }
 
   //QUICK EDIT POP UP
   Future<bool> quickEditDialog(
-      BuildContext context, Consumable consumable, int index) {
+      BuildContext context, Grocery grocery, int index) {
     final myController = TextEditingController();
-    myController.text = consumable.quantity.toString();
+    myController.text = grocery.quantity.toString();
 
     return showDialog(
         context: context,
@@ -97,8 +143,8 @@ class InventoryState extends State<Inventory> {
                       FlatButton(
                         child: Text('Save'),
                         onPressed: () {
-                          setState(() => Consumables.quickEdit(
-                              index, double.parse(myController.text)));
+                          // setState(() => Groceries.quickEdit(
+                          //     index, double.parse(myController.text)));
                           Navigator.pop(context);
                         },
                       )
@@ -113,15 +159,15 @@ class InventoryState extends State<Inventory> {
 
   //VIEL CONSUMABLE SCREEN
   void _pushViewConsumableScreen(
-      BuildContext context, Consumable consumable, int index) {
+      BuildContext context, Grocery grocery, int index) {
     final _formKey = GlobalKey<FormState>();
     final nameCtrl = TextEditingController();
     final qtyCtrl = TextEditingController();
-    nameCtrl.text = consumable.name;
-    qtyCtrl.text = consumable.quantity.toString();
+    nameCtrl.text = grocery.name;
+    qtyCtrl.text = grocery.quantity.toString();
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
       return new Scaffold(
-          appBar: new AppBar(title: new Text('View consumable')),
+          appBar: new AppBar(title: new Text('View grocery')),
           body: Center(
             child: Form(
               key: _formKey,
@@ -139,15 +185,14 @@ class InventoryState extends State<Inventory> {
                         IconButton(
                           icon: Icon(Icons.edit),
                           onPressed: () {
-                            _pushEditConsumableScreen(
-                                context, consumable, index);
+                            _pushEditConsumableScreen(context, grocery, index);
                           },
                         ),
                         IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () {
                             deleteConsumableDialog(index);
-                            // Consumables.delete(index);
+                            // Groceries.delete(index);
                             // Navigator.pop(context);
                           },
                         ),
@@ -183,7 +228,7 @@ class InventoryState extends State<Inventory> {
                             child: Text('WASTED'),
                             color: Colors.red,
                             onPressed: () {
-                              Consumables.wasted(index);
+                              // Groceries.wasted(index);
                               Navigator.of(context).pop();
                               Navigator.pop(context);
                             },
@@ -195,7 +240,7 @@ class InventoryState extends State<Inventory> {
                             child: Text('USED'),
                             color: Colors.green,
                             onPressed: () {
-                              Consumables.consumed(index);
+                              // Groceries.consumed(index);
                               Navigator.of(context).pop();
                               Navigator.pop(context);
                             },
@@ -208,7 +253,7 @@ class InventoryState extends State<Inventory> {
                       child: Text('JUST DELETE IT!'),
                       color: Colors.blue,
                       onPressed: () {
-                        Consumables.delete(index);
+                        Groceries.delete(index);
                         Navigator.of(context).pop();
                         Navigator.pop(context);
                       },
@@ -223,17 +268,17 @@ class InventoryState extends State<Inventory> {
 
   //EDIT CONSUMABLE SCREEN
   void _pushEditConsumableScreen(
-      BuildContext context, Consumable consumable, int index) {
+      BuildContext context, Grocery grocery, int index) {
     final _formKey = GlobalKey<FormState>();
     final nameCtrl = TextEditingController();
     final qtyCtrl = TextEditingController();
-    nameCtrl.text = consumable.name;
-    qtyCtrl.text = consumable.quantity.toString();
+    nameCtrl.text = grocery.name;
+    qtyCtrl.text = grocery.quantity.toString();
     String newName;
     double newQty;
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
       return new Scaffold(
-          appBar: new AppBar(title: new Text('Edit consumable')),
+          appBar: new AppBar(title: new Text('Edit grocery')),
           body: Center(
             child: Form(
               key: _formKey,
@@ -248,8 +293,9 @@ class InventoryState extends State<Inventory> {
                     onPressed: () {
                       newName = nameCtrl.text;
                       newQty = double.parse(qtyCtrl.text);
-                      setState(() =>
-                          Consumables.edit(index, consumable, newName, newQty));
+                      // setState(() =>
+                      //     Groceries.edit(index, grocery, newName, newQty)
+                      //     );
                       Navigator.of(context).pop();
                       Navigator.pop(context);
                     },
@@ -269,7 +315,7 @@ class InventoryState extends State<Inventory> {
     double widgetWidth = (MediaQuery.of(context).size.width) * .8;
     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
       return new Scaffold(
-          appBar: new AppBar(title: new Text('Add a new consumable')),
+          appBar: new AppBar(title: new Text('Add a new grocery')),
           body: Center(
             child: Form(
               key: _formKey,
@@ -300,23 +346,30 @@ class InventoryState extends State<Inventory> {
 
 //ADD CONSUMABLE
   void _addConsumable(String name, double qty) {
-    setState(() => Consumables.create(Consumable(name: name, quantity: qty)));
+    setState(() => Groceries.create(Grocery(name: name, quantity: qty)));
   }
 
 //REMOVE ITEM ON SWIPE
-  void _handleConsuableDismissed(
-      DismissDirection direction, int index, Consumable consumable) {
+  void _handleGroceryDismissed(
+      DismissDirection direction, int index, Grocery grocery) {
     if (direction == DismissDirection.startToEnd) {
-      Consumables.consumed(index);
+      grocery.inBasket = true;
+      _basket.add(grocery);
+      // print(grocery.toJson());
+      // for (var item in _basket) {
+      //   print(item.toJson());
+      // }
+      //DELETE THE DISMISSED GROCERY FROM GROCERY LIST
+      Groceries.delete(index);
     } else {
-      Consumables.wasted(index);
+      Groceries.delete(index);
     }
   }
 
-//POPULATE INVENTORY WITH DUMMY DATA
+//POPULATE SHOPPING LIST WITH DUMMY DATA
   void _addDummyData() {
     if (doFill) {
-      fillList();
+      fillSList();
       doFill = false;
     }
   }

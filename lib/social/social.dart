@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:usage/app/dataStore.dart';
 import 'package:usage/models/post.dart';
+import '../app/logic.dart';
+import '../models/post.dart';
 
 List<Post> myPosts = posts;
 
@@ -93,6 +95,14 @@ class _SocialState extends State<Social> {
     );
   }
 
+  void _getPost(String title, String content){
+    setState(() => Posts.create(Post(title:title, content: content)));
+
+    for(var item in myPosts){
+      print(item.title);
+    }
+  }
+
   void _addPost() {
     var alert = new AlertDialog(
       content: Column(
@@ -126,15 +136,7 @@ class _SocialState extends State<Social> {
       actions: <Widget>[
         new FlatButton(
             onPressed: () {
-              title = _titleController.toString();
-              content = _contentController.toString();
-
-              Post newPost = new Post(title: title, content: content);
-
-              setState(() {
-                myPosts.add(newPost);
-              });
-
+              _getPost(_titleController.text, _contentController.text);
               Navigator.pop(context);
             },
             child: Text("Save")),

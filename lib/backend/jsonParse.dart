@@ -29,6 +29,8 @@ class JsonParse {
     return consumableList;
   }
 
+  static String fromProducts() => jsonEncode(products);
+
   
 
 

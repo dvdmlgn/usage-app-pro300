@@ -9,8 +9,7 @@ String newId() {
 }
 
 String newTimestamp() {
-
-  return "hello there,..";
+  return DateTime.now().toString();
 }
 
 String encrypt(String content) {
