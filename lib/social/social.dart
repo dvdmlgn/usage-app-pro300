@@ -4,17 +4,16 @@ import 'package:usage/models/post.dart';
 import '../app/logic.dart';
 import '../models/post.dart';
 
+List<Post> myPosts = posts;
+
 class Social extends StatefulWidget {
   @override
   _SocialState createState() => _SocialState();
 }
 
 class _SocialState extends State<Social> {
-  List<Post> myPosts = posts;
-  final TextEditingController _titleController =
-  new TextEditingController();
-  final TextEditingController _contentController =
-  new TextEditingController();
+  final TextEditingController _titleController = new TextEditingController();
+  final TextEditingController _contentController = new TextEditingController();
   String title;
   String content;
 
@@ -33,7 +32,7 @@ class _SocialState extends State<Social> {
         actions: <Widget>[
           new IconButton(
               icon: Icon(
-                Icons.notifications,
+                Icons.star,
                 color: Colors.white,
               ),
               onPressed: () {}),
@@ -50,33 +49,41 @@ class _SocialState extends State<Social> {
                 return Card(
                   child: Column(
                     children: <Widget>[
-                      ListTile(
-                        title: Text(
-                          myPosts[index].title,
-                          style: TextStyle(fontSize: 24.0),
+                      Hero(
+                        tag: 'postHero',
+                        child: ListTile(
+                          leading: Image.network(
+                            'https://imgplaceholder.com/420x320/ff7f7f/333333/fa-image',
+                            width: 100,
+                            height: 100,
+                          ),
+                          title: Text(
+                            myPosts[index].title,
+                            style: TextStyle(fontSize: 24.0),
+                          ),
+                          subtitle: Text(
+                            myPosts[index].content,
+                            textAlign: TextAlign.justify,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.bold),
+                            maxLines: 10,
+                          ),
+                          trailing: IconButton(
+                              icon: Icon(
+                                Icons.star_border,
+                                size: 30,
+                                color: Colors.black,
+                              ),
+                              onPressed: () {}),
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (BuildContext context) {
+                              return HeroPage();
+                            }));
+                          },
                         ),
-                        subtitle: Text(
-                          myPosts[index].content,
-                          textAlign: TextAlign.justify,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold),
-                          maxLines: 10,
-                        ),
-                        trailing: IconButton(
-                            icon: Icon(
-                              Icons.add,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {}
-                        ),
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return HeroPage();
-                              }));
-                        },
-                      )
+                      ),
                     ],
                   ),
                 );
@@ -96,7 +103,6 @@ class _SocialState extends State<Social> {
     }
   }
 
-
   void _addPost() {
     var alert = new AlertDialog(
       content: Column(
@@ -105,24 +111,24 @@ class _SocialState extends State<Social> {
             children: <Widget>[
               new Expanded(
                   child: new TextField(
-                    controller: _titleController,
-                    autofocus: true,
-                    decoration: new InputDecoration(
-                        labelText: "Title",
-                        hintText: "Enter a title for your post"),
-                  ))
+                controller: _titleController,
+                autofocus: true,
+                decoration: new InputDecoration(
+                    labelText: "Title",
+                    hintText: "Enter a title for your post"),
+              ))
             ],
           ),
           new Row(
             children: <Widget>[
               new Expanded(
                   child: new TextField(
-                    controller: _contentController,
-                    autofocus: true,
-                    decoration: new InputDecoration(
-                        labelText: "Post content",
-                        hintText: "What's on your mind?"),
-                  ))
+                controller: _contentController,
+                autofocus: true,
+                decoration: new InputDecoration(
+                    labelText: "Post content",
+                    hintText: "What's on your mind?"),
+              ))
             ],
           )
         ],
@@ -151,12 +157,27 @@ class HeroPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        children: <Widget>[
-          Text("Title"),
-          Image.network('https://imgplaceholder.com/420x320/ff7f7f/333333/fa-image', fit: BoxFit.fitWidth)
-        ],
-      )
+      body: Hero(
+        tag: 'postHero',
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "Title",
+                style: TextStyle(fontSize: 30),
+              ),
+              Image.network(
+                'https://imgplaceholder.com/420x320/ff7f7f/333333/fa-image',
+                height: 300,
+                width: 300,
+                alignment: Alignment.center,
+              ),
+              Text("Content"),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

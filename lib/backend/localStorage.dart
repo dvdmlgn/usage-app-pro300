@@ -199,16 +199,54 @@ class LocalCache {
 
     // debugPrint('we got em');
 
-    debugPrint(_snapshot['products']);
+    // debugPrint(_snapshot['products']);
 
     _cache[timestamp] = jsonEncode(_snapshot);
 
-    debugPrint('');
-    debugPrint('cache $timestamp');
-    debugPrint(_cache[timestamp]);
+    // debugPrint('');
+    // debugPrint('cache $timestamp');
+    // debugPrint(_cache[timestamp]);
 
-    var _encrypted = encrypt( jsonEncode(_cache) );
-    debugPrint(_encrypted); 
+    var _encoded = jsonEncode(_cache);
+    // debugPrint(_encoded);
+
+    var _encrypted = encrypt( _encoded );
+    // debugPrint(_encrypted); 
+
+    var _decrypted = decrypt(_encrypted);
+    //  debugPrint(_decrypted);
+
+    Map<String, dynamic> decryptedCache = json.decode(_decrypted);
+    // debugPrint(decryptedCache);
+    // decryptedCache.forEach( (key, value) => debugPrint('$key') );
+
+    var key = decryptedCache.keys.first;
+
+    // debugPrint(key);
+
+    Map<String, dynamic> decryptedSnapshot = json.decode(decryptedCache[key]);
+    debugPrint(decryptedSnapshot.toString());
+
+    decryptedSnapshot.forEach( (key, value) =>  debugPrint('$key') );
+
+    var consums = decryptedSnapshot['consumables'];
+
+    // for (var item in consums) {
+    //   debugPrint(item.toString());
+    // }
+    
+
+    // var myThing = (JSON.decode(stuff) as List).map((e) => new MyClass.fromJson(e)).toList();
+
+    // var listKeys = decryptedSnapshot.keys.first;
+    // debugPrint(listKeys);
+
+    // Map<String, dynamic> decryptedConsumables = json.decode(decryptedSnapshot[listKeys]);
+    // debugPrint(decryptedConsumables.toString());
+
+    // var dc = json.decode(decryptd)
+
+
 
     return false;
   }
@@ -241,7 +279,7 @@ Future< Map<String, String> > _takeSnapshot() async {
 
     // debugPrint('');
     // debugPrint('snapshot testCase');
-    _snapshot['testCase'] = decyrpted; 
+    // _snapshot['testCase'] = decyrpted; 
     // debugPrint(_snapshot['testCase']);
 
 
