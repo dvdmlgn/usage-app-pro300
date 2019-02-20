@@ -195,7 +195,20 @@ class LocalCache {
 
     _snapshot.addAll( await _takeSnapshot() );
 
+    var timestamp = newTimestamp();
+
     // debugPrint('we got em');
+
+    debugPrint(_snapshot['products']);
+
+    _cache[timestamp] = jsonEncode(_snapshot);
+
+    debugPrint('');
+    debugPrint('cache $timestamp');
+    debugPrint(_cache[timestamp]);
+
+    var _encrypted = encrypt( jsonEncode(_cache) );
+    debugPrint(_encrypted); 
 
     return false;
   }
@@ -206,27 +219,30 @@ Future< Map<String, String> > _takeSnapshot() async {
   var _snapshot = Map<String, String>();
 
   _snapshot['consumables'] = JsonParse.fromConsumables();
-  // _snapshot['products'] = JsonParse.fromProducts();
+   _snapshot['products'] = JsonParse.fromProducts();
   // _snapshot['groceries'] = JsonParse.fromGroceries();
   // put rest of data lsits here..
   // _snapshot['transactionLog'] = JsonParse.fromTransactionLog();
 
-    debugPrint('');
-    debugPrint('snapshot consumables');
+  // debugPrint('');
+  // debugPrint('snapshot products');
+  // debugPrint(_snapshot['products']);
 
-    debugPrint( _snapshot['consumables'] );
+    // debugPrint('');
+    // debugPrint('snapshot consumables');
+
+    // debugPrint( _snapshot['consumables'] );
 
     var encypted = encrypt(_snapshot['consumables']);
-    debugPrint(encypted);
+    // debugPrint(encypted);
 
     var decyrpted = decrypt(encypted);
-    debugPrint(decyrpted);
+    // debugPrint(decyrpted);
 
-    debugPrint('');
-    debugPrint('snapshot testCase');
+    // debugPrint('');
+    // debugPrint('snapshot testCase');
     _snapshot['testCase'] = decyrpted; 
-    debugPrint(_snapshot['testCase']);
-
+    // debugPrint(_snapshot['testCase']);
 
 
   return _snapshot;

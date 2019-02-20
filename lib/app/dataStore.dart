@@ -97,10 +97,10 @@ var p10 = new Post
 
 void fillList() {
   consumables.add(i1);
-  consumables.add(i2);
+  // consumables.add(i2);
   consumables.add(i3);
-  consumables.add(i4);
-  consumables.add(i5);
+  // consumables.add(i4);
+  // consumables.add(i5);
   consumables.add(i6);
 }
 

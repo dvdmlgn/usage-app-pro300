@@ -50,7 +50,7 @@ class StorageTest extends StatelessWidget {
           // Text( thiswon.name ),
           Text( encodedJson),
           Text( decodedJson[0].name ),
-          Text( decodedJson[5].quantity.toString() ),
+          Text( decodedJson[2].quantity.toString() ),
         ],
       ),
     );
