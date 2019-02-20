@@ -195,7 +195,7 @@ class LocalCache {
 
     _snapshot.addAll( await _takeSnapshot() );
 
-    debugPrint('we got em');
+    // debugPrint('we got em');
 
     return false;
   }
@@ -211,10 +211,23 @@ Future< Map<String, String> > _takeSnapshot() async {
   // put rest of data lsits here..
   // _snapshot['transactionLog'] = JsonParse.fromTransactionLog();
 
-    // debugPrint('');
-    // debugPrint('snapshot consumables');
+    debugPrint('');
+    debugPrint('snapshot consumables');
 
-    // debugPrint( _snapshot['consumables'] );
+    debugPrint( _snapshot['consumables'] );
+
+    var encypted = encrypt(_snapshot['consumables']);
+    debugPrint(encypted);
+
+    var decyrpted = decrypt(encypted);
+    debugPrint(decyrpted);
+
+    debugPrint('');
+    debugPrint('snapshot testCase');
+    _snapshot['testCase'] = decyrpted; 
+    debugPrint(_snapshot['testCase']);
+
+
 
   return _snapshot;
 }
