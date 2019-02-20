@@ -24,14 +24,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-<<<<<<< HEAD
 //      home: MyHomePage(title: 'Flutter Demo Home Page'),
       // home: DavidScratchPad(),
       home: GarysScratchPad(),
-=======
-      // home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home: DavidScratchPad(),
->>>>>>> 54b69367d754cc97d510ac91e5936aa7e9ef9e41
     );
   }
 }
