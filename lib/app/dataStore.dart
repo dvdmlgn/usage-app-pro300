@@ -8,20 +8,26 @@ var consumables = <Consumable>[];
 var groceries = <Grocery>[];
 var posts = fillPosts();
 
-var i1 = new Consumable(productId: "1", name: 'Apple', quantity: 2);
-var i2 = new Consumable(productId: "2", name: 'Banana', quantity: 3);
-var i3 = new Consumable(productId: "3", name: 'Carrot', quantity: 5);
-var i4 = new Consumable(productId: "4", name: 'Date', quantity: 7);
-var i5 = new Consumable(productId: "5", name: 'Grapes', quantity: 11);
-var i6 = new Consumable(productId: "6", name: 'Lemon', quantity: 13);
+var i1 = new Consumable(name: 'Apple', quantity: 2);
+var i2 = new Consumable(name: 'Banana', quantity: 3);
+var i3 = new Consumable(name: 'Carrot', quantity: 5);
+var i4 = new Consumable(name: 'Date', quantity: 7);
+var i5 = new Consumable(name: 'Grapes', quantity: 11);
+var i6 = new Consumable(name: 'Lemon', quantity: 13);
 
-var p1 = new Post
-  (
+var s1 = new Grocery(name: 'Potato', quantity: 20);
+var s2 = new Grocery(name: 'Peas', quantity: 1);
+var s3 = new Grocery(name: 'Beans', quantity: 6);
+var s4 = new Grocery(name: 'Peaches', quantity: 4);
+var s5 = new Grocery(name: 'Hazelnuts', quantity: 1);
+var s6 = new Grocery(name: 'Bread', quantity: 1);
+
+var p1 = new Post(
     author: "Paul",
     title: "This is a title",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id magna tortor. Donec tincidunt neque mi, quis dignissim dolor cursus et. Etiam a arcu sed nisl tincidunt aliquam a nec enim. Phasellus mattis ante quis ligula lobortis, accumsan rhoncus urna elementum. Sed dictum nec lacus quis hendrerit. Quisque ut est elementum, dapibus lacus sit amet, volutpat erat. Proin augue mauris, efficitur vel mattis finibus, iaculis at purus. Quisque felis urna, elementum ac lorem vitae, rutrum lacinia urna. Pellentesque a erat id sapien imperdiet pretium. Ut accumsan augue vitae turpis sodales aliquam. Morbi id ante ligula. Nunc bibendum finibus mi, eu rutrum turpis rutrum et. Sed eu posuere eros. Praesent et viverra enim, vel molestie orci. Nulla vitae risus at risus pellentesque fringilla vel egestas mi.",
-    tags: ["Tag", "Tag", "Tag"]
-  );
+    content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras id magna tortor. Donec tincidunt neque mi, quis dignissim dolor cursus et. Etiam a arcu sed nisl tincidunt aliquam a nec enim. Phasellus mattis ante quis ligula lobortis, accumsan rhoncus urna elementum. Sed dictum nec lacus quis hendrerit. Quisque ut est elementum, dapibus lacus sit amet, volutpat erat. Proin augue mauris, efficitur vel mattis finibus, iaculis at purus. Quisque felis urna, elementum ac lorem vitae, rutrum lacinia urna. Pellentesque a erat id sapien imperdiet pretium. Ut accumsan augue vitae turpis sodales aliquam. Morbi id ante ligula. Nunc bibendum finibus mi, eu rutrum turpis rutrum et. Sed eu posuere eros. Praesent et viverra enim, vel molestie orci. Nulla vitae risus at risus pellentesque fringilla vel egestas mi.",
+    tags: ["Tag", "Tag", "Tag"]);
 
 //var p2 = new Post
 //  (
@@ -104,7 +110,17 @@ void fillList() {
   consumables.add(i6);
 }
 
-List<Post> fillPosts(){
+void fillSList() {
+  // s1.inBasket = true;
+  groceries.add(s1);
+  groceries.add(s2);
+  groceries.add(s3);
+  groceries.add(s4);
+  groceries.add(s5);
+  groceries.add(s6);
+}
+
+List<Post> fillPosts() {
   List<Post> samplePosts = new List<Post>();
 
   samplePosts.add(p1);
