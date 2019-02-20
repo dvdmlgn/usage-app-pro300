@@ -27,33 +27,35 @@ class MyApp extends StatelessWidget {
         ),
 //      home: MyHomePage(title: 'Flutter Demo Home Page'),
         // home: DavidScratchPad(),
-        home: Column(
-          children: <Widget>[
-            MaterialButton(
-              child: Text('DARRAN'),
-              onPressed: () {
-                MyHomePage();
-              },
-            ),
-            MaterialButton(
-              child: Text('DAVID'),
-              onPressed: () {
-                DavidScratchPad();
-              },
-            ),
-            MaterialButton(
-              child: Text('LUKE'),
-              onPressed: () {
-                LukesScratchPad();
-              },
-            ),
-            MaterialButton(
-              child: Text('GARY'),
-              onPressed: () {
-                GarysScratchPad();
-              },
-            ),
-          ],
+        home: Scaffold(
+          body: Column(
+            children: <Widget>[
+              MaterialButton(
+                child: Text('DARRAN'),
+                onPressed: () {
+                  MyHomePage();
+                },
+              ),
+              MaterialButton(
+                child: Text('DAVID'),
+                onPressed: () {
+                  DavidScratchPad();
+                },
+              ),
+              MaterialButton(
+                child: Text('LUKE'),
+                onPressed: () {
+                  LukesScratchPad();
+                },
+              ),
+              MaterialButton(
+                child: Text('GARY'),
+                onPressed: () {
+                  GarysScratchPad();
+                },
+              ),
+            ],
+          ),
         ));
   }
 }
