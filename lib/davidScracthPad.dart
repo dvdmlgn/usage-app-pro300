@@ -29,14 +29,14 @@ class StorageTest extends StatelessWidget {
     var parsed = jsonDecode(_consumablesString);
 
     Consumable thiswon = Consumable.fromJson(parsed);
-    debugPrint( thiswon.stringify() );
+    // debugPrint( thiswon.stringify() );
 
     var encodedJson = JsonParse.fromConsumables();
     var decodedJson = JsonParse.toConsumabes(encodedJson);
 
-    for (var item in decodedJson) {
-      debugPrint( item.stringify() );
-    }
+    // for (var item in decodedJson) {
+    //   debugPrint( item.stringify() );
+    // }
 
     var didBackup = LocalCache.backup();
 
