@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './app/appRoot.dart';
 import 'package:usage/garyScratchPad.dart';
 import './darranScratchPad.dart';
 import './davidScracthPad.dart';
@@ -11,8 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // home: DavidScratchPad(),
-      home: MyHomePage(),
+      debugShowCheckedModeBanner: false,
+      home: AppRoot(),
+      // home: MyHomePage(),
     );
   }
 }
