@@ -10,7 +10,6 @@ import 'package:usage/shoppingList/shopping.dart';
 // import './inventory/gallery.dart';
 import './backend/auth.dart';
 
-
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
