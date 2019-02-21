@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../davidScracthPad.dart';
+
 class AppRoot extends StatefulWidget {
   @override
   _AppRootState createState() => _AppRootState();
@@ -23,7 +25,15 @@ class _AppRootState extends State<AppRoot> {
     ),
   ];
 
+  @override
+  initState() {
+    super.initState();
+
+    _body = screens[selectedIndex];
+  }
+
   Widget _buildItem(NavigationItem item, bool isSelected) {
+
     return AnimatedContainer(
       duration: Duration(milliseconds: 130),
       width: isSelected ? 130 : 40,
@@ -71,7 +81,7 @@ class _AppRootState extends State<AppRoot> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      // body:
+
       appBar: AppBar(
         brightness: Brightness.light,
         backgroundColor: Colors.grey[100],
@@ -98,6 +108,8 @@ class _AppRootState extends State<AppRoot> {
         ],
       ),
 
+      body: _body,
+
       floatingActionButton: FloatingActionButton(
         onPressed: () => debugPrint('pressed fab'),
         backgroundColor: Colors.teal[300],
@@ -108,7 +120,7 @@ class _AppRootState extends State<AppRoot> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
 
       bottomNavigationBar: BottomAppBar(
-        elevation: 1.0,
+        elevation: 0.8,
           shape: CircularNotchedRectangle(),
           color: Colors.white,
           child: Container(
@@ -123,7 +135,7 @@ class _AppRootState extends State<AppRoot> {
                   onTap: () {
                     setState( () { 
                       selectedIndex = _index; 
-                      _body = items[selectedIndex].body; 
+                      _body = screens[_index]; 
                     });
                   },
                   child: _buildItem(item, selectedIndex == _index),
