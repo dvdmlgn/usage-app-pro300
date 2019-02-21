@@ -108,6 +108,7 @@ class _AppRootState extends State<AppRoot> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
 
       bottomNavigationBar: BottomAppBar(
+        elevation: 1.0,
           shape: CircularNotchedRectangle(),
           color: Colors.white,
           child: Container(
@@ -120,7 +121,10 @@ class _AppRootState extends State<AppRoot> {
 
                 return GestureDetector(
                   onTap: () {
-                    // setState( () { selectedIndex = _index; _body = items[selectedIndex]} );
+                    setState( () { 
+                      selectedIndex = _index; 
+                      _body = items[selectedIndex].body; 
+                    });
                   },
                   child: _buildItem(item, selectedIndex == _index),
                 );
