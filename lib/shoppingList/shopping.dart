@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../app/dataStore.dart';
 import '../app/logic.dart';
-// import '../models/grocery.dart';
 import '../models/grocery.dart';
+import '../models/consumable.dart';
+
 import 'package:usage/widgets/fab.dart';
 import 'package:usage/widgets/inputField.dart';
 
@@ -13,22 +14,61 @@ class Shopping extends StatefulWidget {
 
 class ShoppingState extends State<Shopping> {
   bool doFill = true;
-  List<Grocery> _groceries = groceries;
-  List<Grocery> _basket = [];
+  List<Grocery> _allGroceries = groceries; //ALL GROCERIES
+  List<Grocery> _shoppingList = []; //GROCESIES ON SHOPPING LIST
+  List<Grocery> _basket = []; //GROCERIES IN BASKET
   bool switchValue = false;
   var selectedScreen;
   String title;
+
   @override
   // BUILD THE SHOPPING LIST SCAFFOLD
   Widget build(BuildContext context) {
-    print('_groceries');
-    for (var item in _groceries) {
-      print(item.toJson());
+    _addDummyData(); //this fills the groceries lsit with all groceries, including those set to inBasket
+    //SORT INITIAL DATA
+    for (var g in _allGroceries) {
+      if (g.inBasket == false) {
+        if (!_shoppingList.contains(g)) {
+          _shoppingList.add(g);
+        }
+      } else {
+        if (!_basket.contains(g)) {
+          _basket.add(g);
+        }
+      }
     }
-    print('_basket');
-    for (var item in _basket) {
-      print(item.toJson());
-    }
+
+    // for (var g in _allGroceries) {
+    //   if (_shoppingList.length > 0) {
+    //     if (g.inBasket == false) {
+    //       // for (var s in _shoppingList) {
+    //       if (!_shoppingList.contains(g)) {
+    //         _shoppingList.add(g);
+    //       }
+    //       // }
+    //     } else {
+    //       if (_shoppingList.length > 0) {
+    //         for (var b in _basket) {
+    //           if (!_basket.contains(b)) {
+    //             _basket.add(g);
+    //           }
+    //         }
+    //       } else {
+    //         _basket.add(g);
+    //       }
+    //     }
+    //   } else {
+    //     if (g.inBasket == false) {
+    //       _shoppingList.add(g);
+    //     } else {
+    //       _basket.add(g);
+    //     }
+    //   }
+    // }
+    print(_allGroceries.length);
+    print(_shoppingList.length);
+    print(_basket.length);
+
     if (switchValue == false) {
       //INVENTORY SCREEN
       title = "Shopping List";
@@ -38,7 +78,7 @@ class ShoppingState extends State<Shopping> {
       title = "Basket";
       selectedScreen = _buildBasket();
     }
-    _addDummyData();
+
     return Scaffold(
       body: selectedScreen,
       appBar: AppBar(
@@ -62,19 +102,14 @@ class ShoppingState extends State<Shopping> {
   Widget _buildShoppingList() {
     return ListView.builder(
       itemBuilder: (context, index) {
-        if (index < _groceries.length) {
-          if (_groceries[index].inBasket == false) {
-            print(
-                '_groceries[index] = ' + _groceries[index].toJson().toString());
-            return _buildConsumable(_groceries[index], index);
-          }
+        if (index < _shoppingList.length) {
+          return _buildConsumable(_shoppingList[index], index);
         }
       },
     );
   }
 
   Widget _buildBasket() {
-    // return Text("THIS IS WHERE THE BASKET IS GOING TO BE");
     return ListView.builder(
       itemBuilder: (context, index) {
         if (index < _basket.length) {
@@ -86,13 +121,18 @@ class ShoppingState extends State<Shopping> {
 
   //BUILD THE DISMISSABLE
   Widget _buildConsumable(Grocery grocery, int index) {
+    //build dismissable dependent on wether its in shopping list or basket
     return Dismissible(
       key: ObjectKey(grocery),
       child: _shoppingListGrocery(grocery, index),
       background: Container(color: Colors.green),
       secondaryBackground: Container(color: Colors.red),
       onDismissed: (direction) {
-        _handleGroceryDismissed(direction, index, grocery);
+        if (grocery.inBasket == false) {
+          _handleShoppingListDismissed(direction, index, grocery);
+        } else {
+          _handleBasketDismissed(direction, index, grocery);
+        }
       },
     );
   }
@@ -349,8 +389,8 @@ class ShoppingState extends State<Shopping> {
     setState(() => Groceries.create(Grocery(name: name, quantity: qty)));
   }
 
-//REMOVE ITEM ON SWIPE
-  void _handleGroceryDismissed(
+//REMOVE SHOPPING LIST ITEM ON SWIPE
+  void _handleShoppingListDismissed(
       DismissDirection direction, int index, Grocery grocery) {
     if (direction == DismissDirection.startToEnd) {
       grocery.inBasket = true;
@@ -366,7 +406,28 @@ class ShoppingState extends State<Shopping> {
     }
   }
 
-//POPULATE SHOPPING LIST WITH DUMMY DATA
+  //REMOVE BASKET ITEM ON SWIPE
+  void _handleBasketDismissed(
+      DismissDirection direction, int index, Grocery grocery) {
+    if (direction == DismissDirection.startToEnd) {
+      Consumables.create(Consumable(
+          name: grocery.name,
+          quantity: grocery.quantity,
+          expiry: 'DATE',
+          description: 'DESC',
+          imageUrl: 'null'));
+      _basket.removeAt(index); //from from basket
+      Groceries.delete(index); //grom from all items
+    } else {
+      //ADD TO SHOPPING LIST
+      //set inBasket to false
+      grocery.inBasket = false;
+      _shoppingList.add(grocery);
+      _basket.removeAt(index);
+    }
+  }
+
+//POPULATE SHOPPING LIST AND BASKET WITH DUMMY DATA
   void _addDummyData() {
     if (doFill) {
       fillSList();

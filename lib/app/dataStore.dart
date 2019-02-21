@@ -25,20 +25,58 @@ import '../models/post.dart';
 var products = <Product>[];
 var consumables = <Consumable>[];
 var groceries = <Grocery>[];
+// var basket = <Grocery>[];
+
 var posts = fillPosts();
 
 var i1 = new Consumable(
-                      productId:'101',
-                      name:'Cheese Cloth No 100',
-                      quantity:8,
-                      expiry:'2018-04-04T12:11:24Z',
-                      description:'nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id',
-                      imageUrl:'http://dummyimage.com/241x196.png/ff4444/ffffff');
-var i2 = new Consumable(productId:'102',name:'Appetiser - Bought',quantity:5,expiry:'2019-02-26T08:31:45Z',description:'nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam',imageUrl:'http://dummyimage.com/101x205.png/cc0000/ffffff');
-var i3 = new Consumable(productId:'103',name:'Energy Drink Bawls',quantity:9,expiry:'2018-07-08T20:05:06Z',description:'justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est et tempus',imageUrl:'http://dummyimage.com/115x228.png/ff4444/ffffff');
-var i4 = new Consumable(productId:'104',name:'Island Oasis - Magarita Mix',quantity:3,expiry:'2018-10-12T19:20:55Z',description:'luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh',imageUrl:'http://dummyimage.com/178x234.png/cc0000/ffffff');
-var i5 = new Consumable(productId:'104',name:'Island Oasis - Magarita Mix',quantity:3,expiry:'2018-10-12T19:20:55Z',description:'luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh',imageUrl:'http://dummyimage.com/178x234.png/cc0000/ffffff');
-var i6 = new Consumable(productId:'105',name:'Oil - Cooking Spray',quantity:9,expiry:'2018-03-31T00:39:57Z',description:'amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere',imageUrl:'http://dummyimage.com/122x244.png/cc0000/ffffff');
+    productId: '101',
+    name: 'Cheese Cloth No 100',
+    quantity: 8,
+    expiry: '2018-04-04T12:11:24Z',
+    description:
+        'nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id',
+    imageUrl: 'http://dummyimage.com/241x196.png/ff4444/ffffff');
+var i2 = new Consumable(
+    productId: '102',
+    name: 'Appetiser - Bought',
+    quantity: 5,
+    expiry: '2019-02-26T08:31:45Z',
+    description:
+        'nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam',
+    imageUrl: 'http://dummyimage.com/101x205.png/cc0000/ffffff');
+var i3 = new Consumable(
+    productId: '103',
+    name: 'Energy Drink Bawls',
+    quantity: 9,
+    expiry: '2018-07-08T20:05:06Z',
+    description:
+        'justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est et tempus',
+    imageUrl: 'http://dummyimage.com/115x228.png/ff4444/ffffff');
+var i4 = new Consumable(
+    productId: '100',
+    name: 'Island Oasis - Magarita Mix',
+    quantity: 3,
+    expiry: '2018-10-12T19:20:55Z',
+    description:
+        'luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh',
+    imageUrl: 'http://dummyimage.com/178x234.png/cc0000/ffffff');
+var i5 = new Consumable(
+    productId: '104',
+    name: 'Island Oasis - Magarita Mix',
+    quantity: 3,
+    expiry: '2018-10-12T19:20:55Z',
+    description:
+        'luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh',
+    imageUrl: 'http://dummyimage.com/178x234.png/cc0000/ffffff');
+var i6 = new Consumable(
+    productId: '105',
+    name: 'Oil - Cooking Spray',
+    quantity: 9,
+    expiry: '2018-03-31T00:39:57Z',
+    description:
+        'amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere',
+    imageUrl: 'http://dummyimage.com/122x244.png/cc0000/ffffff');
 
 var s1 = new Grocery(name: 'Potato', quantity: 20);
 var s2 = new Grocery(name: 'Peas', quantity: 1);
@@ -128,21 +166,56 @@ var p1 = new Post(
 
 void fillList() {
   consumables.add(i1);
-  // consumables.add(i2);
+  consumables.add(i2);
   consumables.add(i3);
-  // consumables.add(i4);
-  // consumables.add(i5);
+  consumables.add(i4);
+  consumables.add(i5);
   consumables.add(i6);
 }
 
 void fillSList() {
+  // List<Grocery> allGroceries;
+  // allGroceries.add(s1);
+  // allGroceries.add(s2);
+  // allGroceries.add(s3);
+  // allGroceries.add(s4);
+  // allGroceries.add(s5);
+  // allGroceries.add(s6);
+  // for (var item in allGroceries) {
+  //   print(item.toJson());
+  // }
+  // print('before');
   // s1.inBasket = true;
+  // s2.inBasket = true;
+  // s3.inBasket = true;
+  // print('after');
+  // for (var item in allGroceries) {
+  //   print(item.toJson());
+  // }
+  // for (var g in allGroceries) {
+  //   if (g.inBasket == false) {
+  //     groceries.add(g);
+  //   } else {
+  //     basket.add(g);
+  //   }
+  // }
+  s1.inBasket = true;
+  s2.inBasket = true;
+  s3.inBasket = true;
+
   groceries.add(s1);
   groceries.add(s2);
   groceries.add(s3);
   groceries.add(s4);
   groceries.add(s5);
   groceries.add(s6);
+  // s1.inBasket = true;
+  // s2.inBasket = true;
+  // s3.inBasket = true;
+
+  for (var item in groceries) {
+    print(item.id);
+  }
 }
 
 List<Post> fillPosts() {
