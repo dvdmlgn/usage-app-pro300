@@ -25,6 +25,20 @@ class _AppRootState extends State<AppRoot> {
     ),
   ];
 
+
+
+  final List<Widget> headerActions = [
+    Text('Inventory'),
+    // Switch(
+    //   value: false,
+    //   onChanged: (value) {
+    //     setState(() {
+    //               _body = secreens
+    //             });
+    //   },
+    // ),
+  ];
+
   @override
   initState() {
     super.initState();
@@ -36,7 +50,7 @@ class _AppRootState extends State<AppRoot> {
 
     return AnimatedContainer(
       duration: Duration(milliseconds: 130),
-      width: isSelected ? 130 : 40,
+      width: isSelected ? 120 : 40,
       height: isSelected ? 44 : 20,
       padding: isSelected ? EdgeInsets.all(8.0) : null,
       decoration: isSelected
