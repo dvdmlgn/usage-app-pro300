@@ -25,6 +25,8 @@ import '../models/post.dart';
 var products = <Product>[];
 var consumables = <Consumable>[];
 var groceries = <Grocery>[];
+// var basket = <Grocery>[];
+
 var posts = fillPosts();
 
 var i1 = new Consumable(
@@ -51,7 +53,14 @@ var i3 = new Consumable(
     description:
         'justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est et tempus',
     imageUrl: 'http://dummyimage.com/115x228.png/ff4444/ffffff');
-// var i4 = new Consumable(productId:'104',name:'Island Oasis - Magarita Mix',quantity:3,expiry:'2018-10-12T19:20:55Z',description:'luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh',imageUrl:'http://dummyimage.com/178x234.png/cc0000/ffffff');
+var i4 = new Consumable(
+    productId: '100',
+    name: 'Island Oasis - Magarita Mix',
+    quantity: 3,
+    expiry: '2018-10-12T19:20:55Z',
+    description:
+        'luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh',
+    imageUrl: 'http://dummyimage.com/178x234.png/cc0000/ffffff');
 var i5 = new Consumable(
     productId: '104',
     name: 'Island Oasis - Magarita Mix',
@@ -159,19 +168,54 @@ void fillList() {
   consumables.add(i1);
   consumables.add(i2);
   consumables.add(i3);
-  // consumables.add(i4);
+  consumables.add(i4);
   consumables.add(i5);
   consumables.add(i6);
 }
 
 void fillSList() {
+  // List<Grocery> allGroceries;
+  // allGroceries.add(s1);
+  // allGroceries.add(s2);
+  // allGroceries.add(s3);
+  // allGroceries.add(s4);
+  // allGroceries.add(s5);
+  // allGroceries.add(s6);
+  // for (var item in allGroceries) {
+  //   print(item.toJson());
+  // }
+  // print('before');
   // s1.inBasket = true;
+  // s2.inBasket = true;
+  // s3.inBasket = true;
+  // print('after');
+  // for (var item in allGroceries) {
+  //   print(item.toJson());
+  // }
+  // for (var g in allGroceries) {
+  //   if (g.inBasket == false) {
+  //     groceries.add(g);
+  //   } else {
+  //     basket.add(g);
+  //   }
+  // }
+  s1.inBasket = true;
+  s2.inBasket = true;
+  s3.inBasket = true;
+
   groceries.add(s1);
   groceries.add(s2);
   groceries.add(s3);
   groceries.add(s4);
   groceries.add(s5);
   groceries.add(s6);
+  // s1.inBasket = true;
+  // s2.inBasket = true;
+  // s3.inBasket = true;
+
+  for (var item in groceries) {
+    print(item.id);
+  }
 }
 
 List<Post> fillPosts() {

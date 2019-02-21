@@ -4,8 +4,9 @@ import './secrets.dart';
 import 'package:flutter/material.dart';
 
 String newId() {
-
-  return "hello there,..";
+  // return "hello there,..";
+  var x = DateTime.now().toIso8601String();
+  return x;
 }
 
 String newTimestamp() {
@@ -13,7 +14,7 @@ String newTimestamp() {
 }
 
 String encrypt(String content) {
-  final encrypter = Encrypter( AES(encryptionKey) );
+  final encrypter = Encrypter(AES(encryptionKey));
 
   int length = content.length;
   int remainder = (length % 64).toInt();
@@ -36,7 +37,7 @@ String encrypt(String content) {
   String cipher = '';
   int count = 0;
 
-  while(true) {
+  while (true) {
     String slice = content.substring(count, count + 64);
 
     // debugPrint("slice: ${slice}");
@@ -51,14 +52,16 @@ String encrypt(String content) {
 
     // debugPrint("count: ${count}");
 
-    if (count >= length) { break; }
+    if (count >= length) {
+      break;
+    }
   }
 
   return cipher;
 }
 
 String decrypt(String cipher) {
-  final encrypter = Encrypter( AES(encryptionKey) );
+  final encrypter = Encrypter(AES(encryptionKey));
 
   int length = cipher.length;
 
@@ -67,13 +70,15 @@ String decrypt(String cipher) {
   String contents = '';
   int count = 0;
 
-  while(true) {
+  while (true) {
     String slice = cipher.substring(count, count + 128);
 
     contents += encrypter.decrypt(slice);
 
     count += 128;
-    if (count >= length) { break; }
+    if (count >= length) {
+      break;
+    }
   }
 
   // debugPrint("contents length: ${contents.length}");
