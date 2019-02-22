@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:usage/models/grocery.dart';
 import '../app/dataStore.dart';
 import '../app/logic.dart';
 import '../models/consumable.dart';
@@ -151,6 +152,29 @@ class InventoryState extends State<Inventory> {
                             // Navigator.pop(context);
                           },
                         ),
+                        IconButton(
+                            icon: Icon(Icons.list),
+                            onPressed: () {
+                              //create a grocery = consumable
+                              //add grocery to shopping list
+                              for (var item in groceries) {
+                                if (item.name == consumable.name) {
+                                  //alertdialog, already on list, are you sure?
+                                  //yes: add new grocery
+                                  //no: pop dialog
+                                } else {
+                                  //add to list
+                                }
+                              }
+                              groceries.add(
+                                  Grocery(name: consumable.name, quantity: 0));
+
+                              Navigator.pop(context);
+
+                              for (var item in groceries) {
+                                print(item.name);
+                              }
+                            }),
                       ],
                     ),
                   )
@@ -276,9 +300,9 @@ class InventoryState extends State<Inventory> {
               child: Column(
                 children: <Widget>[
                   InputField.inputField(widgetWidth, nameCtrl, true,
-                      TextInputType.text, '', 'Name'),
+                      TextInputType.text, 'n', 'Name'),
                   InputField.inputField(widgetWidth, qtyCtrl, true,
-                      TextInputType.number, '', 'Quantity'),
+                      TextInputType.number, 'q', 'Quantity'),
                   MaterialButton(
                     minWidth: widgetWidth,
                     child: Text('ADD'),
