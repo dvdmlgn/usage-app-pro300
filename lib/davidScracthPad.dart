@@ -70,3 +70,48 @@ class DavidScratchPad extends StatelessWidget {
     );
   }
 }
+
+
+final _screen1 = Center(
+  child: Container(
+    color: Colors.pink,
+    child: Text('invnetory'),
+  ),
+);
+
+final _screen2 = Center(
+  child: Container(
+    color: Colors.yellow,
+    child: Text('shopping list'),
+  ),
+);
+
+final _screen3 = Center(
+  child: Container(
+    color: Colors.cyanAccent,
+    child: Text('social feed'),
+  ),
+);
+
+final _screen4 = Center(
+  child: Container(
+    color: Colors.cyanAccent,
+    child: Text('shopping basket'),
+  ),
+);
+
+final _screen5 = Center(
+  child: Container(
+    color: Colors.cyanAccent,
+    child: Text('social saved'),
+  ),
+);
+
+final List<Widget> screens = [
+  _screen1,
+  _screen2,
+  _screen3,
+  _screen4,
+  _screen5
+];
+

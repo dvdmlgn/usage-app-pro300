@@ -10,7 +10,7 @@ class Post {
   int rating;
   int timesPinned;
 
-  Post({this.author, this.title, this.content, this.tags}) {
+  Post({this.id, this.author, this.title, this.content, this.tags, this.rating, this.timesPinned}) {
     id = newId();
     timestamp = newTimestamp();
     rating = 0;

@@ -14,6 +14,7 @@ class Social extends StatefulWidget {
 class _SocialState extends State<Social> {
   final TextEditingController _titleController = new TextEditingController();
   final TextEditingController _contentController = new TextEditingController();
+  final Post fullPostTest = posts[0];
   String title;
   String content;
 
@@ -50,7 +51,7 @@ class _SocialState extends State<Social> {
                   child: Column(
                     children: <Widget>[
                       Hero(
-                        tag: 'postHero',
+                        tag: myPosts,
                         child: ListTile(
                           leading: Image.network(
                             'https://imgplaceholder.com/420x320/ff7f7f/333333/fa-image',
@@ -67,7 +68,7 @@ class _SocialState extends State<Social> {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 fontSize: 16.0, fontWeight: FontWeight.bold),
-                            maxLines: 10,
+                            maxLines: 5,
                           ),
                           trailing: IconButton(
                               icon: Icon(
@@ -79,7 +80,7 @@ class _SocialState extends State<Social> {
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(
                                 builder: (BuildContext context) {
-                              return HeroPage();
+                              return HeroPage(fullPostTest);
                             }));
                           },
                         ),
@@ -95,10 +96,10 @@ class _SocialState extends State<Social> {
     );
   }
 
-  void _getPost(String title, String content){
-    setState(() => Posts.create(Post(title:title, content: content)));
+  void _getPost(String title, String content) {
+    setState(() => Posts.create(Post(title: title, content: content)));
 
-    for(var item in myPosts){
+    for (var item in myPosts) {
       print(item.title);
     }
   }
@@ -153,28 +154,44 @@ class _SocialState extends State<Social> {
 }
 
 class HeroPage extends StatelessWidget {
+  HeroPage(Post fullPost);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.edit,
+                size: 30,
+                color: Colors.white,
+              ),
+              onPressed: () {}),
+        ],
+      ),
       body: Hero(
         tag: 'postHero',
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "Title",
-                style: TextStyle(fontSize: 30),
-              ),
-              Image.network(
-                'https://imgplaceholder.com/420x320/ff7f7f/333333/fa-image',
-                height: 300,
-                width: 300,
-                alignment: Alignment.center,
-              ),
-              Text("Content"),
-            ],
+        child: Scaffold(
+          body: Container(
+            child: Column(
+              children: <Widget>[
+                Center(
+                  child: Image.network(
+                      'https://imgplaceholder.com/420x320/ff7f7f/333333/fa-image',
+                      width: 300,
+                      height: 300),
+                ),
+                Text(
+                  "Rating: ",
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
+                  "content",
+                  style: TextStyle(fontSize: 20),
+                )
+              ],
+            ),
           ),
         ),
       ),
