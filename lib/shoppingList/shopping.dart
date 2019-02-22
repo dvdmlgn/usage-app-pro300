@@ -38,33 +38,6 @@ class ShoppingState extends State<Shopping> {
       }
     }
 
-    // for (var g in _allGroceries) {
-    //   if (_shoppingList.length > 0) {
-    //     if (g.inBasket == false) {
-    //       // for (var s in _shoppingList) {
-    //       if (!_shoppingList.contains(g)) {
-    //         _shoppingList.add(g);
-    //       }
-    //       // }
-    //     } else {
-    //       if (_shoppingList.length > 0) {
-    //         for (var b in _basket) {
-    //           if (!_basket.contains(b)) {
-    //             _basket.add(g);
-    //           }
-    //         }
-    //       } else {
-    //         _basket.add(g);
-    //       }
-    //     }
-    //   } else {
-    //     if (g.inBasket == false) {
-    //       _shoppingList.add(g);
-    //     } else {
-    //       _basket.add(g);
-    //     }
-    //   }
-    // }
     print(_allGroceries.length);
     print(_shoppingList.length);
     print(_basket.length);
@@ -142,7 +115,7 @@ class ShoppingState extends State<Shopping> {
     return ListTile(
         title: Text(grocery.name),
         trailing: Text(grocery.quantity.toString().split('.')[0]),
-        onTap: () => _pushViewConsumableScreen(context, grocery, index),
+        onTap: () => _pushViewGroceryScreen(context, grocery, index),
         onLongPress: () {
           quickEditDialog(context, grocery, index);
         });
@@ -183,8 +156,8 @@ class ShoppingState extends State<Shopping> {
                       FlatButton(
                         child: Text('Save'),
                         onPressed: () {
-                          // setState(() => Groceries.quickEdit(
-                          //     index, double.parse(myController.text)));
+                          grocery.quantity = double.parse(myController.text);
+                          setState(() {});
                           Navigator.pop(context);
                         },
                       )
@@ -198,7 +171,7 @@ class ShoppingState extends State<Shopping> {
   }
 
   //VIEL CONSUMABLE SCREEN
-  void _pushViewConsumableScreen(
+  void _pushViewGroceryScreen(
       BuildContext context, Grocery grocery, int index) {
     final _formKey = GlobalKey<FormState>();
     final nameCtrl = TextEditingController();
@@ -225,13 +198,13 @@ class ShoppingState extends State<Shopping> {
                         IconButton(
                           icon: Icon(Icons.edit),
                           onPressed: () {
-                            _pushEditConsumableScreen(context, grocery, index);
+                            _pushEditGroceryScreen(context, grocery, index);
                           },
                         ),
                         IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () {
-                            deleteConsumableDialog(index);
+                            deleteConsumableDialog(index, grocery);
                             // Groceries.delete(index);
                             // Navigator.pop(context);
                           },
@@ -246,7 +219,7 @@ class ShoppingState extends State<Shopping> {
     }));
   }
 
-  Future<bool> deleteConsumableDialog(int index) {
+  Future<bool> deleteConsumableDialog(int index, Grocery grocery) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -260,40 +233,17 @@ class ShoppingState extends State<Shopping> {
                   child: Column(children: <Widget>[
                     Text("What Happened?"),
                     Divider(),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(right: 4.0),
-                          child: MaterialButton(
-                            child: Text('WASTED'),
-                            color: Colors.red,
-                            onPressed: () {
-                              // Groceries.wasted(index);
-                              Navigator.of(context).pop();
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 4.0),
-                          child: MaterialButton(
-                            child: Text('USED'),
-                            color: Colors.green,
-                            onPressed: () {
-                              // Groceries.consumed(index);
-                              Navigator.of(context).pop();
-                              Navigator.pop(context);
-                            },
-                          ),
-                        )
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.center,
-                    ),
                     MaterialButton(
                       child: Text('JUST DELETE IT!'),
                       color: Colors.blue,
                       onPressed: () {
-                        Groceries.delete(index);
+                        groceries.remove(grocery);
+                        if (_shoppingList.contains(grocery)) {
+                          _shoppingList.remove(grocery);
+                        }
+                        if (_basket.contains(grocery)) {
+                          _basket.remove(grocery);
+                        }
                         Navigator.of(context).pop();
                         Navigator.pop(context);
                       },
@@ -307,7 +257,7 @@ class ShoppingState extends State<Shopping> {
   }
 
   //EDIT CONSUMABLE SCREEN
-  void _pushEditConsumableScreen(
+  void _pushEditGroceryScreen(
       BuildContext context, Grocery grocery, int index) {
     final _formKey = GlobalKey<FormState>();
     final nameCtrl = TextEditingController();
@@ -333,9 +283,9 @@ class ShoppingState extends State<Shopping> {
                     onPressed: () {
                       newName = nameCtrl.text;
                       newQty = double.parse(qtyCtrl.text);
-                      // setState(() =>
-                      //     Groceries.edit(index, grocery, newName, newQty)
-                      //     );
+                      grocery.name = newName;
+                      grocery.quantity = newQty;
+                      setState(() {});
                       Navigator.of(context).pop();
                       Navigator.pop(context);
                     },
