@@ -14,7 +14,6 @@ class Social extends StatefulWidget {
 class _SocialState extends State<Social> {
   final TextEditingController _titleController = new TextEditingController();
   final TextEditingController _contentController = new TextEditingController();
-  final Post fullPostTest = posts[0];
   String title;
   String content;
 
@@ -51,7 +50,7 @@ class _SocialState extends State<Social> {
                   child: Column(
                     children: <Widget>[
                       Hero(
-                        tag: myPosts,
+                        tag: 'myPosts',
                         child: ListTile(
                           leading: Image.network(
                             'https://imgplaceholder.com/420x320/ff7f7f/333333/fa-image',
@@ -80,7 +79,7 @@ class _SocialState extends State<Social> {
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(
                                 builder: (BuildContext context) {
-                              return HeroPage(fullPostTest);
+                              return HeroPage(myPosts[index]);
                             }));
                           },
                         ),
@@ -154,7 +153,11 @@ class _SocialState extends State<Social> {
 }
 
 class HeroPage extends StatelessWidget {
-  HeroPage(Post fullPost);
+  Post fullPost = new Post();
+
+  HeroPage(Post post) {
+    fullPost = post;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,26 +174,37 @@ class HeroPage extends StatelessWidget {
         ],
       ),
       body: Hero(
-        tag: 'postHero',
+        tag: 'fullPost',
         child: Scaffold(
-          body: Container(
-            child: Column(
-              children: <Widget>[
-                Center(
-                  child: Image.network(
-                      'https://imgplaceholder.com/420x320/ff7f7f/333333/fa-image',
-                      width: 300,
-                      height: 300),
-                ),
-                Text(
-                  "Rating: ",
-                  style: TextStyle(fontSize: 18),
-                ),
-                Text(
-                  "content",
-                  style: TextStyle(fontSize: 20),
-                )
-              ],
+          body: SingleChildScrollView(
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    fullPost.title,
+                    style: TextStyle(fontSize: 30),
+                  ),
+                  Center(
+                    child: Image.network(
+                        'https://imgplaceholder.com/420x320/ff7f7f/333333/fa-image',
+                        width: 300,
+                        height: 300),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 25.0),
+                    child: Text(
+                      "Rating: " + fullPost.rating.toString(),
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    fullPost.content,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
