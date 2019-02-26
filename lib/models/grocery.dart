@@ -17,6 +17,8 @@ class Grocery {
   Grocery.cache(
       {this.id, this.productId, this.inBasket, this.name, this.quantity});
 
+  Grocery.undo(Grocery grocery) {}
+
   factory Grocery.fromJson(Map<String, dynamic> json) {
     return Grocery.cache(
         id: json['id'],

@@ -300,9 +300,9 @@ class InventoryState extends State<Inventory> {
               child: Column(
                 children: <Widget>[
                   InputField.inputField(widgetWidth, nameCtrl, true,
-                      TextInputType.text, 'n', 'Name'),
+                      TextInputType.text, 'Name', ''),
                   InputField.inputField(widgetWidth, qtyCtrl, true,
-                      TextInputType.number, 'q', 'Quantity'),
+                      TextInputType.number, 'Quantity', ''),
                   MaterialButton(
                     minWidth: widgetWidth,
                     child: Text('ADD'),

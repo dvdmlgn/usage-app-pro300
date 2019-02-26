@@ -3,7 +3,7 @@ import '../app/dataStore.dart';
 import '../app/logic.dart';
 import '../models/grocery.dart';
 import '../models/consumable.dart';
-
+import '../models/temp.dart';
 import 'package:usage/widgets/fab.dart';
 import 'package:usage/widgets/inputField.dart';
 
@@ -17,6 +17,12 @@ class ShoppingState extends State<Shopping> {
   List<Grocery> _allGroceries = groceries; //ALL GROCERIES
   List<Grocery> _shoppingList = []; //GROCESIES ON SHOPPING LIST
   List<Grocery> _basket = []; //GROCERIES IN BASKET
+  TempGrocery tempGrocery = TempGrocery(
+      grocery: Grocery(
+        name: '',
+        quantity: null,
+      ),
+      index: 0);
   bool switchValue = false;
   var selectedScreen;
   String title;
@@ -106,6 +112,7 @@ class ShoppingState extends State<Shopping> {
         } else {
           _handleBasketDismissed(direction, index, grocery);
         }
+        setState(() {});
       },
     );
   }
@@ -303,8 +310,9 @@ class ShoppingState extends State<Shopping> {
     final nameCtrl = TextEditingController();
     final qtyCtrl = TextEditingController();
     double widgetWidth = (MediaQuery.of(context).size.width) * .8;
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new Scaffold(
+    Navigator.of(context).push(
+      new MaterialPageRoute(builder: (context) {
+        return new Scaffold(
           appBar: new AppBar(title: new Text('Add a new grocery')),
           body: Center(
             child: Form(
@@ -312,9 +320,9 @@ class ShoppingState extends State<Shopping> {
               child: Column(
                 children: <Widget>[
                   InputField.inputField(widgetWidth, nameCtrl, true,
-                      TextInputType.text, '', 'Name'),
+                      TextInputType.text, 'Name', ''),
                   InputField.inputField(widgetWidth, qtyCtrl, true,
-                      TextInputType.number, '', 'Quantity'),
+                      TextInputType.number, 'Name', ''),
                   MaterialButton(
                     minWidth: widgetWidth,
                     child: Text('ADD'),
@@ -330,8 +338,10 @@ class ShoppingState extends State<Shopping> {
                 ],
               ),
             ),
-          ));
-    }));
+          ),
+        );
+      }),
+    );
   }
 
 //ADD CONSUMABLE
@@ -342,17 +352,36 @@ class ShoppingState extends State<Shopping> {
 //REMOVE SHOPPING LIST ITEM ON SWIPE
   void _handleShoppingListDismissed(
       DismissDirection direction, int index, Grocery grocery) {
+    // final snackBar =
+    //     SnackBar(content: Text("Undo Delete: " + tempGrocery.grocery.name));
+
     if (direction == DismissDirection.startToEnd) {
-      grocery.inBasket = true;
-      _basket.add(grocery);
-      // print(grocery.toJson());
-      // for (var item in _basket) {
-      //   print(item.toJson());
-      // }
-      //DELETE THE DISMISSED GROCERY FROM GROCERY LIST
-      Groceries.delete(index);
+      //SWIPE RIGHT => MOVE ITEM TO BASKET
+      grocery.inBasket = true; //SET IN BASKET TO TRUE
+      _basket.add(grocery); //ADD GROCERY TO BASKET LIST
+      _shoppingList.removeAt(index); //REMOVE GROCERY FROM SHOPPINGLIST LIST
+      //UPDATE TRANSACTION LOG
     } else {
-      Groceries.delete(index);
+      //SWIPE LEFT => DELETE THE ITEM
+      tempGrocery = TempGrocery(
+          grocery: grocery,
+          index: index); //CREATE TEMP GROCERY FOR UNDO LAST DELETE
+      _shoppingList.removeAt(index); //REMOVE GROCERY FROM SHOPPINGLIST LIST
+      Groceries.delete(index); //DELETE GROCERY FROM ALL GROCERIES
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Undo Delete of " + tempGrocery.grocery.name),
+          action: SnackBarAction(
+            label: 'Undo',
+            onPressed: () {
+              //ADD TEMP GROCERY TO ALL GROCERIES
+              groceries.insert(index, tempGrocery.grocery);
+              //ADD TEMP GROCERY TO SHOPPING LIST
+              _shoppingList.insert(index, tempGrocery.grocery);
+            },
+          ),
+        ),
+      ); //DISPLAY SNACKBAR
     }
   }
 
@@ -360,20 +389,21 @@ class ShoppingState extends State<Shopping> {
   void _handleBasketDismissed(
       DismissDirection direction, int index, Grocery grocery) {
     if (direction == DismissDirection.startToEnd) {
+      //SWIPE RIGHT => MOVE ITEM TO inventory
       Consumables.create(Consumable(
           name: grocery.name,
           quantity: grocery.quantity,
           expiry: 'DATE',
           description: 'DESC',
-          imageUrl: 'null'));
-      _basket.removeAt(index); //from from basket
-      Groceries.delete(index); //grom from all items
+          imageUrl:
+              'null')); //CREATE A CONSUMABLE FROM GROCERY AND ADD TO INVENTORY LIST
+      _basket.removeAt(index); //REMOVE GROCERY FROM BASKET
+      Groceries.delete(index); ////DELETE GROCERY FROM ALL GROCERIES
     } else {
-      //ADD TO SHOPPING LIST
-      //set inBasket to false
-      grocery.inBasket = false;
-      _shoppingList.add(grocery);
-      _basket.removeAt(index);
+      //SWIPE LEFT => MOVE ITEM TO SHOPPING LIST
+      grocery.inBasket = false; //SET IN BASKET TO FALSE
+      _shoppingList.add(grocery); //ADD GROCERY TO SHOPPINGLIST LIST
+      _basket.removeAt(index); //REMOVE GROCERY FROM BASKET
     }
   }
 
