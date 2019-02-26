@@ -104,6 +104,44 @@ var p2 = new Post(
     rating: 4,
     timesPinned: 27);
 
+var p3 = new Post(
+    author: "Paul",
+    title: "This is a title",
+    content:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec tellus ac nibh commodo consequat vitae sollicitudin dolor. Mauris commodo felis et neque finibus, ac sagittis nulla cursus. Duis pharetra pulvinar diam ac tempor. Curabitur nec elit lectus. Aenean aliquam tincidunt turpis, eu lacinia eros maximus at. Morbi libero elit.",
+    tags: ["Tag", "Tag", "Tag"],
+    rating: 4,
+    timesPinned: 27);
+
+var p4 = new Post(
+    author: "Paul",
+    title: "This is a title",
+    content:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra suscipit turpis nec faucibus. Quisque aliquam ex dolor, in porta orci maximus et. Nullam viverra diam velit, quis scelerisque sem condimentum et. Mauris mauris est, consequat ullamcorper augue a, egestas cursus velit. Etiam varius eu arcu sit amet malesuada. Etiam id iaculis mauris. Quisque at faucibus ligula. Nam rhoncus at est at pulvinar." +
+        "Sed varius vitae urna non mollis. Morbi ac ex velit. Etiam eget pharetra ipsum, placerat ultricies erat. Nullam quis leo orci. Phasellus at lectus ultrices orci finibus malesuada. Maecenas a nisi enim. Donec risus odio, efficitur vel est eu, scelerisque viverra purus. Curabitur aliquam semper hendrerit. Aliquam eget odio vitae leo sagittis tempus. Quisque euismod tortor vel felis fringilla faucibus. In consectetur non sapien vitae laoreet. Nunc luctus nibh nisi, ac scelerisque lacus sagittis porta. Sed sed lacus sapien.",
+    tags: ["Tag", "Tag", "Tag"],
+    rating: 4,
+    timesPinned: 27);
+
+var p5 = new Post(
+    author: "Paul",
+    title: "This is a title",
+    content:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec tellus ac nibh commodo consequat vitae sollicitudin dolor. Mauris commodo felis et neque finibus, ac sagittis nulla cursus. Duis pharetra pulvinar diam ac tempor. Curabitur nec elit lectus. Aenean aliquam tincidunt turpis, eu lacinia eros maximus at. Morbi libero elit.",
+    tags: ["Tag", "Tag", "Tag"],
+    rating: 4,
+    timesPinned: 27);
+
+var p6 = new Post(
+    author: "Paul",
+    title: "This is a title",
+    content:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra suscipit turpis nec faucibus. Quisque aliquam ex dolor, in porta orci maximus et. Nullam viverra diam velit, quis scelerisque sem condimentum et. Mauris mauris est, consequat ullamcorper augue a, egestas cursus velit. Etiam varius eu arcu sit amet malesuada. Etiam id iaculis mauris. Quisque at faucibus ligula. Nam rhoncus at est at pulvinar." +
+        "Sed varius vitae urna non mollis. Morbi ac ex velit. Etiam eget pharetra ipsum, placerat ultricies erat. Nullam quis leo orci. Phasellus at lectus ultrices orci finibus malesuada. Maecenas a nisi enim. Donec risus odio, efficitur vel est eu, scelerisque viverra purus. Curabitur aliquam semper hendrerit. Aliquam eget odio vitae leo sagittis tempus. Quisque euismod tortor vel felis fringilla faucibus. In consectetur non sapien vitae laoreet. Nunc luctus nibh nisi, ac scelerisque lacus sagittis porta. Sed sed lacus sapien.",
+    tags: ["Tag", "Tag", "Tag"],
+    rating: 4,
+    timesPinned: 27);
+
 void fillList() {
   consumables.add(i1);
   consumables.add(i2);
@@ -161,8 +199,12 @@ void fillSList() {
 List<Post> fillPosts() {
   List<Post> samplePosts = new List<Post>();
 
-//  samplePosts.add(p1);
+  samplePosts.add(p1);
   samplePosts.add(p2);
+  samplePosts.add(p3);
+  samplePosts.add(p4);
+  samplePosts.add(p5);
+  samplePosts.add(p6);
 
   return samplePosts;
 }

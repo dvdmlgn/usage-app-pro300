@@ -5,6 +5,7 @@ import '../app/logic.dart';
 import '../models/post.dart';
 
 List<Post> myPosts = posts;
+Post passPost = new Post();
 
 class Social extends StatefulWidget {
   @override
@@ -14,8 +15,6 @@ class Social extends StatefulWidget {
 class _SocialState extends State<Social> {
   final TextEditingController _titleController = new TextEditingController();
   final TextEditingController _contentController = new TextEditingController();
-  String title;
-  String content;
 
   @override
   Widget build(BuildContext context) {
@@ -49,40 +48,41 @@ class _SocialState extends State<Social> {
                 return Card(
                   child: Column(
                     children: <Widget>[
-                      Hero(
-                        tag: 'myPosts',
-                        child: ListTile(
-                          leading: Image.network(
+                      ListTile(
+                        leading: Hero(
+                          tag: myPosts[index].id,
+                          child: Image.network(
                             'https://imgplaceholder.com/420x320/ff7f7f/333333/fa-image',
                             width: 100,
                             height: 100,
                           ),
-                          title: Text(
-                            myPosts[index].title,
-                            style: TextStyle(fontSize: 24.0),
-                          ),
-                          subtitle: Text(
-                            myPosts[index].content,
-                            textAlign: TextAlign.justify,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 16.0, fontWeight: FontWeight.bold),
-                            maxLines: 5,
-                          ),
-                          trailing: IconButton(
-                              icon: Icon(
-                                Icons.star_border,
-                                size: 30,
-                                color: Colors.black,
-                              ),
-                              onPressed: () {}),
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (BuildContext context) {
-                              return HeroPage(myPosts[index]);
-                            }));
-                          },
                         ),
+                        title: Text(
+                          myPosts[index].title,
+                          style: TextStyle(fontSize: 24.0),
+                        ),
+                        subtitle: Text(
+                          myPosts[index].content,
+                          textAlign: TextAlign.justify,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.bold),
+                          maxLines: 5,
+                        ),
+                        trailing: IconButton(
+                            icon: Icon(
+                              Icons.star_border,
+                              size: 30,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {}),
+                        onTap: () {
+                          passPost = myPosts[index];
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (BuildContext context) {
+                            return HeroPage();
+                          }));
+                        },
                       ),
                     ],
                   ),
@@ -110,27 +110,29 @@ class _SocialState extends State<Social> {
           new Row(
             children: <Widget>[
               new Expanded(
-                  child: new TextField(
-                controller: _titleController,
-                autofocus: true,
-                decoration: new InputDecoration(
-                    labelText: "Title",
-                    hintText: "Enter a title for your post"),
-              ))
+                child: new TextField(
+                  controller: _titleController,
+                  autofocus: true,
+                  decoration: new InputDecoration(
+                      labelText: "Title",
+                      hintText: "Enter a title for your post"),
+                ),
+              ),
             ],
           ),
           new Row(
             children: <Widget>[
               new Expanded(
-                  child: new TextField(
-                controller: _contentController,
-                autofocus: true,
-                decoration: new InputDecoration(
-                    labelText: "Post content",
-                    hintText: "What's on your mind?"),
-              ))
+                child: new TextField(
+                  controller: _contentController,
+                  autofocus: true,
+                  decoration: new InputDecoration(
+                      labelText: "Post content",
+                      hintText: "What's on your mind?"),
+                ),
+              ),
             ],
-          )
+          ),
         ],
       ),
       actions: <Widget>[
@@ -152,13 +154,12 @@ class _SocialState extends State<Social> {
   }
 }
 
-class HeroPage extends StatelessWidget {
-  Post fullPost = new Post();
+class HeroPage extends StatefulWidget {
+  @override
+  _HeroPageState createState() => _HeroPageState();
+}
 
-  HeroPage(Post post) {
-    fullPost = post;
-  }
-
+class _HeroPageState extends State<HeroPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,18 +171,60 @@ class HeroPage extends StatelessWidget {
                 size: 30,
                 color: Colors.white,
               ),
-              onPressed: () {}),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text("Edit Post"),
+                        content: SingleChildScrollView(
+                          child: Column(
+                            children: <Widget>[
+                              new Row(
+                                children: <Widget>[
+                                  new Expanded(
+                                      child: TextFormField(
+                                    initialValue: passPost.title,
+                                    decoration:
+                                        new InputDecoration(labelText: "Title"),
+                                  )),
+                                ],
+                              ),
+                              new Row(
+                                children: <Widget>[
+                                  new Expanded(
+                                      child: TextFormField(
+                                    maxLines: null,
+                                    initialValue: passPost.content,
+                                    decoration: new InputDecoration(
+                                        labelText: "Content"),
+                                  )),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          new FlatButton(
+                              child: Text("Save"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              })
+                        ],
+                      );
+                    });
+              }),
         ],
       ),
       body: Hero(
-        tag: 'fullPost',
+        tag: passPost.id,
         child: Scaffold(
           body: SingleChildScrollView(
             child: Container(
               child: Column(
                 children: <Widget>[
                   Text(
-                    fullPost.title,
+                    passPost.title,
                     style: TextStyle(fontSize: 30),
                   ),
                   Center(
@@ -193,14 +236,14 @@ class HeroPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(bottom: 25.0),
                     child: Text(
-                      "Rating: " + fullPost.rating.toString(),
+                      "Rating: " + passPost.rating.toString(),
                       style: TextStyle(
                         fontSize: 18,
                       ),
                     ),
                   ),
                   Text(
-                    fullPost.content,
+                    passPost.content,
                     style: TextStyle(fontSize: 20),
                   ),
                 ],
