@@ -25,85 +25,82 @@ class ShoppingState extends State<Shopping> {
       index: 0);
   bool switchValue = false;
   var selectedScreen;
-  String title;
+  String title = 'uSage';
 
   @override
   // BUILD THE SHOPPING LIST SCAFFOLD
   Widget build(BuildContext context) {
-    _addDummyData(); //this fills the groceries lsit with all groceries, including those set to inBasket
-    //SORT INITIAL DATA
-    for (var g in _allGroceries) {
-      if (g.inBasket == false) {
-        if (!_shoppingList.contains(g)) {
-          _shoppingList.add(g);
-        }
-      } else {
-        if (!_basket.contains(g)) {
-          _basket.add(g);
-        }
-      }
-    }
+    _addDummyData();
+    sortGroceries(_allGroceries, _shoppingList, _basket);
 
-    print(_allGroceries.length);
-    print(_shoppingList.length);
-    print(_basket.length);
-
+    //ON SWITCH CHANGE => BUILD APPROPRIATE LIST
     if (switchValue == false) {
       //INVENTORY SCREEN
       title = "Shopping List";
-      selectedScreen = _buildShoppingList();
+      selectedScreen = _buildGroceryList(_shoppingList);
     } else {
       //BASKET SCREEN
       title = "Basket";
-      selectedScreen = _buildBasket();
+      selectedScreen = _buildGroceryList(_basket);
     }
 
+    /* ################################################################################################## */
+    /* ###########################################  Scaffold ############################################ */
+
     return Scaffold(
-      body: selectedScreen,
-      appBar: AppBar(
-        title: Text(title),
-        actions: <Widget>[
-          Switch.adaptive(
-              value: switchValue,
-              onChanged: (bool value) {
-                setState(() {
-                  switchValue = value;
-                });
-              }),
-        ],
-      ),
-      floatingActionButton:
-          Fabs.addListItemFab("Grocery", _pushAddConsumableScreen),
-    );
+        body: selectedScreen,
+        appBar: AppBar(
+          title: Text(title),
+          actions: <Widget>[
+            _grocerySwitch(),
+          ],
+        ),
+        floatingActionButton: _showFAB());
   }
 
-  //BUILD THE LIST
-  Widget _buildShoppingList() {
+  /* ################################################################################################## */
+  /* ###########################################  Widgets ############################################# */
+
+  // SCAFFOLD WIDGETS
+
+  //LIST BUILDER
+  Widget _buildGroceryList(List<Grocery> groceryList) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        if (index < _shoppingList.length) {
-          return _buildConsumable(_shoppingList[index], index);
+        if (index < groceryList.length) {
+          return _buildGrocery(groceryList[index], index);
         }
       },
     );
   }
 
-  Widget _buildBasket() {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        if (index < _basket.length) {
-          return _buildConsumable(_basket[index], index);
-        }
-      },
-    );
+//SWITCH TO HANDLE WHICH LIST TO DISPLAY (SHOPPING LIST OR BASKET)
+  Widget _grocerySwitch() {
+    return Switch.adaptive(
+        value: switchValue,
+        onChanged: (bool value) {
+          setState(() {
+            switchValue = value;
+          });
+        });
   }
+
+//SHOW ADD GROCERY FAB ONLY ON SHOPPING LIST
+  Widget _showFAB() {
+    if (switchValue == false) {
+      return Fabs.addListItemFab("Grocery", _pushAddGroceryScreen);
+    } else
+      return null;
+  }
+
+  //GROCERY LIST ITEM WIDGETS
 
   //BUILD THE DISMISSABLE
-  Widget _buildConsumable(Grocery grocery, int index) {
+  Widget _buildGrocery(Grocery grocery, int index) {
     //build dismissable dependent on wether its in shopping list or basket
     return Dismissible(
       key: ObjectKey(grocery),
-      child: _shoppingListGrocery(grocery, index),
+      child: _grocery(grocery, index),
       background: Container(color: Colors.green),
       secondaryBackground: Container(color: Colors.red),
       onDismissed: (direction) {
@@ -118,7 +115,7 @@ class ShoppingState extends State<Shopping> {
   }
 
   //BUILD SHOPPING LIST LIST ITEM
-  Widget _shoppingListGrocery(Grocery grocery, int index) {
+  Widget _grocery(Grocery grocery, int index) {
     return ListTile(
         title: Text(grocery.name),
         trailing: Text(grocery.quantity.toString().split('.')[0]),
@@ -127,6 +124,9 @@ class ShoppingState extends State<Shopping> {
           quickEditDialog(context, grocery, index);
         });
   }
+
+  /* ################################################################################################## */
+  /* ############################################  FUTURES ############################################ */
 
   //QUICK EDIT POP UP
   Future<bool> quickEditDialog(
@@ -177,7 +177,73 @@ class ShoppingState extends State<Shopping> {
         });
   }
 
-  //VIEL CONSUMABLE SCREEN
+  //DELETE GROCERY DIALOG
+  Future<bool> deleteGroceryDialog(int index, Grocery grocery) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Theme(
+            data: Theme.of(context)
+                .copyWith(dialogBackgroundColor: Colors.transparent),
+            child: SimpleDialog(
+              children: <Widget>[
+                Card(
+                  elevation: 4,
+                  child: Column(children: <Widget>[
+                    Text("What Happened?"),
+                    Divider(),
+                    MaterialButton(
+                      child: Text('JUST DELETE IT!'),
+                      color: Colors.blue,
+                      onPressed: () {
+                        groceries.remove(grocery);
+                        if (_shoppingList.contains(grocery)) {
+                          _shoppingList.remove(grocery);
+                        }
+                        if (_basket.contains(grocery)) {
+                          _basket.remove(grocery);
+                        }
+                        Navigator.of(context).pop(); //CLOSE VIEW GROCERY DIALOG
+                        Navigator.pop(context); //CLOSE EDIT GROCERY DIALOG
+                      },
+                    ),
+                  ]),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  /* ################################################################################################## */
+  /* ###########################################  FUNCTIONS ########################################### */
+
+//POPULATE SHOPPING LIST AND BASKET WITH DUMMY DATA
+  void _addDummyData() {
+    if (doFill) {
+      fillSList();
+      doFill = false;
+    }
+  }
+
+  void sortGroceries(List<Grocery> _allGroceries, List<Grocery> _shoppingList,
+      List<Grocery> _basket) {
+    for (var g in _allGroceries) {
+      if (g.inBasket == false) {
+        if (!_shoppingList.contains(g)) {
+          _shoppingList.add(g);
+        }
+      }
+      //IF INBASKET = TRUE => ADD TO BASKET
+      else {
+        if (!_basket.contains(g)) {
+          _basket.add(g);
+        }
+      }
+    }
+  }
+
+  //VIEW GROCERY SCREEN
   void _pushViewGroceryScreen(
       BuildContext context, Grocery grocery, int index) {
     final _formKey = GlobalKey<FormState>();
@@ -211,9 +277,7 @@ class ShoppingState extends State<Shopping> {
                         IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () {
-                            deleteConsumableDialog(index, grocery);
-                            // Groceries.delete(index);
-                            // Navigator.pop(context);
+                            deleteGroceryDialog(index, grocery);
                           },
                         ),
                       ],
@@ -226,44 +290,7 @@ class ShoppingState extends State<Shopping> {
     }));
   }
 
-  Future<bool> deleteConsumableDialog(int index, Grocery grocery) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Theme(
-            data: Theme.of(context)
-                .copyWith(dialogBackgroundColor: Colors.transparent),
-            child: SimpleDialog(
-              children: <Widget>[
-                Card(
-                  elevation: 4,
-                  child: Column(children: <Widget>[
-                    Text("What Happened?"),
-                    Divider(),
-                    MaterialButton(
-                      child: Text('JUST DELETE IT!'),
-                      color: Colors.blue,
-                      onPressed: () {
-                        groceries.remove(grocery);
-                        if (_shoppingList.contains(grocery)) {
-                          _shoppingList.remove(grocery);
-                        }
-                        if (_basket.contains(grocery)) {
-                          _basket.remove(grocery);
-                        }
-                        Navigator.of(context).pop();
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
-  //EDIT CONSUMABLE SCREEN
+  //EDIT GROCERY SCREEN
   void _pushEditGroceryScreen(
       BuildContext context, Grocery grocery, int index) {
     final _formKey = GlobalKey<FormState>();
@@ -304,8 +331,8 @@ class ShoppingState extends State<Shopping> {
     }));
   }
 
-//ADD CONSUMABLE SCREEN
-  void _pushAddConsumableScreen() {
+//ADD GROCERY SCREEN
+  void _pushAddGroceryScreen() {
     final _formKey = GlobalKey<FormState>();
     final nameCtrl = TextEditingController();
     final qtyCtrl = TextEditingController();
@@ -328,8 +355,7 @@ class ShoppingState extends State<Shopping> {
                     child: Text('ADD'),
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
-                        _addConsumable(
-                            nameCtrl.text, double.parse(qtyCtrl.text));
+                        _addGrocery(nameCtrl.text, double.parse(qtyCtrl.text));
                         Navigator.pop(context); // Close the add todo screen
 
                       }
@@ -344,17 +370,14 @@ class ShoppingState extends State<Shopping> {
     );
   }
 
-//ADD CONSUMABLE
-  void _addConsumable(String name, double qty) {
+//ADD GROCERY
+  void _addGrocery(String name, double qty) {
     setState(() => Groceries.create(Grocery(name: name, quantity: qty)));
   }
 
 //REMOVE SHOPPING LIST ITEM ON SWIPE
   void _handleShoppingListDismissed(
       DismissDirection direction, int index, Grocery grocery) {
-    // final snackBar =
-    //     SnackBar(content: Text("Undo Delete: " + tempGrocery.grocery.name));
-
     if (direction == DismissDirection.startToEnd) {
       //SWIPE RIGHT => MOVE ITEM TO BASKET
       grocery.inBasket = true; //SET IN BASKET TO TRUE
@@ -366,8 +389,11 @@ class ShoppingState extends State<Shopping> {
       tempGrocery = TempGrocery(
           grocery: grocery,
           index: index); //CREATE TEMP GROCERY FOR UNDO LAST DELETE
-      _shoppingList.removeAt(index); //REMOVE GROCERY FROM SHOPPINGLIST LIST
-      Groceries.delete(index); //DELETE GROCERY FROM ALL GROCERIES
+
+      groceries.remove(grocery);
+      _shoppingList.remove(grocery);
+
+//SHOW UNDO SNACKBAR
       Scaffold.of(context).showSnackBar(
         SnackBar(
           content: Text("Undo Delete of " + tempGrocery.grocery.name),
@@ -378,6 +404,7 @@ class ShoppingState extends State<Shopping> {
               groceries.insert(index, tempGrocery.grocery);
               //ADD TEMP GROCERY TO SHOPPING LIST
               _shoppingList.insert(index, tempGrocery.grocery);
+              setState(() {});
             },
           ),
         ),
@@ -396,7 +423,7 @@ class ShoppingState extends State<Shopping> {
           expiry: 'DATE',
           description: 'DESC',
           imageUrl:
-              'null')); //CREATE A CONSUMABLE FROM GROCERY AND ADD TO INVENTORY LIST
+              'null')); //CREATE A GROCERY FROM GROCERY AND ADD TO INVENTORY LIST
       _basket.removeAt(index); //REMOVE GROCERY FROM BASKET
       Groceries.delete(index); ////DELETE GROCERY FROM ALL GROCERIES
     } else {
@@ -404,14 +431,6 @@ class ShoppingState extends State<Shopping> {
       grocery.inBasket = false; //SET IN BASKET TO FALSE
       _shoppingList.add(grocery); //ADD GROCERY TO SHOPPINGLIST LIST
       _basket.removeAt(index); //REMOVE GROCERY FROM BASKET
-    }
-  }
-
-//POPULATE SHOPPING LIST AND BASKET WITH DUMMY DATA
-  void _addDummyData() {
-    if (doFill) {
-      fillSList();
-      doFill = false;
     }
   }
 }
