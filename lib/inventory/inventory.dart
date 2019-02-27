@@ -14,14 +14,39 @@ class Inventory extends StatefulWidget {
 class InventoryState extends State<Inventory> {
   bool doFill = true;
   List<Consumable> _consumables = consumables;
+  bool leadingValue = false;
+  var selectedLeading;
+  var selectedTitle;
+
   @override
   // BUILD THE INVENTORY SCAFFOLD
   Widget build(BuildContext context) {
+    final TextEditingController _filter = new TextEditingController();
+
     _addDummyData();
+    if (leadingValue) {
+      selectedTitle = TextField(
+        controller: _filter,
+        decoration: new InputDecoration(
+            prefixIcon: new Icon(Icons.search), hintText: 'Search...'),
+      );
+      selectedLeading = IconButton(
+          icon: Icon(Icons.close), onPressed: _handleIconBtnPresssed);
+    } else {
+      selectedTitle = Text("ShoppingList");
+      selectedLeading = IconButton(
+          icon: Icon(Icons.search), onPressed: _handleIconBtnPresssed);
+    }
     return Scaffold(
       body: _buildInventoryList(),
       appBar: AppBar(
-        title: Text("Inventory"),
+        title: selectedTitle,
+        leading: IconButton(
+          icon: selectedLeading,
+          onPressed: () {
+            leadingValue = !leadingValue;
+          },
+        ),
       ),
       floatingActionButton:
           Fabs.addListItemFab("Consumable", _pushAddConsumableScreen),
@@ -343,5 +368,11 @@ class InventoryState extends State<Inventory> {
       fillList();
       doFill = false;
     }
+  }
+
+  void _handleIconBtnPresssed() {
+    setState(() {
+      leadingValue = !leadingValue;
+    });
   }
 }
