@@ -13,7 +13,9 @@ class Shopping extends StatefulWidget {
 }
 
 class ShoppingState extends State<Shopping> {
-  bool doFill = true;
+  final TextEditingController _filter = new TextEditingController();
+
+  bool doFill = true; //INIT FILL LIST
   List<Grocery> _allGroceries = groceries; //ALL GROCERIES
   List<Grocery> _shoppingList = []; //GROCESIES ON SHOPPING LIST
   List<Grocery> _basket = []; //GROCERIES IN BASKET
@@ -23,9 +25,13 @@ class ShoppingState extends State<Shopping> {
         quantity: null,
       ),
       index: 0);
-  bool switchValue = false;
-  var selectedScreen;
-  String title = 'uSage';
+  bool switchValue = false; //FOR SWITCH
+  bool leadingValue = false;
+  var selectedScreen; //SHOPPING LIST OR BASKET
+  var selectedTitle;
+  var selectedLeading;
+
+  // String title;
 
   @override
   // BUILD THE SHOPPING LIST SCAFFOLD
@@ -34,14 +40,27 @@ class ShoppingState extends State<Shopping> {
     sortGroceries(_allGroceries, _shoppingList, _basket);
 
     //ON SWITCH CHANGE => BUILD APPROPRIATE LIST
-    if (switchValue == false) {
-      //INVENTORY SCREEN
-      title = "Shopping List";
-      selectedScreen = _buildGroceryList(_shoppingList);
-    } else {
-      //BASKET SCREEN
-      title = "Basket";
+    if (switchValue) {
+      //BASKET SELECTED BY SWITCH
       selectedScreen = _buildGroceryList(_basket);
+      selectedTitle = Text("Basket");
+      selectedLeading = Icon(Icons.shopping_basket);
+    } else {
+      selectedScreen = _buildGroceryList(_shoppingList);
+      if (leadingValue) {
+        //SEARCH ICON SHOWS
+        selectedTitle = TextField(
+          controller: _filter,
+          decoration: new InputDecoration(
+              prefixIcon: new Icon(Icons.search), hintText: 'Search...'),
+        );
+        selectedLeading = IconButton(
+            icon: Icon(Icons.close), onPressed: _handleIconBtnPresssed);
+      } else {
+        selectedTitle = Text("ShoppingList");
+        selectedLeading = IconButton(
+            icon: Icon(Icons.search), onPressed: _handleIconBtnPresssed);
+      }
     }
 
     /* ################################################################################################## */
@@ -50,7 +69,8 @@ class ShoppingState extends State<Shopping> {
     return Scaffold(
         body: selectedScreen,
         appBar: AppBar(
-          title: Text(title),
+          title: selectedTitle,
+          leading: selectedLeading,
           actions: <Widget>[
             _grocerySwitch(),
           ],
@@ -60,8 +80,6 @@ class ShoppingState extends State<Shopping> {
 
   /* ################################################################################################## */
   /* ###########################################  Widgets ############################################# */
-
-  // SCAFFOLD WIDGETS
 
   //LIST BUILDER
   Widget _buildGroceryList(List<Grocery> groceryList) {
@@ -224,6 +242,12 @@ class ShoppingState extends State<Shopping> {
       fillSList();
       doFill = false;
     }
+  }
+
+  void _handleIconBtnPresssed() {
+    setState(() {
+      leadingValue = !leadingValue;
+    });
   }
 
   void sortGroceries(List<Grocery> _allGroceries, List<Grocery> _shoppingList,
