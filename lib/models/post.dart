@@ -9,12 +9,11 @@ class Post {
   var tags = <String>[];
   int rating;
   int timesPinned;
+  bool saved = false;
 
-  Post({this.id, this.author, this.title, this.content, this.tags, this.rating, this.timesPinned}) {
+  Post({this.id, this.author, this.title, this.content, this.tags, this.rating, this.timesPinned, this.saved}) {
     id = newId();
     timestamp = newTimestamp();
-    rating = 0;
-    timesPinned = 0;
   }
 
   Post.cache({this.id, this.timestamp, this.author, this.title, this.content, this.tags, this.rating, this.timesPinned});
