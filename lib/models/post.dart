@@ -1,3 +1,4 @@
+import 'package:usage/backend/miscella.dart';
 
 class Post {
   String id;
@@ -12,8 +13,8 @@ class Post {
   bool saved = false;
 
   Post({this.id, this.author, this.title, this.content, this.tags, this.rating, this.timesPinned, this.category, this.saved}) {
-//    id = newId();
-//    timestamp = newTimestamp();
+    id = newId();
+    timestamp = newTimestamp();
   }
 
   Post.cache({this.id, this.timestamp, this.author, this.title, this.content, this.tags, this.rating, this.timesPinned});

@@ -15,7 +15,7 @@ final views = {
   'shopping list': ShoppingListView,
   'shopping basket': ShoppingBasketView,
   'social feed': SocialFeedView,
-  'social saved': SocialSavedView,
+  'social saved': socialSavedView,
 };
 
 // newView(View view) {

@@ -3,6 +3,7 @@ import '../models/grocery.dart';
 import '../models/post.dart';
 import '../models/product.dart';
 
+
 final products = <Product>[];
 final consumables = <Consumable>[];
 final consumablesDummy = <Consumable>[
@@ -45,6 +46,28 @@ final groceries = <Grocery>[];
 // posts are not -- they're to be pulled from the server always!
 // - david (28 feb 19)
 final savedPosts = <Post>[];
+
+final dummyPosts = <Post>[
+  Post(
+      author: "Paul",
+      title: "This is a title",
+      content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec tellus ac nibh commodo consequat vitae sollicitudin dolor. Mauris commodo felis et neque finibus, ac sagittis nulla cursus. Duis pharetra pulvinar diam ac tempor. Curabitur nec elit lectus. Aenean aliquam tincidunt turpis, eu lacinia eros maximus at. Morbi libero elit.",
+      tags: ["Tag", "Tag", "Tag"],
+      rating: 4,
+      timesPinned: 27
+  ),
+  Post(
+      author: "Paul",
+      title: "This is a title",
+      content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec tellus ac nibh commodo consequat vitae sollicitudin dolor. Mauris commodo felis et neque finibus, ac sagittis nulla cursus. Duis pharetra pulvinar diam ac tempor. Curabitur nec elit lectus. Aenean aliquam tincidunt turpis, eu lacinia eros maximus at. Morbi libero elit.",
+      tags: ["Tag", "Tag", "Tag"],
+      rating: 4,
+      timesPinned: 27
+  ),
+];
+
 final posts = <Post>[];
 
 var i1 = new Consumable(
