@@ -12,10 +12,10 @@ class AppState {
   static final _viewSubject = PublishSubject<View>();
 
   static final consumablesSubject = PublishSubject< List<Consumable> >();
-  static final groceriesSubject = PublishSubject< List<Grocery> >();
-  static final postsSubject = PublishSubject< List<Post> >();
-  static final savedPostsSubject = PublishSubject< List<Post> >();
-  static final productsSubject = PublishSubject< List<Product> >();
+  static final groceriesSubject   = PublishSubject< List<Grocery> >();
+  static final postsSubject       = PublishSubject< List<Post> >();
+  static final savedPostsSubject  = PublishSubject< List<Post> >();
+  static final productsSubject    = PublishSubject< List<Product> >();
 
   /// an alias for UI/UX centric presentation code to call,
   /// this aids better abstractiom between presentation & business logic code
