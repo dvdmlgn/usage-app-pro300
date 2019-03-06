@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:usage/backend/transactionLog.dart';
 import 'dataStore.dart';
 import 'appState.dart';
 import '../models/consumable.dart';
@@ -12,42 +12,91 @@ class Consumables {
 
   static add(Consumable newItem) {
     consumables.add(newItem);
-    // transaction log
+    AppState.updateConsumablesSubject();
+
+    Transaction(
+      action:   'create',
+      dataType: 'consumable',
+      oldState: 'nil',
+      newState: newItem.jsonify(),
+    );
   }
 
   static edit(int index, Consumable newData) {
-
-
+    final _oldState = consumables[index];
     consumables[index] = newData;
+    AppState.updateConsumablesSubject();
+
+    Transaction(
+      action:   'edit',
+      dataType: 'consumable',
+      oldState: _oldState.jsonify(),
+      newState: newData.jsonify(),
+    );
   }
 
-  static quickEdit(int index, Consumable newData) {
+  static quickEdit(int index, double quantity) {
+    final _oldState = consumables[index];
+    consumables[index].quantity = quantity;
+    AppState.updateConsumablesSubject();
 
+    Transaction(
+      action:   'quick edit',
+      dataType: 'consumable',
+      oldState: _oldState.jsonify(),
+      newState: consumables[index].jsonify(),
+    );
   }
 
   static delete(int index) {
-    debugPrint('item at index $index was deleted');
-
+    final _oldState = consumables[index];
     consumablesDummy.removeAt(index);
-    AppState.consumablesSubject.sink.add(consumablesDummy);
+    AppState.updateConsumablesSubject();
+
+    Transaction(
+      action:   'delete',
+      dataType: 'consumable',
+      oldState: _oldState.jsonify(),
+      newState: 'nil',
+    );
   }
 
   static consumed(int index) {
-    debugPrint('item at index $index was consumed');
-
+    final _oldState = consumables[index];
     consumablesDummy.removeAt(index);
-    AppState.consumablesSubject.sink.add(consumablesDummy);
+    AppState.updateConsumablesSubject();
+
+    Transaction(
+      action:   'consumed',
+      dataType: 'consumable',
+      oldState: _oldState.jsonify(),
+      newState: 'nil',
+    );
   }
 
   static wasted(int index) {
-    debugPrint('item at index $index was consumed');
-
+    final _oldState = consumables[index];
     consumablesDummy.removeAt(index);
-    AppState.consumablesSubject.sink.add(consumablesDummy);
+    AppState.updateConsumablesSubject();
+
+    Transaction(
+      action:   'wasted',
+      dataType: 'consumable',
+      oldState: _oldState.jsonify(),
+      newState: 'nil',
+    );
   }
 
   static moveToShoppingList(int index) {
+    // don't know if we want to add this to the transaction log
+    // - david (5 - march - 19)
+    final _consumable = consumables[index];
+    final _grocery = Grocery(); // add conversion from consumable to grocery here
 
+    consumables.removeAt(index);
+    groceries.add(_grocery);
+    AppState.updateConsumablesSubject();
+    AppState.updateGroceriesSubject(); // not sure right now if we need this or not
   }
 
 

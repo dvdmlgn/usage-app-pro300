@@ -30,6 +30,28 @@ class AppState {
   }
 
 
+  static updateConsumablesSubject() {
+    consumablesSubject.sink.add(consumablesDummy);
+  }
+
+  static updateGroceriesSubject() {
+    groceriesSubject.sink.add(groceries);
+  }
+
+  static updatePostsSubject() {
+    postsSubject.sink.add(posts);
+  }
+
+  static updateSavedPostsSubject() {
+    savedPostsSubject.sink.add(savedPosts);
+  }
+
+  static updateProductsSubject() {
+    productsSubject.sink.add(products);
+  }
+
+
+
   static disposeOfViewSubject() {
     _viewSubject.close();
   }
