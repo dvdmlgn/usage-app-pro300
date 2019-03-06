@@ -14,7 +14,7 @@ final views = {
   'inventory': inventoryView,
   'shopping list': ShoppingListView,
   'shopping basket': ShoppingBasketView,
-  'social feed': SocialFeedView,
+  'social feed': socialFeedView,
   'social saved': socialSavedView,
 };
 
