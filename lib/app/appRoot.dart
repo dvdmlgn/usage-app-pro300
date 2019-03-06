@@ -39,7 +39,7 @@ class _State extends State<AppRoot> {
           appBar: topAppBar,
           body: snapshot.data.body,
 
-          floatingActionButton: fab,
+          floatingActionButton: snapshot.data.fab,
           floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
 
           bottomNavigationBar: bottomAppBar,
