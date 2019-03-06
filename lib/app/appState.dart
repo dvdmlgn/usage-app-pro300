@@ -34,10 +34,25 @@ class AppState {
     _viewSubject.close();
   }
 
-  static dispostofConsumablesSubject() {
+  static dispostOfConsumablesSubject() {
     consumablesSubject.close();
   }
 
+  static disposeOfGorceriesSubject() {
+    groceriesSubject.close();
+  }
+
+  static disposeOfPostsSubject() {
+    postsSubject.close();
+  }
+
+  static disposeOfSavePostsSubject() {
+    savedPostsSubject.close();
+  }
+
+  static disposeOfProdutsSubject() {
+    productsSubject.close();
+  }
   
 
 }
