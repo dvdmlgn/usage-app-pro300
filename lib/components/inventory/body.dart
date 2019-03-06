@@ -6,7 +6,7 @@ class InventoryBody extends StatelessWidget {
   const InventoryBody({
     Key key,
   }) : super(key: key);
-
+  @override
   @override
   Widget build(BuildContext context) {
     var _stream;
@@ -16,8 +16,8 @@ class InventoryBody extends StatelessWidget {
       builder: (BuildContext context, snapshot) {
         return ListView.builder(
           itemBuilder: (context, index) {
-            if (index < consumables.length) {
-              consumable = consumable;
+            if (index < consumablesDummy.length) {
+              consumable = consumablesDummy[index];
               return Dismissible(
                 key: ObjectKey(consumable),
                 background: Container(color: Colors.green),
