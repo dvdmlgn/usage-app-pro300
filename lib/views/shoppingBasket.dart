@@ -4,7 +4,7 @@ import '../models/view.dart';
 final ShoppingBasketView = View(
   leadingAction: _leadingAction,
   body: _body,
-  section: 'shopping',
+  section: sections.shopping,
 );
 
 final _body = Center(

@@ -1,16 +1,26 @@
-import 'package:flutter/material.dart';
-import '../models/view.dart';
+import 'package:usage/components/inventory/body.dart';
+import 'package:usage/models/view.dart';
+import 'package:usage/components/icons.dart';
+import 'package:usage/components/fab.dart';
 
-final InventoryView = View(
+final inventoryView = View(
   leadingAction: _leadingAction,
   body: _body,
-  section: 'inventory',
+  section: _section,
+  fab: _fab,
+  meta: _meta,
 );
 
-final _body = Center(
-  child: Container(
-    color: Colors.amber,
-  ),
+final _fab = Fab(
+  icon: icons.add,
+  type: 'Consumable',
+  fn: () {},
 );
 
-final _leadingAction = Text('inventory');
+final _body = InventoryBody();
+
+final _leadingAction = null;
+
+final _section = sections.inventory;
+
+final _meta = null;

@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/view.dart';
 
 final ShoppingListView = View(
-  leadingAction: _leadingAction,
-  body: _body,
-  section: 'shopping',
-);
+    leadingAction: _leadingAction, body: _body, section: sections.shopping);
 
 final _body = Center(
   child: Container(

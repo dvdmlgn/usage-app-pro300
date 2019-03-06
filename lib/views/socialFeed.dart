@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/view.dart';
 
-final SocialFeedView = View(
-  leadingAction: _leadingAction,
-  body: _body,
-  section: 'social'
-);
+final SocialFeedView =
+    View(leadingAction: _leadingAction, body: _body, section: sections.social);
 
 final _body = Center(
   child: Container(
