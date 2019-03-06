@@ -8,7 +8,7 @@ import '../models/post.dart';
 import '../models/product.dart';
 
 class Consumables {
-  static Stream< List<Consumable> > get Get => AppState.consumablesSubject.stream;
+  static Stream< List<Consumable> > get listen => AppState.consumablesSubject.stream;
 
   static add(Consumable newItem) {
     consumables.add(newItem);
