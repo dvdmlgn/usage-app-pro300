@@ -11,7 +11,7 @@ class Consumables {
   static Stream< List<Consumable> > get listen => AppState.consumablesSubject.stream;
 
   static add(Consumable newItem) {
-    consumables.add(newItem);
+    consumablesDummy.add(newItem);
     AppState.updateConsumablesSubject();
 
     Transaction(
@@ -49,7 +49,7 @@ class Consumables {
   }
 
   static delete(int index) {
-    final _oldState = consumables[index];
+    final _oldState = consumablesDummy[index];
     consumablesDummy.removeAt(index);
     AppState.updateConsumablesSubject();
 
@@ -62,7 +62,7 @@ class Consumables {
   }
 
   static consumed(int index) {
-    final _oldState = consumables[index];
+    final _oldState = consumablesDummy[index];
     consumablesDummy.removeAt(index);
     AppState.updateConsumablesSubject();
 
@@ -75,7 +75,7 @@ class Consumables {
   }
 
   static wasted(int index) {
-    final _oldState = consumables[index];
+    final _oldState = consumablesDummy[index];
     consumablesDummy.removeAt(index);
     AppState.updateConsumablesSubject();
 
