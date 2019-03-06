@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:usage/app/dataStore.dart';
 import 'package:usage/models/consumable.dart';
 import 'package:usage/app/logic.dart';
-import 'package:usage/app/appState.dart';
 
 class InventoryBody extends StatelessWidget {
   const InventoryBody({
@@ -36,20 +35,18 @@ Widget _listItem(Consumable consumable, int index) {
     key: ObjectKey(consumable),
     background: Container(color: Colors.green),
     secondaryBackground: Container(color: Colors.red),
+
     onDismissed: (direction) {
-      if(direction == DismissDirection.endToStart) {
-        Consumables.consumed(index);
-      } else {
-        Consumables.wasted(index);
-      }
+      if(direction == DismissDirection.endToStart) { Consumables.consumed(index); } 
+      else { Consumables.wasted(index); }
     },
+
     child: ListTile(
       title: Text(consumable.name),
       onLongPress: () {},
-      onTap: () {
-        Consumables.delete(index);
-      },
+      onTap: () => Consumables.delete(index),
       trailing: Text(consumable.quantity.toString().split('.')[0]),
     ),
+
   );
 }
