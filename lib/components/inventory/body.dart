@@ -13,11 +13,12 @@ class InventoryBody extends StatelessWidget {
     Consumable consumable = new Consumable();
     return StreamBuilder(
       stream: _stream,
+      initialData: consumablesDummy,
       builder: (BuildContext context, snapshot) {
         return ListView.builder(
           itemBuilder: (context, index) {
-            if (index < consumablesDummy.length) {
-              consumable = consumablesDummy[index];
+            if (index < snapshot.data.length) {
+              consumable = snapshot.data[index];
               return Dismissible(
                 key: ObjectKey(consumable),
                 background: Container(color: Colors.green),
