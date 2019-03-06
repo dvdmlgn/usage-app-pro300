@@ -26,6 +26,7 @@ class InventoryBody extends StatelessWidget {
                 child: ListTile(
                   title: Text(consumable.name),
                   onLongPress: () {},
+                  onTap: () {},
                   trailing: Text(consumable.quantity.toString().split('.')[0]),
                 ),
               );
