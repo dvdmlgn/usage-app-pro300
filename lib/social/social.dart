@@ -6,6 +6,13 @@ import '../models/post.dart';
 
 List<Post> myPosts = posts;
 Post passPost = new Post();
+Widget _widgetEditTitle;
+Widget _widgetEditContent;
+Widget _widgetEditRating;
+final TextEditingController _titleController = new TextEditingController();
+final TextEditingController _contentController = new TextEditingController();
+
+List<Post> mySavedPosts;
 
 class Social extends StatefulWidget {
   @override
@@ -13,9 +20,6 @@ class Social extends StatefulWidget {
 }
 
 class _SocialState extends State<Social> {
-  final TextEditingController _titleController = new TextEditingController();
-  final TextEditingController _contentController = new TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,47 +49,48 @@ class _SocialState extends State<Social> {
               reverse: false,
               itemCount: myPosts.length,
               itemBuilder: (_, int index) {
-                return Card(
-                  child: Column(
-                    children: <Widget>[
-                      ListTile(
-                        leading: Hero(
-                          tag: myPosts[index].id,
-                          child: Image.network(
-                            'https://imgplaceholder.com/420x320/ff7f7f/333333/fa-image',
-                            width: 100,
-                            height: 100,
-                          ),
+                return Column(
+                  children: <Widget>[
+                    ListTile(
+                      leading: Hero(
+                        tag: myPosts[index].id,
+                        child: Image.network(
+                          'https://imgplaceholder.com/420x320/ff7f7f/333333/fa-image',
+                          width: 100,
+                          height: 100,
                         ),
-                        title: Text(
-                          myPosts[index].title,
-                          style: TextStyle(fontSize: 24.0),
-                        ),
-                        subtitle: Text(
-                          myPosts[index].content,
-                          textAlign: TextAlign.justify,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold),
-                          maxLines: 5,
-                        ),
-                        trailing: IconButton(
-                            icon: Icon(
-                              Icons.star_border,
-                              size: 30,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {}),
-                        onTap: () {
-                          passPost = myPosts[index];
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (BuildContext context) {
-                            return HeroPage();
-                          }));
-                        },
                       ),
-                    ],
-                  ),
+                      title: Text(
+                        myPosts[index].title,
+                        style: TextStyle(fontSize: 24.0),
+                      ),
+                      subtitle: Text(
+                        myPosts[index].content,
+                        textAlign: TextAlign.justify,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 16.0, fontWeight: FontWeight.bold),
+                        maxLines: 5,
+                      ),
+                      trailing: IconButton(
+                          icon: Icon(
+                            Icons.star_border,
+                            size: 30,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {
+                            myPosts[index].saved = true;
+                            mySavedPosts.add(myPosts[index]);
+                          }),
+                      onTap: () {
+                        passPost = myPosts[index];
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return HeroPage();
+                        }));
+                      },
+                    ),
+                  ],
                 );
               },
             ),
@@ -120,18 +125,20 @@ class _SocialState extends State<Social> {
               ),
             ],
           ),
-          new Row(
-            children: <Widget>[
-              new Expanded(
-                child: new TextField(
-                  controller: _contentController,
-                  autofocus: true,
-                  decoration: new InputDecoration(
-                      labelText: "Post content",
-                      hintText: "What's on your mind?"),
+          SingleChildScrollView(
+            child: Row(
+              children: <Widget>[
+                new Expanded(
+                  child: new TextField(
+                    controller: _contentController,
+                    autofocus: true,
+                    decoration: new InputDecoration(
+                        labelText: "Post content",
+                        hintText: "What's on your mind?"),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -161,60 +168,28 @@ class HeroPage extends StatefulWidget {
 
 class _HeroPageState extends State<HeroPage> {
   @override
+  initState() {
+    super.initState();
+    _widgetEditTitle = Text(
+      passPost.title,
+      style: TextStyle(fontSize: 30),
+    );
+
+    _widgetEditContent = Text(
+      passPost.content,
+      style: TextStyle(fontSize: 20),
+    );
+
+    _widgetEditRating = Text(
+      passPost.rating.toString(),
+      style: TextStyle(fontSize: 20),
+    );
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.edit,
-                size: 30,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text("Edit Post"),
-                        content: SingleChildScrollView(
-                          child: Column(
-                            children: <Widget>[
-                              new Row(
-                                children: <Widget>[
-                                  new Expanded(
-                                      child: TextFormField(
-                                    initialValue: passPost.title,
-                                    decoration:
-                                        new InputDecoration(labelText: "Title"),
-                                  )),
-                                ],
-                              ),
-                              new Row(
-                                children: <Widget>[
-                                  new Expanded(
-                                      child: TextFormField(
-                                    maxLines: null,
-                                    initialValue: passPost.content,
-                                    decoration: new InputDecoration(
-                                        labelText: "Content"),
-                                  )),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        actions: <Widget>[
-                          new FlatButton(
-                              child: Text("Save"),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              })
-                        ],
-                      );
-                    });
-              }),
-        ],
+        title: Text("Post Details"),
       ),
       body: Hero(
         tag: passPost.id,
@@ -223,9 +198,19 @@ class _HeroPageState extends State<HeroPage> {
             child: Container(
               child: Column(
                 children: <Widget>[
-                  Text(
-                    passPost.title,
-                    style: TextStyle(fontSize: 30),
+                  InkWell(
+                    child: _widgetEditTitle,
+                    onTap: () {
+                      setState(() {
+                        _widgetEditTitle = TextFormField(
+                          initialValue: passPost.title,
+                          onFieldSubmitted: (value) {
+                            passPost.title = value;
+                            Navigator.pop(context);
+                          },
+                        );
+                      });
+                    },
                   ),
                   Center(
                     child: Image.network(
@@ -235,16 +220,38 @@ class _HeroPageState extends State<HeroPage> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(bottom: 25.0),
-                    child: Text(
-                      "Rating: " + passPost.rating.toString(),
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
+                    child: InkWell(
+                      child: _widgetEditRating,
+                      onTap: () {
+                        setState(() {
+                          _widgetEditContent = TextFormField(
+                            keyboardType: TextInputType.number,
+                            initialValue: passPost.rating.toString(),
+                            onFieldSubmitted: (value) {
+                              passPost.rating = int.parse(value);
+                              Navigator.pop(context);
+                            },
+                          );
+                        });
+                      },
                     ),
                   ),
-                  Text(
-                    passPost.content,
-                    style: TextStyle(fontSize: 20),
+                  InkWell(
+                    child: _widgetEditContent,
+                    onTap: () {
+                      setState(() {
+                        _widgetEditContent = TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          textInputAction: TextInputAction.done,
+                          maxLines: 20,
+                          initialValue: passPost.content,
+                          onFieldSubmitted: (value) {
+                            passPost.content = value;
+                            Navigator.pop(context);
+                          },
+                        );
+                      });
+                    },
                   ),
                 ],
               ),
