@@ -1,171 +1,59 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
-import '../davidScracthPad.dart';
+import 'appState.dart';
+import '../models/view.dart';
+import 'viewStore.dart';
 
+import '../components/topAppBar.dart';
+import '../components/fab.dart';
+import '../components/bottomAppBar.dart';
+
+
+/// the only reason this is a stateful widget is because
+/// we want to dispose of the view subject from 'AppState'
+/// whenever this widget is disposed of.
+/// => helps with cleanup & preventing memory leaks
+/// - david (4 - march - 19)
 class AppRoot extends StatefulWidget {
   @override
-  _AppRootState createState() => _AppRootState();
+  State<AppRoot> createState() => _State();
 }
 
-class _AppRootState extends State<AppRoot> {
-  int selectedIndex = 0;
-  Widget _body;
-  List<NavigationItem> items = [
-    NavigationItem(
-      icon: Icon(Icons.calendar_view_day),
-      title: Text('Inventory'),
-    ),
-    NavigationItem(
-      icon: Icon(Icons.shopping_basket),
-      title: Text('Shopping'),
-    ),
-    NavigationItem(
-      icon: Icon(Icons.forum),
-      title: Text('Social'),
-    ),
-  ];
+class _State extends State<AppRoot> {
 
-
-
-  final List<Widget> headerActions = [
-    Text('Inventory'),
-    // Switch(
-    //   value: false,
-    //   onChanged: (value) {
-    //     setState(() {
-    //               _body = secreens
-    //             });
-    //   },
-    // ),
-  ];
-
-  @override
-  initState() {
-    super.initState();
-
-    _body = screens[selectedIndex];
-  }
-
-  Widget _buildItem(NavigationItem item, bool isSelected) {
-
-    return AnimatedContainer(
-      duration: Duration(milliseconds: 130),
-      width: isSelected ? 120 : 40,
-      height: isSelected ? 44 : 20,
-      padding: isSelected ? EdgeInsets.all(8.0) : null,
-      decoration: isSelected
-          ? BoxDecoration(
-              color: Colors.teal[300],
-              borderRadius: BorderRadius.circular(24.0),
-            )
-          : null,
-
-      // padding: EdgeInsets.all(10.0),
-
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IconTheme(
-                data: IconThemeData(
-                  size: 28.0,
-                  color: isSelected ? Colors.white : Colors.black87,
-                ),
-                child: item.icon,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 6.0),
-                child: isSelected
-                    ? Text(
-                        item.title.data,
-                        style: TextStyle(color: Colors.white),
-                      )
-                    : Container(),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  @override
+  @override 
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[100],
+    return StreamBuilder(
+      stream: AppState.activeView,
+      // we want to move this to elsewhere in the codebase
+      // once we figure out a viable means to do so.
+      // - david (4 - march - 19)
+      initialData: views['inventory'],
+      builder: (builder, snapshot) {
+        // var _view = snapshot.data as View;
 
-      appBar: AppBar(
-        brightness: Brightness.light,
-        backgroundColor: Colors.grey[100],
-        elevation: 0.0,
-        title: Text(
-          'uSage',
-          style: TextStyle(color: Colors.teal),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.notifications_none,
-              color: Colors.teal,
-            ),
-            onPressed: () => debugPrint('pressed on notifications'),
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.search,
-              color: Colors.teal,
-            ),
-            onPressed: () => debugPrint('pressed on search'),
-          ),
-        ],
-      ),
+        return Scaffold(
+          backgroundColor: Colors.grey[100],
 
-      body: _body,
+          appBar: topAppBar,
+          body: snapshot.data.body,
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => debugPrint('pressed fab'),
-        backgroundColor: Colors.teal[300],
-        child: const Icon(Icons.add),
-        elevation: 0.4,
-      ),
+          floatingActionButton: fab,
+          floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
 
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+          bottomNavigationBar: bottomAppBar,
+        );
 
-      bottomNavigationBar: BottomAppBar(
-        elevation: 0.8,
-          shape: CircularNotchedRectangle(),
-          color: Colors.white,
-          child: Container(
-            height: 54.0,
-            padding: EdgeInsets.only(left: 6.0, right: 80.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: items.map((item) {
-                var _index = items.indexOf(item);
-
-                return GestureDetector(
-                  onTap: () {
-                    setState( () { 
-                      selectedIndex = _index; 
-                      _body = screens[_index]; 
-                    });
-                  },
-                  child: _buildItem(item, selectedIndex == _index),
-                );
-              }).toList(),
-            ),
-          )),
+      },
     );
   }
-}
 
-class NavigationItem {
-  final Icon icon;
-  final Text title;
-  final Widget body;
-  final Widget appBar;
-  final Widget fab;
-  NavigationItem({this.icon, this.title, this.body, this.appBar, this.fab});
+  @override
+  dispose() {
+    // clean up memory when we aren't going to use it anymore
+    AppState.disposeOfViewSubject();
+    super.dispose();
+  }
+
 }
