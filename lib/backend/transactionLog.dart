@@ -1,4 +1,5 @@
 import './miscella.dart';
+import 'package:flutter/material.dart';
 
 class Transaction {
   String id;
@@ -12,6 +13,10 @@ class Transaction {
     id = generateId();
     timestamp = generateTimestamp();
     transactionLog.add(this);
+
+    transactionLog.forEach((t) {
+      debugPrint(t.jsonify());
+    });
   }
 
   String jsonify() {
