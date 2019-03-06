@@ -6,6 +6,8 @@ import '../views/shoppingList.dart';
 import '../views/socialFeed.dart';
 import '../views/socialSaved.dart';
 
+import 'package:flutter/material.dart';
+
 // final views = Map<String, View>();
 
 // views['inventory'] = InventoryView;

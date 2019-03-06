@@ -26,15 +26,24 @@ class Consumables {
   }
 
   static delete(int index) {
+    debugPrint('item at index $index was deleted');
 
+    consumablesDummy.removeAt(index);
+    AppState.consumablesSubject.sink.add(consumablesDummy);
   }
 
   static consumed(int index) {
+    debugPrint('item at index $index was consumed');
 
+    consumablesDummy.removeAt(index);
+    AppState.consumablesSubject.sink.add(consumablesDummy);
   }
 
   static wasted(int index) {
+    debugPrint('item at index $index was consumed');
 
+    consumablesDummy.removeAt(index);
+    AppState.consumablesSubject.sink.add(consumablesDummy);
   }
 
   static moveToShoppingList(int index) {
