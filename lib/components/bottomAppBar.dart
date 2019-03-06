@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../app/appState.dart';
 import '../app/viewStore.dart';
+import '../models/view.dart';
 
 
 final bottomAppBar = BottomBar();
@@ -48,26 +49,26 @@ class BottomBar extends StatelessWidget {
 }
 
 
-_inventory(String section) => IconButton(
+_inventory(sections section) => IconButton(
   icon: Icon(
     Icons.list,
-    color: (section == 'inventory') ? Colors.teal : Colors.black26,
+    color: (section == sections.inventory) ? Colors.teal : Colors.black26,
   ),
   onPressed: () => AppState.setActiveView('inventory'),
 );
 
-_shopping(String section) => IconButton(
+_shopping(sections section) => IconButton(
   icon: Icon(
     Icons.shopping_basket,
-    color: (section == 'shopping') ? Colors.teal : Colors.black26,
+    color: (section == sections.shopping) ? Colors.teal : Colors.black26,
   ),
   onPressed: () => AppState.setActiveView('shopping list'),
 );
 
-_social(String section) => IconButton(
+_social(sections section) => IconButton(
   icon: Icon(
     Icons.chat_bubble,
-    color: (section == 'social') ? Colors.teal : Colors.black26,
+    color: (section == sections.social) ? Colors.teal : Colors.black26,
   ),
   onPressed: () => AppState.setActiveView('social feed'),
 );
