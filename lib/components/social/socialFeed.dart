@@ -15,11 +15,16 @@ Widget _widgetEditRating;
 List<Post> mySavedPosts = [];
 
 class SocialFeed extends StatefulWidget {
+  const SocialFeed({
+    Key key,
+  }) : super(key: key);
+  @override
   @override
   _SocialFeedState createState() => _SocialFeedState();
 }
 
 class _SocialFeedState extends State<SocialFeed> {
+  
   @override
   Widget build(BuildContext context) {
     var _stream;
