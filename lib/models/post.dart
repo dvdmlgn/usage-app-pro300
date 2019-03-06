@@ -8,10 +8,11 @@ class Post {
   String content;
   var tags = <String>[];
   int rating;
+  String category;
   int timesPinned;
   bool saved = false;
 
-  Post({this.id, this.author, this.title, this.content, this.tags, this.rating, this.timesPinned, this.saved}) {
+  Post({this.id, this.author, this.title, this.content, this.tags, this.rating, this.timesPinned, this.category, this.saved}) {
     id = newId();
     timestamp = newTimestamp();
   }
