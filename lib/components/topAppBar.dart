@@ -8,64 +8,26 @@ final topAppBar = AppBar(
   backgroundColor: Colors.grey[100],
   elevation: 0.0,
   actions: [
-    Text('hello', style: TextStyle(color: Colors.black),),
+    _leading,
     _notificationBell,
     _avatar
   ],
 );
 
-// final topAppBar = StreamBuilder(
+// Widget topAppBar() => StreamBuilder(
 //   stream: AppState.activeView,
-//   // we want to move this to elsewhere in the codebase
-//   // once we figure out a viable means to do so.
-//   // - david (4 - march - 19)
 //   initialData: views['inventory'],
 //   builder: (builder, snapshot) {
-//     // return AppBar(
-//     //    brightness: Brightness.light,
-//     //     backgroundColor: Colors.grey[100],
-//     //     elevation: 0.0,
-//     //     actions: [
-//     //       snapshot.data.leadingAction,
-//     //       _notificationBell,
-//     //       _avatar
-//     //     ],
-//     // );
+//     return AppBar(
+//       leading: snapshot.data.leadingAction,
+//       actions: [
+//         _notificationBell,
+//         _avatar,
+//       ],
+//     );
 //   },
 // );
 
-// class TopAppBar extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return StreamBuilder(
-//       stream: AppState.activeView,
-//       initialData: views['inventory'],
-//       builder: (builder, snapshot) {
-//         return AppBar(
-//           brightness: Brightness.light,
-//             backgroundColor: Colors.grey[100],
-//             elevation: 0.0,
-//             actions: [
-//               snapshot.data.leadingAction,
-//               _notificationBell,
-//               _avatar
-//             ],
-//         );
-
-//       },
-//     );
-//   }
-// }
-
-
-
-// final _leadingAction = IconButton(
-//   icon: Icon(
-//     Icons.spa,
-//     color: Colors.teal,
-//   ),
-//   onPressed: () => debugPrint('pressed on leading action'),
-// );
 
 final _notificationBell = IconButton(
   icon: Icon(
@@ -81,4 +43,22 @@ final _avatar = IconButton(
     color: Colors.teal,
   ),
   onPressed: () => debugPrint('pressed on avatar'),
+);
+
+
+// final _leading = Container(
+//   color: Colors.pink,
+//   width: 200,
+// );
+
+
+final _leading = StreamBuilder(
+  stream: AppState.activeView,
+  initialData: views['inventory'],
+  builder: (builder, snapshot) {
+    if(snapshot.data.leadingAction == null) {
+      return Text('no leading passed');
+    }
+    return snapshot.data.leadingAction;
+  },
 );
