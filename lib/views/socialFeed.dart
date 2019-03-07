@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:usage/app/appState.dart';
 import 'package:usage/components/social/socialFeed.dart';
 import '../models/view.dart';
 import 'package:usage/components/icons.dart';
@@ -21,7 +22,9 @@ final _fab = Fab(
 
 final _body = SocialFeed();
 
-final _leadingAction = Text('feed');
+final _leadingAction = Switch(value: false, onChanged: (_){
+  AppState.setActiveView('social saved');
+});
 
 final _meta = null;
 
