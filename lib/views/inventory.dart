@@ -5,6 +5,8 @@ import 'package:usage/components/fab.dart';
 import 'package:usage/app/logic.dart';
 import 'package:usage/models/consumable.dart';
 
+import 'package:flutter/material.dart';
+
 final inventoryView = View(
   leadingAction: _leadingAction,
   body: _body,
@@ -33,3 +35,8 @@ final _leadingAction = null;
 final _section = sections.inventory;
 
 final _meta = null;
+
+// final _leading = Container(
+//   color: Colors.pink,
+//   width: 200,
+// );
