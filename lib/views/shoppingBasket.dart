@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/view.dart';
 
-final ShoppingBasketView = View(
+final shoppingBasketView = View(
   leadingAction: _leadingAction,
   body: _body,
   section: sections.shopping,

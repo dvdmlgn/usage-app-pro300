@@ -4,18 +4,15 @@ import '../models/view.dart';
 import 'package:usage/components/icons.dart';
 import 'package:usage/components/fab.dart';
 
-final socialFeedView =
-    View(
+final socialFeedView = View(
     leadingAction: _leadingAction,
     body: _body,
     section: sections.social,
     fab: _fab,
-    meta: _meta
-    );
+    meta: _meta);
 
 final _fab = Fab(
   icon: icons.add,
-  type: 'Post',
   fn: () {},
 );
 

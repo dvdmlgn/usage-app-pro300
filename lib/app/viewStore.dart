@@ -14,8 +14,8 @@ import 'package:flutter/material.dart';
 
 final views = {
   'inventory': inventoryView,
-  'shopping list': ShoppingListView,
-  'shopping basket': ShoppingBasketView,
+  'shopping list': shoppingListView,
+  'shopping basket': shoppingBasketView,
   'social feed': socialFeedView,
   'social saved': socialSavedView,
 };

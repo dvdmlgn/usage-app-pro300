@@ -15,16 +15,14 @@ final inventoryView = View(
 
 final _fab = Fab(
   icon: icons.add,
-  type: 'Consumable',
   fn: () {
     Consumables.add(Consumable(
-      productId: '0',
-      name: 'cherries',
-      quantity: 7,
-      expiry: '7',
-      description: 'they are cherries',
-      imageUrl: 'cherries.png'
-    ));
+        productId: '0',
+        name: 'cherries',
+        quantity: 7,
+        expiry: '7',
+        description: 'they are cherries',
+        imageUrl: 'cherries.png'));
   },
 );
 

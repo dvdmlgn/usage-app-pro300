@@ -10,7 +10,6 @@ class InventoryBody extends StatelessWidget {
   // @override
   @override
   Widget build(BuildContext context) {
-    var _stream;
     Consumable consumable = new Consumable();
     return StreamBuilder(
       stream: Consumables.listen,
@@ -29,24 +28,27 @@ class InventoryBody extends StatelessWidget {
   }
 }
 
-
 Widget _listItem(Consumable consumable, int index) {
   return Dismissible(
     key: ObjectKey(consumable),
     background: Container(color: Colors.green),
     secondaryBackground: Container(color: Colors.red),
-
     onDismissed: (direction) {
-      if(direction == DismissDirection.endToStart) { Consumables.consumed(index); } 
-      else { Consumables.wasted(index); }
+      if (direction == DismissDirection.startToEnd) {
+        Consumables.consumed(index);
+      } else {
+        Consumables.wasted(index);
+      }
     },
-
     child: ListTile(
       title: Text(consumable.name),
+      // TODO: QUICKEDIT
       onLongPress: () {},
-      onTap: () => Consumables.delete(index),
-      trailing: Text(consumable.quantity.toString().split('.')[0]),
+      // TODO: HERO
+      onTap: () => {},
+      trailing: Text(
+        consumable.quantity.toString().split('.')[0],
+      ),
     ),
-
   );
 }
