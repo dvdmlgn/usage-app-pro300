@@ -135,22 +135,6 @@ class _InventoryBodyState extends State<InventoryBody> {
                               Groceries.create(newGrocery);
                               groceriesDummy.add(newGrocery);
                               Navigator.pop(context);
-// TODO: Check if its already on shopping list
-
-                              //add grocery to shopping list
-                              // for (var item in groceriesDummy) {
-                              //   if (item.name == consumable.name) {
-                              //     //alertdialog, already on list, are you sure?
-                              //     areYouSure(newGrocery);
-                              //     //yes: add new grocery
-                              //     //no: pop dialog
-                              //   } else {
-                              //     //add to list
-                              //     groceriesDummy.add(newGrocery);
-                              //   }
-                              // }
-
-                              // Navigator.pop(context);
                             }),
                       ],
                     ),
@@ -296,48 +280,6 @@ class _InventoryBodyState extends State<InventoryBody> {
     }));
   }
 
-// //ADD CONSUMABLE SCREEN
-//   void _pushAddConsumableScreen() {
-//     final _formKey = GlobalKey<FormState>();
-//     final nameCtrl = TextEditingController();
-//     final qtyCtrl = TextEditingController();
-//     double widgetWidth = (MediaQuery.of(context).size.width) * .8;
-//     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-//       return new Scaffold(
-//           appBar: new AppBar(title: new Text('Add a new consumable')),
-//           body: Center(
-//             child: Form(
-//               key: _formKey,
-//               child: Column(
-//                 children: <Widget>[
-//                   InputField.inputField(widgetWidth, nameCtrl, true,
-//                       TextInputType.text, 'Name', ''),
-//                   InputField.inputField(widgetWidth, qtyCtrl, true,
-//                       TextInputType.number, 'Quantity', ''),
-//                   MaterialButton(
-//                     minWidth: widgetWidth,
-//                     child: Text('ADD'),
-//                     onPressed: () {
-//                       if (_formKey.currentState.validate()) {
-//                         _addConsumable(
-//                             nameCtrl.text, double.parse(qtyCtrl.text));
-//                         Navigator.pop(context); // Close the add todo screen
-
-//                       }
-//                     },
-//                   )
-//                 ],
-//               ),
-//             ),
-//           ));
-//     }));
-//   }
-
-// //ADD CONSUMABLE
-//   void _addConsumable(String name, double qty) {
-//     // setState(() => Consumables.create(Consumable(name: name, quantity: qty)));
-//   }
-
   Widget _listItem(Consumable consumable, int index) {
     return Dismissible(
       key: ObjectKey(consumable),
@@ -352,11 +294,9 @@ class _InventoryBodyState extends State<InventoryBody> {
       },
       child: ListTile(
         title: Text(consumable.name),
-        // TODO: QUICKEDIT
         onLongPress: () {
           quickEditDialog(context, consumable, index);
         },
-        // TODO: HERO
         onTap: () {
           _pushViewConsumableScreen(context, consumable, index);
         },

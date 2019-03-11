@@ -7,7 +7,6 @@ import 'package:usage/app/logic.dart';
 import 'package:usage/components/shared/inputField.dart';
 import 'package:usage/models/grocery.dart';
 
-// TODO: DISPLAY ONLY ITEMS NOT IN BASKET
 class ShoppingListBody extends StatelessWidget {
   const ShoppingListBody({
     Key key,
@@ -56,7 +55,6 @@ Widget _listItem(Grocery grocery, int index, BuildContext context) {
     },
     child: ListTile(
       title: Text(grocery.name),
-      // TODO: QUICK EDIT
       onLongPress: () {
         quickEditDialog(context, grocery, index);
       },

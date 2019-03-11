@@ -1,4 +1,4 @@
-import 'dart:convert';
+// import 'dart:convert';
 import 'package:usage/backend/miscella.dart';
 
 class Product {
@@ -9,9 +9,8 @@ class Product {
   }
 
   Map<String, dynamic> toJson() => {
-    'id' : id,
-  };
+        'id': id,
+      };
 
   String jsonify() => toJson().toString();
-
 }
