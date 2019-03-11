@@ -58,7 +58,8 @@ final StreamBuilder<View> _leading = StreamBuilder(
   initialData: views['inventory'],
   builder: (builder, snapshot) {
     if(snapshot.data.leadingAction == null) {
-      return Text('no leading passed');
+      return Text('no leading passed',
+      style: TextStyle(color: Colors.black),);
     } 
     return snapshot.data.leadingAction;
   },
