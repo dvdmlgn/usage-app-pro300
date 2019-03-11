@@ -7,7 +7,7 @@ import 'appState.dart';
 import '../models/consumable.dart';
 import '../models/grocery.dart';
 import '../models/post.dart';
-// import '../models/product.dart';
+import '../models/product.dart';
 
 class Consumables {
   static Stream<List<Consumable>> get listen =>
@@ -131,34 +131,17 @@ class Groceries {
     );
   }
 
-<<<<<<< HEAD
-  static edit(int index, Grocery item) {
-    final oldState = groceries[index];
-    groceries[index] = item;
-=======
   static edit(int index, Grocery newData) {
     final _oldState = groceriesDummy[index];
     groceriesDummy[index] = newData;
->>>>>>> b2e6c483973c367ed5e0d567522072f9c642b0b3
     AppState.updateGroceriesSubject();
 
     Transaction(
       action: 'edit',
       dataType: 'grocery',
-<<<<<<< HEAD
-      oldState: oldState.jsonify(),
-      newState: item.jsonify(),
-    );
-  }
-
-  static addToBasket(int index) {
-    groceries[index].inBasket = true;
-    AppState.updateGroceriesSubject();
-=======
       oldState: _oldState.jsonify(),
       newState: newData.jsonify(),
     );
->>>>>>> b2e6c483973c367ed5e0d567522072f9c642b0b3
   }
 
   static removeFromBasket(int index) {
@@ -184,7 +167,8 @@ class Groceries {
 }
 
 class Posts {
-  static Stream<List<Post>> get listen => AppState.postsSubject.stream;
+  static Stream< List<Post> > get listenToFeed  => AppState.postsSubject.stream;
+  static Stream< List<Post> > get listenToSaved => AppState.savedPostsSubject.stream;
 
   static test() {
     print("post test");
@@ -246,9 +230,48 @@ class Posts {
   }
 
 
-
-
-
 }
 
-class Products {}
+class Products {
+  static Stream< List<Product> > get listen => AppState.productsSubject.stream;
+
+  static add(Product newItem) {
+    products.add(newItem);
+    AppState.updatePostsSubject();
+
+    Transaction(
+      action: 'create',
+      dataType: 'product',
+      oldState: 'nil',
+      newState: newItem.jsonify(),
+    );
+  }
+
+  static edit(String id, Product newData) {
+    final _index = products.indexWhere((element) => element.id == id);
+    final _oldState = products[_index];
+    products[_index] = newData;
+    AppState.updateProductsSubject();
+
+    Transaction(
+      action: 'edit',
+      dataType: 'product',
+      oldState: _oldState.jsonify(),
+      newState: newData.jsonify()
+    );
+  }
+
+  static delete(String id) {
+    final _index = products.indexWhere((element) => element.id == id);
+    final _oldState = products[_index];
+    AppState.updateProductsSubject();
+
+    Transaction(
+      action: 'edit',
+      dataType: 'product',
+      oldState: _oldState.jsonify(),
+      newState: 'nil'
+    );
+  }
+
+}
