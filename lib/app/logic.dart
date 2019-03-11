@@ -131,14 +131,21 @@ class Groceries {
     );
   }
 
+<<<<<<< HEAD
   static edit(int index, Grocery item) {
     final oldState = groceries[index];
     groceries[index] = item;
+=======
+  static edit(int index, Grocery newData) {
+    final _oldState = groceriesDummy[index];
+    groceriesDummy[index] = newData;
+>>>>>>> b2e6c483973c367ed5e0d567522072f9c642b0b3
     AppState.updateGroceriesSubject();
 
     Transaction(
       action: 'edit',
       dataType: 'grocery',
+<<<<<<< HEAD
       oldState: oldState.jsonify(),
       newState: item.jsonify(),
     );
@@ -147,6 +154,11 @@ class Groceries {
   static addToBasket(int index) {
     groceries[index].inBasket = true;
     AppState.updateGroceriesSubject();
+=======
+      oldState: _oldState.jsonify(),
+      newState: newData.jsonify(),
+    );
+>>>>>>> b2e6c483973c367ed5e0d567522072f9c642b0b3
   }
 
   static removeFromBasket(int index) {
