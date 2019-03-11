@@ -13,8 +13,8 @@ class Post {
   bool saved = false;
 
   Post({this.author, this.title, this.content, this.tags, this.rating, this.timesPinned, this.category, this.saved}) {
-    id = generateId();
-    timestamp = generateId();
+    id = generateId('post');
+    timestamp = generateTimestamp();
   }
 
   Post.cache({this.id, this.timestamp, this.author, this.title, this.content, this.tags, this.rating, this.timesPinned});
