@@ -8,7 +8,7 @@ final socialFeedView =
     View(
     leadingAction: _leadingAction,
     body: _body,
-    section: sections.social,
+    section: _section,
     fab: _fab,
     meta: _meta
     );
