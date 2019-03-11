@@ -35,7 +35,7 @@ class AppState {
   }
 
   static updateGroceriesSubject() {
-    groceriesSubject.sink.add(groceries);
+    groceriesSubject.sink.add(groceriesDummy);
   }
 
   static updatePostsSubject() {
