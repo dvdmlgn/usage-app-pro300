@@ -159,11 +159,22 @@ class Groceries {
       action: 'basket to inventory',
       dataType: 'consumable',
       oldState: _grocery.jsonify(),
-      // newState: 
+      // newState:
     );
   }
 
+  static quickEdit(int index, double quantity) {
+    final _oldState = groceriesDummy[index];
+    groceriesDummy[index].quantity = quantity;
+    AppState.updateGroceriesSubject();
 
+    Transaction(
+      action: 'quick edit',
+      dataType: 'grocery',
+      oldState: _oldState.jsonify(),
+      newState: consumablesDummy[index].jsonify(),
+    );
+  }
 }
 
 class Posts {
@@ -205,16 +216,14 @@ class Posts {
     AppState.updatePostsSubject();
 
     Transaction(
-      action: 'delete',
-      dataType: 'post',
-      oldState: _oldState.jsonify(),
-      newState: 'nil'
-    );
+        action: 'delete',
+        dataType: 'post',
+        oldState: _oldState.jsonify(),
+        newState: 'nil');
   }
 
-
   static addToSaved(int index) {
-    savedPosts.add( posts[index] );
+    savedPosts.add(posts[index]);
     AppState.updateSavedPostsSubject();
 
     // not sure if we want to add this action to the transaction log
