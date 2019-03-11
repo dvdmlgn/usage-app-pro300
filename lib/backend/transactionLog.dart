@@ -10,7 +10,7 @@ class Transaction {
   String newState;
 
   Transaction({this.action, this.dataType, this.oldState, this.newState}) {
-    id = generateId('transaction');
+    id = generateId(dataType: 'transaction');
     timestamp = generateTimestamp();
     transactionLog.add(this);
   }

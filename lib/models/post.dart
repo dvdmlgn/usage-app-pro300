@@ -13,7 +13,7 @@ class Post {
   bool saved = false;
 
   Post({this.author, this.title, this.content, this.tags, this.rating, this.timesPinned, this.category, this.saved}) {
-    id = generateId('post');
+    id = generateId(dataType: 'post');
     timestamp = generateTimestamp();
   }
 

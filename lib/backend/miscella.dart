@@ -5,7 +5,7 @@ import './secrets.dart';
 
 import 'dart:convert';
 
-String generateId(String dataType) {
+String generateId({String dataType = 'not specified'}) {
   final _dataType = _stringToBase64(dataType);
   final _userId = _stringToBase64(userId);
   final _randomString = DateTime.now().toString();

@@ -5,7 +5,7 @@ class Product {
   String id;
 
   Product() {
-    id = generateId('product');
+    id = generateId(dataType: 'product');
   }
 
   Map<String, dynamic> toJson() => {
