@@ -131,18 +131,17 @@ class Groceries {
     );
   }
 
-  static edit(int index, Grocery item) {
-    final oldState = groceries[index];
-
-    groceries.insert(index, item);
+  static edit(int index, Grocery newData) {
+    final _oldState = groceriesDummy[index];
+    groceriesDummy[index] = newData;
+    AppState.updateGroceriesSubject();
 
     Transaction(
-        action: 'edit',
-        dataType: 'grocery',
-        oldState: oldState.jsonify(),
-        newState: item.jsonify());
-
-    AppState.updateGroceriesSubject();
+      action: 'edit',
+      dataType: 'grocery',
+      oldState: _oldState.jsonify(),
+      newState: newData.jsonify(),
+    );
   }
 }
 
