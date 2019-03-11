@@ -3,8 +3,9 @@ import 'package:usage/app/dataStore.dart';
 import 'package:usage/app/logic.dart';
 import 'package:usage/models/grocery.dart';
 
-class ShoppingListBody extends StatelessWidget {
-  const ShoppingListBody({
+// TODO: DISPLAY ONLY ITEMS IN BASKET
+class ShoppingBasketBody extends StatelessWidget {
+  const ShoppingBasketBody({
     Key key,
   }) : super(key: key);
   Text getQuantity(Grocery grocery) =>
@@ -19,8 +20,14 @@ class ShoppingListBody extends StatelessWidget {
         builder: (BuildContext context, snapshot) {
           return ListView.builder(
             itemBuilder: (context, index) {
-              if (index < snapshot.data.length) {
-                grocery = snapshot.data[index];
+              List<Grocery> shopBasket = new List<Grocery>();
+              for (var g in snapshot.data) {
+                if (g.inBasket == true) {
+                  shopBasket.add(g);
+                }
+              }
+              if (index < shopBasket.length) {
+                grocery = shopBasket[index];
                 return _listItem(grocery, index);
               }
             },

@@ -1,11 +1,11 @@
 import 'package:usage/components/inventory/body.dart';
 import 'package:usage/models/view.dart';
-import 'package:usage/components/icons.dart';
-import 'package:usage/components/fab.dart';
+import 'package:usage/components/shared/icons.dart';
+import 'package:usage/components/shared/fab.dart';
 import 'package:usage/app/logic.dart';
 import 'package:usage/models/consumable.dart';
 
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
 final inventoryView = View(
   leadingAction: _leadingAction,

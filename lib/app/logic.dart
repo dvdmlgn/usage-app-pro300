@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:usage/backend/transactionLog.dart';
 import 'dataStore.dart';
@@ -24,8 +26,8 @@ class Consumables {
   }
 
   static edit(int index, Consumable newData) {
-    final _oldState = consumables[index];
-    consumables[index] = newData;
+    final _oldState = consumablesDummy[index];
+    consumablesDummy[index] = newData;
     AppState.updateConsumablesSubject();
 
     Transaction(
@@ -37,15 +39,15 @@ class Consumables {
   }
 
   static quickEdit(int index, double quantity) {
-    final _oldState = consumables[index];
-    consumables[index].quantity = quantity;
+    final _oldState = consumablesDummy[index];
+    consumablesDummy[index].quantity = quantity;
     AppState.updateConsumablesSubject();
 
     Transaction(
       action: 'quick edit',
       dataType: 'consumable',
       oldState: _oldState.jsonify(),
-      newState: consumables[index].jsonify(),
+      newState: consumablesDummy[index].jsonify(),
     );
   }
 
@@ -105,6 +107,16 @@ class Consumables {
 
 class Groceries {
   static Stream<List<Grocery>> get listen => AppState.groceriesSubject.stream;
+
+  static create(Grocery item) {
+    groceries.add(item);
+
+    Transaction(
+        action: 'create',
+        dataType: 'grocery',
+        oldState: 'nil',
+        newState: item.jsonify());
+  }
 
   static delete(int index) {
     final _oldState = groceriesDummy[index];

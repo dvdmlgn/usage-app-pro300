@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:usage/components/fab.dart';
+import 'package:usage/components/shared/fab.dart';
 
 enum sections { inventory, shopping, social }
 

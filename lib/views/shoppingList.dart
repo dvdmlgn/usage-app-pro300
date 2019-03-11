@@ -1,7 +1,8 @@
-import 'package:usage/components/icons.dart';
+import 'package:usage/app/appState.dart';
+import 'package:usage/components/shared/icons.dart';
 
-import 'package:usage/components/fab.dart';
-import 'package:usage/components/shopping/body.dart';
+import 'package:usage/components/shared/fab.dart';
+import 'package:usage/components/shopping/list/body.dart';
 import 'package:usage/models/view.dart';
 import 'package:usage/views/switch.dart';
 
@@ -22,6 +23,10 @@ final _body = ShoppingListBody();
 
 final _leadingAction = LeadingActionSwitch(
   value: false,
+  fn: (value) {
+    print("new value: $value");
+    AppState.setActiveView('shopping basket');
+  },
 );
 
 final _section = sections.shopping;

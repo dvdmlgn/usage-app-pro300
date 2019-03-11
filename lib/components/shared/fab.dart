@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:usage/components/icons.dart';
+import 'package:usage/components/shared/icons.dart';
 
 class Fab extends StatelessWidget {
   const Fab({Key key, @required this.icon, @required this.fn})

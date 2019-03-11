@@ -7,8 +7,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:usage/components/fab.dart';
-import 'package:usage/components/icons.dart';
+import 'package:usage/components/shared/fab.dart';
+import 'package:usage/components/shared/icons.dart';
 
 import 'package:usage/main.dart';
 

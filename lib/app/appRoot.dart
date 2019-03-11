@@ -6,9 +6,8 @@ import '../models/view.dart';
 import 'viewStore.dart';
 
 import '../components/topAppBar.dart';
-import '../components/fab.dart';
+import '../components/shared/fab.dart';
 import '../components/bottomAppBar.dart';
-
 
 /// the only reason this is a stateful widget is because
 /// we want to dispose of the view subject from 'AppState'
@@ -21,8 +20,7 @@ class AppRoot extends StatefulWidget {
 }
 
 class _State extends State<AppRoot> {
-
-  @override 
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: AppState.activeView,
@@ -35,16 +33,12 @@ class _State extends State<AppRoot> {
 
         return Scaffold(
           backgroundColor: Colors.grey[100],
-
           appBar: topAppBar,
           body: snapshot.data.body,
-
           floatingActionButton: snapshot.data.fab,
           floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-
           bottomNavigationBar: bottomAppBar,
         );
-
       },
     );
   }
@@ -55,5 +49,4 @@ class _State extends State<AppRoot> {
     AppState.disposeOfViewSubject();
     super.dispose();
   }
-
 }
