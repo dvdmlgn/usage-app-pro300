@@ -8,7 +8,7 @@ class Grocery {
   double quantity;
 
   Grocery({this.productId, this.name, this.quantity}) {
-    id = generateId();
+    id = generateId(dataType: 'grocery');
     inBasket = false;
   }
 

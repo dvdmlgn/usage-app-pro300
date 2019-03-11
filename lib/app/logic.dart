@@ -7,7 +7,7 @@ import 'appState.dart';
 import '../models/consumable.dart';
 import '../models/grocery.dart';
 import '../models/post.dart';
-// import '../models/product.dart';
+import '../models/product.dart';
 
 class Consumables {
   static Stream<List<Consumable>> get listen =>
@@ -144,11 +144,6 @@ class Groceries {
     );
   }
 
-  static addToBasket(int index) {
-    groceries[index].inBasket = true;
-    AppState.updateGroceriesSubject();
-  }
-
   static removeFromBasket(int index) {
     groceries[index].inBasket = false;
   }
@@ -183,7 +178,8 @@ class Groceries {
 }
 
 class Posts {
-  static Stream<List<Post>> get listen => AppState.postsSubject.stream;
+  static Stream< List<Post> > get listenToFeed  => AppState.postsSubject.stream;
+  static Stream< List<Post> > get listenToSaved => AppState.savedPostsSubject.stream;
 
   static test() {
     print("post test");
@@ -241,6 +237,50 @@ class Posts {
     // not sure if we want to add this action to the transaction log
     // - david (11 - march - 19)
   }
+
+
 }
 
-class Products {}
+class Products {
+  static Stream< List<Product> > get listen => AppState.productsSubject.stream;
+
+  static add(Product newItem) {
+    products.add(newItem);
+    AppState.updatePostsSubject();
+
+    Transaction(
+      action: 'create',
+      dataType: 'product',
+      oldState: 'nil',
+      newState: newItem.jsonify(),
+    );
+  }
+
+  static edit(String id, Product newData) {
+    final _index = products.indexWhere((element) => element.id == id);
+    final _oldState = products[_index];
+    products[_index] = newData;
+    AppState.updateProductsSubject();
+
+    Transaction(
+      action: 'edit',
+      dataType: 'product',
+      oldState: _oldState.jsonify(),
+      newState: newData.jsonify()
+    );
+  }
+
+  static delete(String id) {
+    final _index = products.indexWhere((element) => element.id == id);
+    final _oldState = products[_index];
+    AppState.updateProductsSubject();
+
+    Transaction(
+      action: 'edit',
+      dataType: 'product',
+      oldState: _oldState.jsonify(),
+      newState: 'nil'
+    );
+  }
+
+}

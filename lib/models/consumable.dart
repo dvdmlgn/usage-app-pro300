@@ -18,7 +18,7 @@ class Consumable {
       this.expiry,
       this.description,
       this.imageUrl}) {
-    id = generateId();
+    id = generateId(dataType: 'consumable');
   }
 
   Consumable.cache(
