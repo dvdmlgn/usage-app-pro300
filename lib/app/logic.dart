@@ -106,6 +106,9 @@ class Consumables {
 class Groceries {
   static Stream<List<Grocery>> get listen => AppState.groceriesSubject.stream;
 
+  // static Stream<List<Grocery>> get listenBasket => 
+  //   AppState.groceriesSubject.stream.
+
   static delete(int index) {
     final _oldState = groceriesDummy[index];
     groceriesDummy.removeAt(index);
