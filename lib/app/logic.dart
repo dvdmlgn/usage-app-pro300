@@ -143,6 +143,19 @@ class Groceries {
       newState: newData.jsonify(),
     );
   }
+
+  static quickEdit(int index, double quantity) {
+    final _oldState = groceriesDummy[index];
+    groceriesDummy[index].quantity = quantity;
+    AppState.updateGroceriesSubject();
+
+    Transaction(
+      action: 'quick edit',
+      dataType: 'grocery',
+      oldState: _oldState.jsonify(),
+      newState: consumablesDummy[index].jsonify(),
+    );
+  }
 }
 
 class Posts {

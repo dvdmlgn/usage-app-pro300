@@ -55,11 +55,63 @@ Widget _listItem(Grocery grocery, int index, BuildContext context) {
     child: ListTile(
       title: Text(grocery.name),
       // TODO: QUICK EDIT
-      onLongPress: () {},
+      onLongPress: () {
+        quickEditDialog(context, grocery, index);
+      },
       onTap: () => _pushViewGroceryScreen(context, grocery, index),
       trailing: Text(grocery.quantity.toString().split('.')[0]),
     ),
   );
+}
+
+//QUICK EDIT POP UP
+Future<bool> quickEditDialog(BuildContext context, Grocery grocery, int index) {
+  final myController = TextEditingController();
+  myController.text = grocery.quantity.toString();
+
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Theme(
+          data: Theme.of(context)
+              .copyWith(dialogBackgroundColor: Colors.transparent),
+          child: SimpleDialog(
+            children: <Widget>[
+              Card(
+                elevation: 4,
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Text('Quantity: '),
+                          flex: 1,
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            controller: myController,
+                          ),
+                          flex: 1,
+                        )
+                      ],
+                    ),
+                    FlatButton(
+                      child: Text('Save'),
+                      onPressed: () {
+                        grocery.quantity = double.parse(myController.text);
+
+                        Navigator.pop(context);
+                        Groceries.quickEdit(
+                            index, double.parse(myController.text));
+                      },
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      });
 }
 
 //VIEW GROCERY SCREEN
