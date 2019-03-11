@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:usage/app/dataStore.dart';
 import 'package:usage/models/post.dart';
 
@@ -18,13 +19,13 @@ class SocialFeed extends StatefulWidget {
   const SocialFeed({
     Key key,
   }) : super(key: key);
-
   @override
   @override
   _SocialFeedState createState() => _SocialFeedState();
 }
 
 class _SocialFeedState extends State<SocialFeed> {
+  
   @override
   Widget build(BuildContext context) {
     var _stream;
@@ -78,8 +79,8 @@ class _SocialFeedState extends State<SocialFeed> {
                             passPost = myPosts[index];
                             Navigator.push(context, MaterialPageRoute(
                                 builder: (BuildContext context) {
-                              return HeroPage();
-                            }));
+                                  return HeroPage();
+                                }));
                           },
                         ),
                       ],
@@ -198,6 +199,8 @@ class _SocialFeedState extends State<SocialFeed> {
 //  }
 }
 
+
+
 class HeroPage extends StatefulWidget {
   @override
   _HeroPageState createState() => _HeroPageState();
@@ -230,22 +233,19 @@ class _HeroPageState extends State<HeroPage> {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(top: 25.0),
-                child: InkWell(
-                  child: _widgetEditTitle,
-                  onTap: () {
-                    setState(() {
-                      _widgetEditTitle = TextFormField(
-                        textInputAction: TextInputAction.done,
-                        initialValue: passPost.title,
-                        onFieldSubmitted: (value) {
-                          passPost.title = value;
-                        },
-                      );
-                    });
-                  },
-                ),
+              InkWell(
+                child: _widgetEditTitle,
+                onTap: () {
+                  setState(() {
+                    _widgetEditTitle = TextFormField(
+                      textInputAction: TextInputAction.done,
+                      initialValue: passPost.title,
+                      onFieldSubmitted: (value) {
+                        passPost.title = value;
+                      },
+                    );
+                  });
+                },
               ),
               Center(
                 child: Image.network(
@@ -287,6 +287,11 @@ class _HeroPageState extends State<HeroPage> {
                   });
                 },
               ),
+              FlatButton(
+                  child: Text("Back"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  })
             ],
           ),
         ),
