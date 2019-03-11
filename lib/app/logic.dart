@@ -7,7 +7,7 @@ import 'appState.dart';
 import '../models/consumable.dart';
 import '../models/grocery.dart';
 import '../models/post.dart';
-import '../models/product.dart';
+// import '../models/product.dart';
 
 class Consumables {
   static Stream<List<Consumable>> get listen =>
@@ -93,7 +93,7 @@ class Consumables {
   static moveToShoppingList(int index) {
     // don't know if we want to add this to the transaction log
     // - david (5 - march - 19)
-    final _consumable = consumables[index];
+    // final _consumable = consumables[index];
     final _grocery =
         Grocery(); // add conversion from consumable to grocery here
 

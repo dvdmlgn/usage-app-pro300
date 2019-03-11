@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import '../models/view.dart';
 import '../models/consumable.dart';
@@ -35,7 +35,7 @@ class AppState {
   }
 
   static updateGroceriesSubject() {
-    groceriesSubject.sink.add(groceries);
+    groceriesSubject.sink.add(groceriesDummy);
   }
 
   static updatePostsSubject() {

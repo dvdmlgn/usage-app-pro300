@@ -8,12 +8,13 @@ import 'package:usage/components/shared/fab.dart';
 final socialFeedView = View(
     leadingAction: _leadingAction,
     body: _body,
-    section: sections.social,
+    section: _section,
     fab: _fab,
     meta: _meta);
 
 final _fab = Fab(
   icon: icons.add,
+  //type: 'Post',
   fn: () {},
 );
 

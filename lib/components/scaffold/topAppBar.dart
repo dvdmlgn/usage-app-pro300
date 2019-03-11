@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:usage/models/view.dart';
 
-import '../app/appState.dart';
-import '../app/viewStore.dart';
+import '../../app/appState.dart';
+import '../../app/viewStore.dart';
 
 final topAppBar = AppBar(
   brightness: Brightness.light,
@@ -52,13 +53,14 @@ final _avatar = IconButton(
 // );
 
 
-final _leading = StreamBuilder(
+final StreamBuilder<View> _leading = StreamBuilder(
   stream: AppState.activeView,
   initialData: views['inventory'],
   builder: (builder, snapshot) {
     if(snapshot.data.leadingAction == null) {
-      return Text('no leading passed');
-    }
+      return Text('no leading passed',
+      style: TextStyle(color: Colors.black),);
+    } 
     return snapshot.data.leadingAction;
   },
 );
