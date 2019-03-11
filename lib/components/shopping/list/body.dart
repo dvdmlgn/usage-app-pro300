@@ -45,7 +45,6 @@ Widget _listItem(Grocery grocery, int index, BuildContext context) {
     secondaryBackground: Container(color: Colors.red),
     onDismissed: (direction) {
       if (direction == DismissDirection.startToEnd) {
-        // TODO: MOVE GROCERY TO BASKET
         grocery.inBasket = true;
         AppState.updateGroceriesSubject();
         AppState.setActiveView('shopping basket');
@@ -57,7 +56,6 @@ Widget _listItem(Grocery grocery, int index, BuildContext context) {
       title: Text(grocery.name),
       // TODO: QUICK EDIT
       onLongPress: () {},
-      // TODO: HERO
       onTap: () => _pushViewGroceryScreen(context, grocery, index),
       trailing: Text(grocery.quantity.toString().split('.')[0]),
     ),
@@ -91,7 +89,7 @@ void _pushViewGroceryScreen(BuildContext context, Grocery grocery, int index) {
                       IconButton(
                         icon: Icon(Icons.edit),
                         onPressed: () {
-                          // _pushEditGroceryScreen(context, grocery, index);
+                          _pushEditGroceryScreen(context, grocery, index);
                         },
                       ),
                       IconButton(
@@ -102,6 +100,49 @@ void _pushViewGroceryScreen(BuildContext context, Grocery grocery, int index) {
                       ),
                     ],
                   ),
+                )
+              ],
+            ),
+          ),
+        ));
+  }));
+}
+
+//EDIT GROCERY SCREEN
+void _pushEditGroceryScreen(BuildContext context, Grocery grocery, int index) {
+  final _formKey = GlobalKey<FormState>();
+  final nameCtrl = TextEditingController();
+  final qtyCtrl = TextEditingController();
+  nameCtrl.text = grocery.name;
+  qtyCtrl.text = grocery.quantity.toString();
+  String newName;
+  double newQty;
+  Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+    return new Scaffold(
+        appBar: new AppBar(title: new Text('Edit grocery')),
+        body: Center(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                InputField.inputField(
+                    200.0, nameCtrl, true, TextInputType.text, 'Name', ''),
+                InputField.inputField(
+                    200.0, qtyCtrl, true, TextInputType.number, 'Quantity', ''),
+                IconButton(
+                  icon: Icon(Icons.save),
+                  onPressed: () {
+                    newName = nameCtrl.text;
+                    newQty = double.parse(qtyCtrl.text);
+                    grocery.name = newName;
+                    grocery.quantity = newQty;
+                    // setState(() {});
+                    Grocery newGrocery =
+                        Grocery(name: newName, quantity: newQty);
+                    Groceries.edit(index, newGrocery);
+                    Navigator.of(context).pop();
+                    Navigator.pop(context);
+                  },
                 )
               ],
             ),

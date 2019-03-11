@@ -130,6 +130,20 @@ class Groceries {
       newState: 'nil',
     );
   }
+
+  static edit(int index, Grocery item) {
+    final oldState = groceries[index];
+
+    groceries.insert(index, item);
+
+    Transaction(
+        action: 'edit',
+        dataType: 'grocery',
+        oldState: oldState.jsonify(),
+        newState: item.jsonify());
+
+    AppState.updateGroceriesSubject();
+  }
 }
 
 class Posts {
