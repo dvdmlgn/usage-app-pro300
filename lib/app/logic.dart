@@ -144,6 +144,30 @@ class Groceries {
     );
   }
 
+  static addToBasket(int index) {
+    groceries[index].inBasket = true;
+    AppState.updateGroceriesSubject();
+  }
+
+  static removeFromBasket(int index) {
+    groceries[index].inBasket = false;
+  }
+
+  static addToInventory(int index) {
+    final _grocery = groceries[index];
+    // convert grocery to consumable
+    // Consumables.add(  );
+    AppState.updateGroceriesSubject();
+    AppState.updateConsumablesSubject();
+
+    Transaction(
+      action: 'basket to inventory',
+      dataType: 'consumable',
+      oldState: _grocery.jsonify(),
+      // newState:
+    );
+  }
+
   static quickEdit(int index, double quantity) {
     final _oldState = groceriesDummy[index];
     groceriesDummy[index].quantity = quantity;
@@ -160,8 +184,62 @@ class Groceries {
 
 class Posts {
   static Stream<List<Post>> get listen => AppState.postsSubject.stream;
+
   static test() {
     print("post test");
+  }
+
+  static add(Post newItem) {
+    posts.add(newItem);
+    AppState.updatePostsSubject();
+
+    Transaction(
+      action: 'create',
+      dataType: 'post',
+      oldState: 'nil',
+      newState: newItem.jsonify(),
+    );
+  }
+
+  static edit(int index, Post newData) {
+    final _oldState = posts[index];
+    posts[index] = newData;
+    AppState.updatePostsSubject();
+
+    Transaction(
+      action: 'edit',
+      dataType: 'post',
+      oldState: _oldState.jsonify(),
+      newState: newData.jsonify(),
+    );
+  }
+
+  static delete(int index) {
+    final _oldState = posts[index];
+    posts.removeAt(index);
+    AppState.updatePostsSubject();
+
+    Transaction(
+        action: 'delete',
+        dataType: 'post',
+        oldState: _oldState.jsonify(),
+        newState: 'nil');
+  }
+
+  static addToSaved(int index) {
+    savedPosts.add(posts[index]);
+    AppState.updateSavedPostsSubject();
+
+    // not sure if we want to add this action to the transaction log
+    // - david (11 - march - 19)
+  }
+
+  static removeFromSaved(int index) {
+    savedPosts.removeAt(index);
+    AppState.updateSavedPostsSubject();
+
+    // not sure if we want to add this action to the transaction log
+    // - david (11 - march - 19)
   }
 }
 
