@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:usage/app/appState.dart';
 import 'package:usage/app/dataStore.dart';
@@ -147,7 +149,8 @@ void _pushViewGroceryScreen(BuildContext context, Grocery grocery, int index) {
                       IconButton(
                         icon: Icon(Icons.delete),
                         onPressed: () {
-                          // deleteGroceryDialog(index, grocery);
+                          Groceries.delete(index);
+                          Navigator.pop(context);
                         },
                       ),
                     ],

@@ -296,47 +296,47 @@ class _InventoryBodyState extends State<InventoryBody> {
     }));
   }
 
-//ADD CONSUMABLE SCREEN
-  void _pushAddConsumableScreen() {
-    final _formKey = GlobalKey<FormState>();
-    final nameCtrl = TextEditingController();
-    final qtyCtrl = TextEditingController();
-    double widgetWidth = (MediaQuery.of(context).size.width) * .8;
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new Scaffold(
-          appBar: new AppBar(title: new Text('Add a new consumable')),
-          body: Center(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  InputField.inputField(widgetWidth, nameCtrl, true,
-                      TextInputType.text, 'Name', ''),
-                  InputField.inputField(widgetWidth, qtyCtrl, true,
-                      TextInputType.number, 'Quantity', ''),
-                  MaterialButton(
-                    minWidth: widgetWidth,
-                    child: Text('ADD'),
-                    onPressed: () {
-                      if (_formKey.currentState.validate()) {
-                        _addConsumable(
-                            nameCtrl.text, double.parse(qtyCtrl.text));
-                        Navigator.pop(context); // Close the add todo screen
+// //ADD CONSUMABLE SCREEN
+//   void _pushAddConsumableScreen() {
+//     final _formKey = GlobalKey<FormState>();
+//     final nameCtrl = TextEditingController();
+//     final qtyCtrl = TextEditingController();
+//     double widgetWidth = (MediaQuery.of(context).size.width) * .8;
+//     Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+//       return new Scaffold(
+//           appBar: new AppBar(title: new Text('Add a new consumable')),
+//           body: Center(
+//             child: Form(
+//               key: _formKey,
+//               child: Column(
+//                 children: <Widget>[
+//                   InputField.inputField(widgetWidth, nameCtrl, true,
+//                       TextInputType.text, 'Name', ''),
+//                   InputField.inputField(widgetWidth, qtyCtrl, true,
+//                       TextInputType.number, 'Quantity', ''),
+//                   MaterialButton(
+//                     minWidth: widgetWidth,
+//                     child: Text('ADD'),
+//                     onPressed: () {
+//                       if (_formKey.currentState.validate()) {
+//                         _addConsumable(
+//                             nameCtrl.text, double.parse(qtyCtrl.text));
+//                         Navigator.pop(context); // Close the add todo screen
 
-                      }
-                    },
-                  )
-                ],
-              ),
-            ),
-          ));
-    }));
-  }
+//                       }
+//                     },
+//                   )
+//                 ],
+//               ),
+//             ),
+//           ));
+//     }));
+//   }
 
-//ADD CONSUMABLE
-  void _addConsumable(String name, double qty) {
-    // setState(() => Consumables.create(Consumable(name: name, quantity: qty)));
-  }
+// //ADD CONSUMABLE
+//   void _addConsumable(String name, double qty) {
+//     // setState(() => Consumables.create(Consumable(name: name, quantity: qty)));
+//   }
 
   Widget _listItem(Consumable consumable, int index) {
     return Dismissible(
