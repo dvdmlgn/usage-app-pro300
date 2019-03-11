@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../app/appState.dart';
-import '../app/viewStore.dart';
-import '../models/view.dart';
+import '../../app/appState.dart';
+import '../../app/viewStore.dart';
+import '../../models/view.dart';
 
 
 final bottomAppBar = BottomBar();

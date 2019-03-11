@@ -5,9 +5,9 @@ import 'appState.dart';
 import '../models/view.dart';
 import 'viewStore.dart';
 
-import '../components/topAppBar.dart';
+import '../components/scaffold/topAppBar.dart';
 import '../components/fab.dart';
-import '../components/bottomAppBar.dart';
+import '../components/scaffold/bottomAppBar.dart';
 
 
 /// the only reason this is a stateful widget is because

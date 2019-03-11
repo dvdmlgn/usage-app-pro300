@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:usage/models/view.dart';
 
-import '../app/appState.dart';
-import '../app/viewStore.dart';
+import '../../app/appState.dart';
+import '../../app/viewStore.dart';
 
 final topAppBar = AppBar(
   brightness: Brightness.light,
