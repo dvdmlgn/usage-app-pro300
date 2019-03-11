@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:usage/models/view.dart';
 
 import '../app/appState.dart';
 import '../app/viewStore.dart';
@@ -52,13 +53,13 @@ final _avatar = IconButton(
 // );
 
 
-final _leading = StreamBuilder(
+final StreamBuilder<View> _leading = StreamBuilder(
   stream: AppState.activeView,
   initialData: views['inventory'],
   builder: (builder, snapshot) {
     if(snapshot.data.leadingAction == null) {
       return Text('no leading passed');
-    }
+    } 
     return snapshot.data.leadingAction;
   },
 );
