@@ -48,7 +48,7 @@ Widget _listItem(Grocery grocery, int index, BuildContext context) {
     onDismissed: (direction) {
       if (direction == DismissDirection.startToEnd) {
         // TODO: MOVE ITEM TO INVENTORY
-        // Groceries.addToInventory(index);
+        Groceries.addToInventory(grocery.id);
       } else {
         grocery.inBasket = false;
         AppState.updateGroceriesSubject();

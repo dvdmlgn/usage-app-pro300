@@ -147,11 +147,14 @@ class Groceries {
     groceries[index].inBasket = false;
   }
 
-  static addToInventory(int index) {
-    final _grocery = groceries[index];
+  static addToInventory(String id) {
+    final _index = groceriesDummy.indexWhere((element) => element.id == id);
+    final _grocery = groceriesDummy[_index];
+    Groceries.delete(_index);
 
-    // convert grocery to consumable
-    // Consumables.add(  );
+    Consumable newConsumable =
+        new Consumable(name: _grocery.name, quantity: _grocery.quantity);
+    consumablesDummy.add(newConsumable);
     AppState.updateGroceriesSubject();
     AppState.updateConsumablesSubject();
 
