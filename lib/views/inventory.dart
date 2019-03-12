@@ -5,7 +5,8 @@ import 'package:usage/components/shared/fab.dart';
 import 'package:usage/app/logic.dart';
 import 'package:usage/models/consumable.dart';
 
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:usage/app/appRoot.dart';
 
 final inventoryView = View(
   leadingAction: _leadingAction,
@@ -18,14 +19,22 @@ final inventoryView = View(
 final _fab = Fab(
   icon: icons.add,
   fn: () {
-    //TODO: Open screen to add consuable
-    Consumables.add(Consumable(
-        productId: '0',
-        name: 'cherries',
-        quantity: 7,
-        expiry: '7',
-        description: 'they are cherries',
-        imageUrl: 'cherries.png'));
+    // Consumables.add(Consumable(
+    //     productId: '0',
+    //     name: 'cherries',
+    //     quantity: 7,
+    //     expiry: '7',
+    //     description: 'they are cherries',
+    //     imageUrl: 'cherries.png'));
+
+    showDialog(
+      context: AppRoot.context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('hello there'),
+        );
+      }
+    );    
   },
 );
 

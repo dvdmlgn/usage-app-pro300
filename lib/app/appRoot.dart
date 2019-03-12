@@ -14,6 +14,8 @@ import '../components/scaffold/bottomAppBar.dart';
 /// => helps with cleanup & preventing memory leaks
 /// - david (4 - march - 19)
 class AppRoot extends StatefulWidget {
+  static BuildContext context;
+
   @override
   State<AppRoot> createState() => _State();
 }
@@ -21,6 +23,8 @@ class AppRoot extends StatefulWidget {
 class _State extends State<AppRoot> {
   @override
   Widget build(BuildContext context) {
+    AppRoot.context = context;
+
     return StreamBuilder(
       stream: AppState.activeView,
       // we want to move this to elsewhere in the codebase
