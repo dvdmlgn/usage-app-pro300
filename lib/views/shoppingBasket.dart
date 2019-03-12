@@ -14,10 +14,7 @@ final shoppingBasketView = View(
   meta: _meta,
 );
 
-final _fab = Fab(
-  icon: icons.add,
-  fn: () {},
-);
+final _fab = null;
 
 final _body = ShoppingBasketBody();
 
