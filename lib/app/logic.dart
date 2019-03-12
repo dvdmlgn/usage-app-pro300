@@ -112,7 +112,7 @@ class Groceries {
   static Stream<List<Grocery>> get listen => AppState.groceriesSubject.stream;
 
   static create(Grocery item) {
-    groceries.add(item);
+    groceriesDummy.add(item);
 
     Transaction(
         action: 'create',
@@ -137,6 +137,7 @@ class Groceries {
 
   static edit(int index, Grocery newData) {
     final _oldState = groceriesDummy[index];
+    newData.id = _oldState.id;
     groceriesDummy[index] = newData;
     AppState.updateGroceriesSubject();
 
@@ -148,8 +149,12 @@ class Groceries {
     );
   }
 
+  static addToBasket(int index) {
+    groceriesDummy[index].inBasket = true;
+  }
+
   static removeFromBasket(int index) {
-    groceries[index].inBasket = false;
+    groceriesDummy[index].inBasket = false;
   }
 
   static addToInventory(String id) {
@@ -159,6 +164,7 @@ class Groceries {
 
     Consumable newConsumable =
         new Consumable(name: _grocery.name, quantity: _grocery.quantity);
+    newConsumable.id = _grocery.id;
     consumablesDummy.add(newConsumable);
     AppState.updateGroceriesSubject();
     AppState.updateConsumablesSubject();
@@ -180,7 +186,7 @@ class Groceries {
       action: 'quick edit',
       dataType: 'grocery',
       oldState: _oldState.jsonify(),
-      newState: consumablesDummy[index].jsonify(),
+      newState: groceriesDummy[index].jsonify(),
     );
   }
 }
