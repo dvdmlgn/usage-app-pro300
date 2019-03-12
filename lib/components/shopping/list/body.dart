@@ -50,7 +50,7 @@ Widget _listItem(Grocery grocery, int index, BuildContext context) {
         AppState.updateGroceriesSubject();
         AppState.setActiveView('shopping basket');
       } else {
-        Groceries.delete(index);
+        Groceries.delete(grocery.id);
       }
     },
     child: ListTile(
@@ -147,7 +147,7 @@ void _pushViewGroceryScreen(BuildContext context, Grocery grocery, int index) {
                       IconButton(
                         icon: Icon(Icons.delete),
                         onPressed: () {
-                          Groceries.delete(index);
+                          Groceries.delete(grocery.id);
                           Navigator.pop(context);
                         },
                       ),

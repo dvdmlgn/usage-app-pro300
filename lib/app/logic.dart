@@ -117,9 +117,10 @@ class Groceries {
         newState: item.jsonify());
   }
 
-  static delete(int index) {
-    final _oldState = groceriesDummy[index];
-    groceriesDummy.removeAt(index);
+  static delete(String id) {
+    final _index = groceriesDummy.indexWhere((element) => element.id == id);
+    final _oldState = groceriesDummy[_index];
+    groceriesDummy.removeAt(_index);
     AppState.updateGroceriesSubject();
 
     Transaction(
@@ -150,7 +151,7 @@ class Groceries {
   static addToInventory(String id) {
     final _index = groceriesDummy.indexWhere((element) => element.id == id);
     final _grocery = groceriesDummy[_index];
-    Groceries.delete(_index);
+    Groceries.delete(id);
 
     Consumable newConsumable =
         new Consumable(name: _grocery.name, quantity: _grocery.quantity);

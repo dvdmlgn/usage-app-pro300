@@ -148,7 +148,7 @@ void _pushViewGroceryScreen(BuildContext context, Grocery grocery, int index) {
                       IconButton(
                         icon: Icon(Icons.delete),
                         onPressed: () {
-                          Groceries.delete(index);
+                          Groceries.delete(grocery.id);
                           Navigator.pop(context);
                         },
                       ),
