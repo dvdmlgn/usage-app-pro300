@@ -8,7 +8,7 @@ class View {
   Widget body;
   Fab fab;
   sections section;
-  String meta;
+  Map<String, dynamic> meta;
 
   View({this.leadingAction, this.body, this.fab, this.section, this.meta});
 }
