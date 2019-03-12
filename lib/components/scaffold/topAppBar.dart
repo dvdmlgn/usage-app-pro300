@@ -8,11 +8,7 @@ final topAppBar = AppBar(
   brightness: Brightness.light,
   backgroundColor: Colors.grey[100],
   elevation: 0.0,
-  actions: [
-    _leading,
-    _notificationBell,
-    _avatar
-  ],
+  actions: [_leading, _notificationBell, _avatar],
 );
 
 // Widget topAppBar() => StreamBuilder(
@@ -28,7 +24,6 @@ final topAppBar = AppBar(
 //     );
 //   },
 // );
-
 
 final _notificationBell = IconButton(
   icon: Icon(
@@ -46,21 +41,22 @@ final _avatar = IconButton(
   onPressed: () => debugPrint('pressed on avatar'),
 );
 
-
 // final _leading = Container(
 //   color: Colors.pink,
 //   width: 200,
 // );
 
-
 final StreamBuilder<View> _leading = StreamBuilder(
   stream: AppState.activeView,
   initialData: views['inventory'],
   builder: (builder, snapshot) {
-    if(snapshot.data.leadingAction == null) {
-      return Text('no leading passed',
-      style: TextStyle(color: Colors.black),);
-    } 
+    //TODO: GET INFORMATION ON THIS FROM DAVID
+    if (snapshot.data.leadingAction == null) {
+      return Text(
+        'no leading passed',
+        style: TextStyle(color: Colors.black),
+      );
+    }
     return snapshot.data.leadingAction;
   },
 );

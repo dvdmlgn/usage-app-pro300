@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:usage/backend/transactionLog.dart';
 import 'dataStore.dart';
 import 'appState.dart';
@@ -150,6 +149,7 @@ class Groceries {
 
   static addToInventory(int index) {
     final _grocery = groceries[index];
+
     // convert grocery to consumable
     // Consumables.add(  );
     AppState.updateGroceriesSubject();
@@ -178,8 +178,9 @@ class Groceries {
 }
 
 class Posts {
-  static Stream< List<Post> > get listenToFeed  => AppState.postsSubject.stream;
-  static Stream< List<Post> > get listenToSaved => AppState.savedPostsSubject.stream;
+  static Stream<List<Post>> get listenToFeed => AppState.postsSubject.stream;
+  static Stream<List<Post>> get listenToSaved =>
+      AppState.savedPostsSubject.stream;
 
   static test() {
     print("post test");
@@ -237,12 +238,10 @@ class Posts {
     // not sure if we want to add this action to the transaction log
     // - david (11 - march - 19)
   }
-
-
 }
 
 class Products {
-  static Stream< List<Product> > get listen => AppState.productsSubject.stream;
+  static Stream<List<Product>> get listen => AppState.productsSubject.stream;
 
   static add(Product newItem) {
     products.add(newItem);
@@ -263,11 +262,10 @@ class Products {
     AppState.updateProductsSubject();
 
     Transaction(
-      action: 'edit',
-      dataType: 'product',
-      oldState: _oldState.jsonify(),
-      newState: newData.jsonify()
-    );
+        action: 'edit',
+        dataType: 'product',
+        oldState: _oldState.jsonify(),
+        newState: newData.jsonify());
   }
 
   static delete(String id) {
@@ -276,11 +274,9 @@ class Products {
     AppState.updateProductsSubject();
 
     Transaction(
-      action: 'edit',
-      dataType: 'product',
-      oldState: _oldState.jsonify(),
-      newState: 'nil'
-    );
+        action: 'edit',
+        dataType: 'product',
+        oldState: _oldState.jsonify(),
+        newState: 'nil');
   }
-
 }
