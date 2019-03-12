@@ -26,6 +26,7 @@ class Consumables {
 
   static edit(int index, Consumable newData) {
     final _oldState = consumablesDummy[index];
+    newData.id = _oldState.id;
     consumablesDummy[index] = newData;
     AppState.updateConsumablesSubject();
 

@@ -5,29 +5,34 @@ void main() {
   group('add new transaction to transaction log:', () {
 
     test('transaction is successfully added to transaction log', () {
-      transactionLog.clear();
 
       Transaction(
-        action: 'test',
+        action:   'test',
         dataType: 'unit test',
         oldState: 'nil',
         newState: 'nil',
       );
 
     expect(transactionLog.length, 1);
+
+    // transactionLog.removeLast();
+    // print(transactionLog.length);
     });
 
     test('added transaction has correct & matching id', () {
-      transactionLog.clear();
+      // transactionLog.clear();
 
       var _testTransaction = Transaction(
-        action: 'test',
+        action:   'test',
         dataType: 'unit test',
         oldState: 'nil',
         newState: 'nil',
       );
 
-      expect(transactionLog[0].id, _testTransaction.id);
+      expect(transactionLog.last.id, _testTransaction.id);
+
+      // transactionLog.removeLast();
+      // print(transactionLog.length);
     });
 
 
