@@ -1,4 +1,7 @@
+import 'package:usage/app/appState.dart';
+import 'package:usage/app/dataStore.dart';
 import 'package:usage/components/inventory/body.dart';
+import 'package:usage/components/shared/inputField.dart';
 import 'package:usage/models/view.dart';
 import 'package:usage/components/shared/icons.dart';
 import 'package:usage/components/shared/fab.dart';
@@ -15,26 +18,46 @@ final inventoryView = View(
   fab: _fab,
   meta: _meta,
 );
-
+final _formKey = GlobalKey<FormState>();
+final nameCtrl = TextEditingController();
+final qtyCtrl = TextEditingController();
+double widgetWidth = (MediaQuery.of(AppRoot.context).size.width) * .8;
 final _fab = Fab(
   icon: icons.add,
   fn: () {
-    // Consumables.add(Consumable(
-    //     productId: '0',
-    //     name: 'cherries',
-    //     quantity: 7,
-    //     expiry: '7',
-    //     description: 'they are cherries',
-    //     imageUrl: 'cherries.png'));
-
     showDialog(
-      context: AppRoot.context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('hello there'),
-        );
-      }
-    );    
+        context: AppRoot.context,
+        builder: (context) {
+          return Material(
+            child: Center(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    InputField.inputField(widgetWidth, nameCtrl, true,
+                        TextInputType.text, 'Name', ''),
+                    InputField.inputField(widgetWidth, qtyCtrl, true,
+                        TextInputType.number, 'Quantity', ''),
+                    MaterialButton(
+                      minWidth: widgetWidth,
+                      child: Text('ADD'),
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) {
+                          consumablesDummy.add(Consumable(
+                              name: nameCtrl.text,
+                              quantity: double.parse(qtyCtrl.text)));
+                          AppState.updateConsumablesSubject();
+                          Navigator.pop(context); // Close the add todo screen
+
+                        }
+                      },
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   },
 );
 
