@@ -18,6 +18,7 @@ final inventoryView = View(
 final _fab = Fab(
   icon: icons.add,
   fn: () {
+    //TODO: Open screen to add consuable
     Consumables.add(Consumable(
         productId: '0',
         name: 'cherries',
