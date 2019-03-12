@@ -149,6 +149,7 @@ class Groceries {
 
   static addToInventory(int index) {
     final _grocery = groceries[index];
+
     // convert grocery to consumable
     // Consumables.add(  );
     AppState.updateGroceriesSubject();
