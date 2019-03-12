@@ -93,11 +93,14 @@ class Consumables {
   static moveToShoppingList(int index) {
     // don't know if we want to add this to the transaction log
     // - david (5 - march - 19)
-    // final _consumable = consumables[index];
-    final _grocery =
-        Grocery(); // add conversion from consumable to grocery here
+    final _consumable = consumablesDummy[index];
+    final _grocery = Grocery(
+      productId: _consumable.productId,
+      name: _consumable.name,
+      quantity: _consumable.quantity
+    );
 
-    consumables.removeAt(index);
+    consumablesDummy.removeAt(index);
     groceries.add(_grocery);
     AppState.updateConsumablesSubject();
     AppState

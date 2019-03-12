@@ -2,8 +2,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:usage/models/consumable.dart';
 import 'package:usage/app/logic.dart';
 import 'package:usage/app/dataStore.dart';
+import 'package:usage/backend/transactionLog.dart';
 
 void main() {
+
+  group('Consumables functionality:', () {
 
   test('consumable successfully added to Consumables list', () {
     var _consumable = Consumable(
@@ -56,23 +59,98 @@ void main() {
   });
 
   test('an existing consumable has been successfully \'quick-edited\'', () {
-    final _initalConsumableState = Consumable(
+    final _initialValue = 7.0;
+    final _endValue = 9.0;
+
+    final _consumable = Consumable(
       productId: 'nil',
       name: 'cherries',
-      quantity: 7,
+      quantity: _initialValue,
       expiry: 'nil',
       description: 'delicious',
       imageUrl: 'nil'
     );
 
-    Consumables.add(_initalConsumableState);
+    Consumables.add(_consumable);
+    final _index = consumablesDummy.indexWhere((e) => e.id == _consumable.id);
+    Consumables.quickEdit(_index, _endValue);
 
-    final _index = consumablesDummy.indexWhere((e) => e.id == _initalConsumableState.id);
-
-    Consumables.quickEdit(_index, 9);
-
-    expect(consumablesDummy[_index].quantity, isNot( equals(7) ) );
+    expect(consumablesDummy[_index].quantity, isNot( equals(_initialValue) ) );
   });
 
+  test('an existing consumalbe has been successfully deleted', () {
+    final _consumable = Consumable(
+      productId: 'nil',
+      name: 'cherries',
+      quantity: 7.0,
+      expiry: 'nil',
+      description: 'delicious',
+      imageUrl: 'nil'
+    );
 
+    Consumables.add(_consumable);
+    final _index = consumablesDummy.indexWhere((e) => e.id == _consumable.id);
+    Consumables.delete(_index);
+    final _endIndex = consumablesDummy.indexWhere((e) => e.id == _consumable.id);
+
+    expect(_endIndex, -1);
+  });
+
+  test('an existing consumalbe has been successfully consumed', () {
+    final _consumable = Consumable(
+      productId: 'nil',
+      name: 'cherries',
+      quantity: 7.0,
+      expiry: 'nil',
+      description: 'delicious',
+      imageUrl: 'nil'
+    );
+
+    Consumables.add(_consumable);
+    final _index = consumablesDummy.indexWhere((e) => e.id == _consumable.id);
+    Consumables.consumed(_index);
+    final _endIndex = consumablesDummy.indexWhere((e) => e.id == _consumable.id);
+
+    expect(_endIndex, -1);
+    expect(transactionLog.last.action, 'consumed');
+  });
+
+  test('an existing consumalbe has been successfully wasted', () {
+    final _consumable = Consumable(
+      productId: 'nil',
+      name: 'cherries',
+      quantity: 7.0,
+      expiry: 'nil',
+      description: 'delicious',
+      imageUrl: 'nil'
+    );
+
+    Consumables.add(_consumable);
+    final _index = consumablesDummy.indexWhere((e) => e.id == _consumable.id);
+    Consumables.wasted(_index);
+    final _endIndex = consumablesDummy.indexWhere((e) => e.id == _consumable.id);
+
+    expect(_endIndex, -1);
+    expect(transactionLog.last.action, 'wasted');
+  });
+
+  test('a consumable has been added to the shopping list', () {
+    final _consumable = Consumable(
+      productId: 'nil',
+      name: 'cherries',
+      quantity: 7.0,
+      expiry: 'nil',
+      description: 'delicious',
+      imageUrl: 'nil'
+    );
+
+    Consumables.add(_consumable);
+    final _index = consumablesDummy.indexWhere((e) => e.id == _consumable.id);
+    Consumables.moveToShoppingList(_index);
+    final _shoppingListIndex = groceries.indexWhere((e) => e.productId == _consumable.productId);
+
+    expect(_shoppingListIndex, isNot( equals(-1) ));
+  });
+
+ });
 }
