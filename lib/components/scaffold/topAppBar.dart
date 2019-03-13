@@ -50,7 +50,7 @@ final StreamBuilder<View> _leading = StreamBuilder(
   stream: AppState.activeView,
   initialData: views['inventory'],
   builder: (builder, snapshot) {
-    //TODO: GET INFORMATION ON THIS FROM DAVID
+    //TODO: FIX
     if (snapshot.data.leadingAction == null) {
       return Text(
         'no leading passed',

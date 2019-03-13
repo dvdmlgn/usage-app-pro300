@@ -1,26 +1,28 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-// import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:usage/components/shared/fab.dart';
-import 'package:usage/components/shared/icons.dart';
-
-// import 'package:usage/main.dart';
+import 'package:usage/components/inventory/body.dart';
+import 'package:usage/components/shopping/basket/body.dart';
+import 'package:usage/components/shopping/list/body.dart';
+import 'package:usage/components/social/socialFeed.dart';
+import 'package:usage/components/social/socialSaved.dart';
 
 void main() {
-  testWidgets('Fab Test', (WidgetTester tester) async {
-    //Fab has icon and function
-    await tester.pumpWidget(
-      Fab(
-          icon: icons.add,
-          fn: () {
-            print('TEST: Fab');
-          }),
-    );
+  testWidgets('Inventory Body Test', (WidgetTester tester) async {
+    await tester.pumpWidget(InventoryBody());
+  });
+
+  testWidgets('Shopping List Body Test', (WidgetTester tester) async {
+    await tester.pumpWidget(ShoppingListBody());
+  });
+
+  testWidgets('Shopping List Body Test', (WidgetTester tester) async {
+    await tester.pumpWidget(ShoppingBasketBody());
+  });
+
+  testWidgets('Shopping List Body Test', (WidgetTester tester) async {
+    await tester.pumpWidget(SocialFeed());
+  });
+
+  testWidgets('Shopping List Body Test', (WidgetTester tester) async {
+    await tester.pumpWidget(SavedPosts());
   });
 }

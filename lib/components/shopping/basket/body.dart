@@ -5,7 +5,6 @@ import 'package:usage/app/appState.dart';
 import 'package:usage/app/dataStore.dart';
 import 'package:usage/app/logic.dart';
 import 'package:usage/components/shared/inputField.dart';
-import 'package:usage/models/consumable.dart';
 import 'package:usage/models/grocery.dart';
 
 class ShoppingBasketBody extends StatelessWidget {
@@ -47,7 +46,6 @@ Widget _listItem(Grocery grocery, int index, BuildContext context) {
     secondaryBackground: Container(color: Colors.red),
     onDismissed: (direction) {
       if (direction == DismissDirection.startToEnd) {
-        // TODO: MOVE ITEM TO INVENTORY
         Groceries.addToInventory(grocery.id);
       } else {
         grocery.inBasket = false;
