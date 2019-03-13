@@ -1,7 +1,4 @@
 import 'package:usage/app/appState.dart';
-import 'package:usage/components/shared/icons.dart';
-
-import 'package:usage/components/shared/fab.dart';
 import 'package:usage/components/shopping/basket/body.dart';
 import 'package:usage/models/view.dart';
 import 'package:usage/views/switch.dart';
