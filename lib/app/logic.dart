@@ -26,6 +26,7 @@ class Consumables {
 
   static edit(int index, Consumable newData) {
     final _oldState = consumablesDummy[index];
+    newData.id = _oldState.id;
     consumablesDummy[index] = newData;
     AppState.updateConsumablesSubject();
 
@@ -92,11 +93,14 @@ class Consumables {
   static moveToShoppingList(int index) {
     // don't know if we want to add this to the transaction log
     // - david (5 - march - 19)
-    // final _consumable = consumables[index];
-    final _grocery =
-        Grocery(); // add conversion from consumable to grocery here
+    final _consumable = consumablesDummy[index];
+    final _grocery = Grocery(
+      productId: _consumable.productId,
+      name: _consumable.name,
+      quantity: _consumable.quantity
+    );
 
-    consumables.removeAt(index);
+    consumablesDummy.removeAt(index);
     groceries.add(_grocery);
     AppState.updateConsumablesSubject();
     AppState
@@ -108,7 +112,7 @@ class Groceries {
   static Stream<List<Grocery>> get listen => AppState.groceriesSubject.stream;
 
   static create(Grocery item) {
-    groceries.add(item);
+    groceriesDummy.add(item);
 
     Transaction(
         action: 'create',
@@ -133,6 +137,7 @@ class Groceries {
 
   static edit(int index, Grocery newData) {
     final _oldState = groceriesDummy[index];
+    newData.id = _oldState.id;
     groceriesDummy[index] = newData;
     AppState.updateGroceriesSubject();
 
@@ -144,8 +149,12 @@ class Groceries {
     );
   }
 
+  static addToBasket(int index) {
+    groceriesDummy[index].inBasket = true;
+  }
+
   static removeFromBasket(int index) {
-    groceries[index].inBasket = false;
+    groceriesDummy[index].inBasket = false;
   }
 
   static addToInventory(String id) {
@@ -155,6 +164,7 @@ class Groceries {
 
     Consumable newConsumable =
         new Consumable(name: _grocery.name, quantity: _grocery.quantity);
+    newConsumable.id = _grocery.id;
     consumablesDummy.add(newConsumable);
     AppState.updateGroceriesSubject();
     AppState.updateConsumablesSubject();
@@ -176,7 +186,7 @@ class Groceries {
       action: 'quick edit',
       dataType: 'grocery',
       oldState: _oldState.jsonify(),
-      newState: consumablesDummy[index].jsonify(),
+      newState: groceriesDummy[index].jsonify(),
     );
   }
 }
