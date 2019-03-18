@@ -8,36 +8,40 @@ final consumables = <Consumable>[];
 final consumablesDummy = <Consumable>[
   Consumable(
       productId: '101',
-      name: 'Cheese Cloth No 100',
+      name: 'Apple',
       quantity: 8,
-      expiry: '2018-04-04T12:11:24Z',
+      expiry: '2019-03-21',
       description:
           'nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id',
-      imageUrl: 'http://dummyimage.com/241x196.png/ff4444/ffffff'),
+      imageUrl:
+          'https://image.shutterstock.com/image-photo/red-ripe-apple-450w-119879914.jpg'),
   Consumable(
       productId: '102',
-      name: 'Appetiser - Bought',
+      name: 'Banana',
       quantity: 5,
-      expiry: '2019-02-26T08:31:45Z',
+      expiry: '2019-03-28',
       description:
           'nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam',
-      imageUrl: 'http://dummyimage.com/101x205.png/cc0000/ffffff'),
+      imageUrl:
+          'https://as2.ftcdn.net/jpg/00/81/63/27/500_F_81632784_dywiaX7xqRp7KDqMluwgqlkykvz3aK03.jpg'),
   Consumable(
       productId: '103',
-      name: 'Energy Drink Bawls',
+      name: 'Carrot',
       quantity: 9,
-      expiry: '2018-07-08T20:05:06Z',
+      expiry: '2019-03-12',
       description:
           'justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est et tempus',
-      imageUrl: 'http://dummyimage.com/115x228.png/ff4444/ffffff'),
+      imageUrl:
+          'https://image.shutterstock.com/image-photo/fresh-young-carrot-on-table-450w-459404320.jpg'),
   Consumable(
       productId: '100',
-      name: 'Island Oasis - Magarita Mix',
+      name: 'Potato',
       quantity: 3,
-      expiry: '2018-10-12T19:20:55Z',
+      expiry: '2019-03-18',
       description:
           'luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh',
-      imageUrl: 'http://dummyimage.com/178x234.png/cc0000/ffffff')
+      imageUrl:
+          'https://as2.ftcdn.net/jpg/01/09/60/37/500_F_109603745_Dvrk4jcCYvvT0cHJDg6QkPErGvKkqRKt.jpg'),
 ];
 final groceries = <Grocery>[];
 final groceriesDummy = <Grocery>[

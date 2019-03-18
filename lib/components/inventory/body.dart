@@ -7,6 +7,7 @@ import 'package:usage/models/consumable.dart';
 import 'package:usage/app/logic.dart';
 import 'package:usage/models/grocery.dart';
 
+//Stateful due to Futures
 class InventoryBody extends StatefulWidget {
   const InventoryBody({
     Key key,
@@ -28,7 +29,9 @@ class _InventoryBodyState extends State<InventoryBody> {
           itemBuilder: (context, index) {
             if (index < snapshot.data.length) {
               consumable = snapshot.data[index];
-              return _listItem(consumable, index);
+              return Column(
+                children: <Widget>[_listItem(consumable, index), Divider()],
+              );
             }
           },
         );
@@ -101,6 +104,11 @@ class _InventoryBodyState extends State<InventoryBody> {
               key: _formKey,
               child: Column(
                 children: <Widget>[
+                  Hero(
+                    tag: consumable.id,
+                    child: Image.network(consumable.imageUrl,
+                        width: 100.0, height: 100.0),
+                  ),
                   InputField.inputField(
                       200.0, nameCtrl, false, TextInputType.text, 'Name', ''),
                   InputField.inputField(200.0, qtyCtrl, false,
@@ -192,34 +200,36 @@ class _InventoryBodyState extends State<InventoryBody> {
                   child: Column(children: <Widget>[
                     Text("What Happened?"),
                     Divider(),
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(right: 4.0),
-                          child: MaterialButton(
-                            child: Text('WASTED'),
-                            color: Colors.red,
-                            onPressed: () {
-                              Consumables.wasted(index);
-                              Navigator.of(context).pop();
-                              Navigator.pop(context);
-                            },
+                    Material(
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.only(right: 4.0),
+                            child: MaterialButton(
+                              child: Text('WASTED'),
+                              color: Colors.red,
+                              onPressed: () {
+                                Consumables.wasted(index);
+                                Navigator.of(context).pop();
+                                Navigator.pop(context);
+                              },
+                            ),
                           ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 4.0),
-                          child: MaterialButton(
-                            child: Text('USED'),
-                            color: Colors.green,
-                            onPressed: () {
-                              Consumables.consumed(index);
-                              Navigator.of(context).pop();
-                              Navigator.pop(context);
-                            },
-                          ),
-                        )
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.center,
+                          Container(
+                            margin: EdgeInsets.only(left: 4.0),
+                            child: MaterialButton(
+                              child: Text('USED'),
+                              color: Colors.green,
+                              onPressed: () {
+                                Consumables.consumed(index);
+                                Navigator.of(context).pop();
+                                Navigator.pop(context);
+                              },
+                            ),
+                          )
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.center,
+                      ),
                     ),
                     MaterialButton(
                       child: Text('JUST DELETE IT!'),
@@ -281,10 +291,46 @@ class _InventoryBodyState extends State<InventoryBody> {
   }
 
   Widget _listItem(Consumable consumable, int index) {
+    String dateText = 'Days Left: ';
+    int difference;
+    Color dateColor;
+    if (consumable.expiry != null) {
+      DateTime expiry = DateTime.parse(consumable.expiry);
+      Duration dur = DateTime.now().difference(expiry);
+      String differenceInDays = (dur.inDays).toString();
+      difference = int.parse(differenceInDays) * -1;
+      if (difference < 4 && difference > -1) {
+        dateColor = Colors.orange;
+      } else if (difference > 4) {
+        dateColor = Colors.green;
+      } else {
+        dateColor = Colors.red;
+        dateText = "Days Expired: ";
+        difference = difference * -1;
+      }
+    } else {
+      dateText = '';
+      difference = null;
+    }
+
     return Dismissible(
-      key: ObjectKey(consumable),
-      background: Container(color: Colors.green),
-      secondaryBackground: Container(color: Colors.red),
+      key: new Key('dismissable'),
+      background: Container(
+        color: Colors.green,
+        child: Column(
+          children: <Widget>[Text('USED')],
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+        ),
+      ),
+      secondaryBackground: Container(
+        color: Colors.red,
+        child: Column(
+          children: <Widget>[Text('WASTED')],
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+        ),
+      ),
       onDismissed: (direction) {
         if (direction == DismissDirection.startToEnd) {
           Consumables.consumed(index);
@@ -293,15 +339,39 @@ class _InventoryBodyState extends State<InventoryBody> {
         }
       },
       child: ListTile(
-        title: Text(consumable.name),
+        key: new Key('listTile'),
+        leading: CircleAvatar(
+          backgroundColor: Colors.transparent,
+          child: Hero(
+            tag: consumable.id,
+            child: Image.network(
+              consumable.imageUrl, fit: BoxFit.fill,
+              // height: 20.0,
+              // width: 20.0,
+            ),
+          ),
+          maxRadius: 15.0,
+        ),
+        title: Text(
+          consumable.name,
+          key: new Key('listTileTitle'),
+        ),
+        subtitle: Text(
+          '$dateText $difference',
+          style: TextStyle(color: dateColor),
+        ),
         onLongPress: () {
           quickEditDialog(context, consumable, index);
         },
         onTap: () {
           _pushViewConsumableScreen(context, consumable, index);
         },
-        trailing: Text(
-          consumable.quantity.toString().split('.')[0],
+        trailing: CircleAvatar(
+          backgroundColor: Colors.lightBlue,
+          foregroundColor: Colors.white,
+          child: Text(
+            consumable.quantity.toString().split('.')[0],
+          ),
         ),
       ),
     );

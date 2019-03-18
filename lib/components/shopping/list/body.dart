@@ -42,8 +42,28 @@ class ShoppingListBody extends StatelessWidget {
 Widget _listItem(Grocery grocery, int index, BuildContext context) {
   return Dismissible(
     key: ObjectKey(grocery),
-    background: Container(color: Colors.green),
-    secondaryBackground: Container(color: Colors.red),
+    background: Container(
+      color: Colors.green,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'Move To Basket',
+          ),
+        ],
+      ),
+    ),
+    secondaryBackground: Container(
+      color: Colors.red,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Text('Remove From List'),
+        ],
+      ),
+    ),
     onDismissed: (direction) {
       if (direction == DismissDirection.startToEnd) {
         grocery.inBasket = true;
