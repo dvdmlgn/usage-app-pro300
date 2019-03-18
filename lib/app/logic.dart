@@ -272,6 +272,7 @@ class Products {
   static edit(String id, Product newData) {
     final _index = products.indexWhere((element) => element.id == id);
     final _oldState = products[_index];
+    newData.id = id;
     products[_index] = newData;
     AppState.updateProductsSubject();
 
@@ -285,6 +286,7 @@ class Products {
   static delete(String id) {
     final _index = products.indexWhere((element) => element.id == id);
     final _oldState = products[_index];
+    products.removeAt(_index);
     AppState.updateProductsSubject();
 
     Transaction(

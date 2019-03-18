@@ -3,8 +3,9 @@ import 'package:usage/backend/miscella.dart';
 
 class Product {
   String id;
+  String name;
 
-  Product() {
+  Product({this.name}) {
     id = generateId(dataType: 'product');
   }
 
