@@ -51,7 +51,7 @@ final StreamBuilder<View> _leading = StreamBuilder(
   initialData: views['inventory'],
   builder: (builder, snapshot) {
     if (snapshot.data.leadingAction == null) {
-      return null;
+      return Text('');
     }
     return snapshot.data.leadingAction;
   },

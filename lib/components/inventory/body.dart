@@ -312,6 +312,9 @@ class _InventoryBodyState extends State<InventoryBody> {
       dateText = '';
       difference = null;
     }
+    if (consumable.imageUrl == null) {
+      consumable.imageUrl = 'https://via.placeholder.com/150';
+    }
 
     return Dismissible(
       key: new Key('dismissable'),
