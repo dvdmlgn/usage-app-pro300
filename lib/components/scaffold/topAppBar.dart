@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:usage/app/appRoot.dart';
 import 'package:usage/app/dataStore.dart';
+import 'package:usage/components/auth/sign_in.dart';
 import 'package:usage/models/recipe.dart';
 import 'package:usage/models/view.dart';
 
@@ -44,7 +46,9 @@ final _avatar = IconButton(
     Icons.person,
     color: Colors.teal,
   ),
-  onPressed: () => debugPrint('pressed on avatar'),
+  onPressed: () {
+    Navigator.push(AppRoot.context, MaterialPageRoute(builder: (context) => SignIn()));
+  },
 );
 
 // final _leading = Container(
