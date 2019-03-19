@@ -43,8 +43,10 @@ class _SocialFeedState extends State<SocialFeed> {
                         children: <Widget>[
                           Text(
                             myPosts[index].author ??
-                                'Name' + " posted: " + myPosts[index].title ??
-                                'Title',
+                                'the name' +
+                                    " posted: " +
+                                    myPosts[index].title ??
+                                'this time',
                             style: TextStyle(
                                 fontSize: 22.0, fontWeight: FontWeight.bold),
                           ),
