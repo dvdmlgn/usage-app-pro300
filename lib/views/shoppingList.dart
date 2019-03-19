@@ -3,7 +3,6 @@ import 'package:usage/app/appRoot.dart';
 import 'package:usage/app/appState.dart';
 import 'package:usage/app/dataStore.dart';
 import 'package:usage/components/shared/icons.dart';
-
 import 'package:usage/components/shared/fab.dart';
 import 'package:usage/components/shared/inputField.dart';
 import 'package:usage/components/shopping/list/body.dart';
@@ -48,8 +47,7 @@ final _fab = Fab(
                               name: nameCtrl.text,
                               quantity: double.parse(qtyCtrl.text)));
                           AppState.updateGroceriesSubject();
-                          Navigator.pop(context); // Close the add todo screen
-
+                          Navigator.pop(context);
                         }
                       },
                     )

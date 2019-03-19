@@ -1,8 +1,4 @@
-// import 'package:encrypt/encrypt.dart';
 import './secrets.dart';
-
-// import 'package:flutter/material.dart';
-
 import 'dart:convert';
 
 String generateId({String dataType = 'not specified'}) {
@@ -17,7 +13,6 @@ String generateTimestamp() {
   return DateTime.now().toString();
 }
 
-
 _stringToBase64(String text) {
-  return base64Encode( latin1.encode(text) );
+  return base64Encode(latin1.encode(text));
 }

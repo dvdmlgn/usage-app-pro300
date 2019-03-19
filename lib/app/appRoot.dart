@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'dart:async';
-
 import 'appState.dart';
-// import '../models/view.dart';
 import 'viewStore.dart';
 
 import '../components/scaffold/topAppBar.dart';
@@ -22,12 +19,11 @@ class AppRoot extends StatefulWidget {
 }
 
 class _State extends State<AppRoot> {
-
   @override
   void initState() {
-      notificationsInit();
-      super.initState();
-    }
+    notificationsInit();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +36,6 @@ class _State extends State<AppRoot> {
       // - david (4 - march - 19)
       initialData: views['inventory'],
       builder: (builder, snapshot) {
-        // var _view = snapshot.data as View;
-
         return Scaffold(
           backgroundColor: Colors.grey[100],
           appBar: topAppBar,
@@ -55,8 +49,9 @@ class _State extends State<AppRoot> {
   }
 
   @override
+
+  /// clean up memory when we aren't going to use it anymore
   dispose() {
-    // clean up memory when we aren't going to use it anymore
     AppState.disposeOfViewSubject();
     super.dispose();
   }
