@@ -53,14 +53,14 @@ class _SocialFeedState extends State<SocialFeed> {
                             style: TextStyle(
                                 fontSize: 22.0, fontWeight: FontWeight.bold),
                           ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.star,
-                              color: Colors.black,
+                          Expanded(
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.star,
+                                color: Colors.black,
+                              ),
+                              onPressed: null,
                             ),
-                            onPressed: null,
-                            iconSize: 35.0,
-                            padding: EdgeInsets.only(left: 70.0),
                           ),
                         ],
                       ),
