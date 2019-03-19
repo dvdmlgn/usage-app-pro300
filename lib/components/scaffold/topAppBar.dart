@@ -85,6 +85,7 @@ Future<void> fetchRecipes() async {
 
   showDialog(
       context: AppRoot.context,
+      //TODO: child became depreciated in one of it latest versions and needs to be refactored
       child: Center(
         child: Card(
           child: Column(
