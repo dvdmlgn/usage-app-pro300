@@ -6,7 +6,6 @@ import 'package:usage/models/view.dart';
 import 'package:usage/components/shared/icons.dart';
 import 'package:usage/components/shared/fab.dart';
 import 'package:usage/models/consumable.dart';
-
 import 'package:flutter/material.dart';
 import 'package:usage/app/appRoot.dart';
 
@@ -27,38 +26,49 @@ final _fab = Fab(
     showDialog(
         context: AppRoot.context,
         builder: (context) {
-          return Material(
-            child: Center(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    InputField.inputField(widgetWidth, nameCtrl, true,
-                        TextInputType.text, 'Name', ''),
-                    InputField.inputField(widgetWidth, qtyCtrl, true,
-                        TextInputType.number, 'Quantity', ''),
-                    MaterialButton(
-                      minWidth: widgetWidth,
-                      child: Text('ADD'),
-                      onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          consumablesDummy.add(Consumable(
-                              name: nameCtrl.text,
-                              quantity: double.parse(qtyCtrl.text)));
-                          AppState.updateConsumablesSubject();
-                          Navigator.pop(context); // Close the add todo screen
-
-                        }
-                      },
-                    )
-                  ],
-                ),
-              ),
-            ),
-          );
+          return new ConsumableForm();
         });
   },
 );
+
+class ConsumableForm extends StatelessWidget {
+  const ConsumableForm({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Center(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              InputField.inputField(
+                  widgetWidth, nameCtrl, true, TextInputType.text, 'Name', ''),
+              InputField.inputField(widgetWidth, qtyCtrl, true,
+                  TextInputType.number, 'Quantity', ''),
+              MaterialButton(
+                minWidth: widgetWidth,
+                child: Text('ADD'),
+                onPressed: () {
+                  if (_formKey.currentState.validate()) {
+                    consumablesDummy.add(Consumable(
+                        name: nameCtrl.text,
+                        quantity: double.parse(qtyCtrl.text)));
+                    AppState.updateConsumablesSubject();
+                    Navigator.pop(context); // Close the add todo screen
+
+                  }
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 final _body = InventoryBody();
 
@@ -67,8 +77,3 @@ final _leadingAction = null;
 final _section = sections.inventory;
 
 final _meta = null;
-
-// final _leading = Container(
-//   color: Colors.pink,
-//   width: 200,
-// );
