@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:usage/app/appState.dart';
-
-// import 'package:path/path.dart';
 import 'package:usage/app/dataStore.dart';
 import 'package:usage/app/logic.dart';
 import 'package:usage/models/post.dart';
@@ -11,10 +9,6 @@ Post passPost = Post();
 Widget _widgetEditTitle;
 Widget _widgetEditContent;
 Widget _widgetEditRating;
-//final TextEditingController _titleController = new TextEditingController();
-//final TextEditingController _contentController = new TextEditingController();
-//final TextEditingController _ratingController = new TextEditingController();
-//String category;
 
 List<Post> mySavedPosts = [];
 
@@ -31,7 +25,6 @@ class SocialFeed extends StatefulWidget {
 class _SocialFeedState extends State<SocialFeed> {
   @override
   Widget build(BuildContext context) {
-    var _stream;
     return StreamBuilder(
         stream: Posts.listenToFeed,
         builder: (context, snapshot) {
@@ -49,9 +42,9 @@ class _SocialFeedState extends State<SocialFeed> {
                       Row(
                         children: <Widget>[
                           Text(
-                            myPosts[index].author ?? 'the name' +
-                                " posted: " +
-                                myPosts[index].title ?? 'this time',
+                            myPosts[index].author ??
+                                'Name' + " posted: " + myPosts[index].title ??
+                                'Title',
                             style: TextStyle(
                                 fontSize: 22.0, fontWeight: FontWeight.bold),
                           ),
@@ -61,7 +54,10 @@ class _SocialFeedState extends State<SocialFeed> {
                                 Icons.star,
                                 color: Colors.black,
                               ),
-                              onPressed: null,
+                              onPressed: () {
+                                Posts.addToSaved(index);
+                                AppState.setActiveView('social saved');
+                              },
                             ),
                           ),
                         ],
