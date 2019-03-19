@@ -301,12 +301,14 @@ class _InventoryBodyState extends State<InventoryBody> {
       difference = int.parse(differenceInDays) * -1;
       if (difference < 4 && difference > -1) {
         dateColor = Colors.orange;
+        expiringItems.add(consumable);
       } else if (difference > 4) {
         dateColor = Colors.green;
       } else {
         dateColor = Colors.red;
         dateText = "Days Expired: ";
         difference = difference * -1;
+        expiringItems.add(consumable);
       }
     } else {
       dateText = '';

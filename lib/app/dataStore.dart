@@ -5,6 +5,7 @@ import '../models/product.dart';
 
 final products = <Product>[];
 final consumables = <Consumable>[];
+final expiringItems = <Consumable>[];
 final consumablesDummy = <Consumable>[
   Consumable(
       productId: '101',
