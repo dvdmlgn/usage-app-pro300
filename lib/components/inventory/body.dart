@@ -136,7 +136,7 @@ class _InventoryBodyState extends State<InventoryBody> {
                                   name: consumable.name,
                                   quantity: consumable.quantity);
                               Groceries.create(newGrocery);
-                              groceriesDummy.add(newGrocery);
+                              // groceriesDummy.add(newGrocery);
                               Navigator.pop(context);
                             }),
                       ],
