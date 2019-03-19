@@ -187,6 +187,7 @@ class _InventoryBodyState extends State<InventoryBody> {
   }
 
   Future<bool> deleteConsumableDialog(int index) {
+    String _id = consumablesDummy[index].id;
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -209,7 +210,7 @@ class _InventoryBodyState extends State<InventoryBody> {
                               child: Text('WASTED'),
                               color: Colors.red,
                               onPressed: () {
-                                Consumables.wasted(index);
+                                Consumables.wasted(_id);
                                 Navigator.of(context).pop();
                                 Navigator.pop(context);
                               },
@@ -221,7 +222,7 @@ class _InventoryBodyState extends State<InventoryBody> {
                               child: Text('USED'),
                               color: Colors.green,
                               onPressed: () {
-                                Consumables.consumed(index);
+                                Consumables.consumed(_id);
                                 Navigator.of(context).pop();
                                 Navigator.pop(context);
                               },
@@ -319,7 +320,7 @@ class _InventoryBodyState extends State<InventoryBody> {
     }
 
     return Dismissible(
-      key: new Key('dismissable'),
+      key: new Key(consumable.id),
       background: Container(
         color: Colors.green,
         child: Column(
@@ -338,9 +339,9 @@ class _InventoryBodyState extends State<InventoryBody> {
       ),
       onDismissed: (direction) {
         if (direction == DismissDirection.startToEnd) {
-          Consumables.consumed(index);
+          Consumables.consumed(consumable.id);
         } else {
-          Consumables.wasted(index);
+          Consumables.wasted(consumable.id);
         }
       },
       child: ListTile(
