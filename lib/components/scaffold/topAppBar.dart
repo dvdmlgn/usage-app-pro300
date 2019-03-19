@@ -9,7 +9,7 @@ import 'package:usage/components/auth/sign_in.dart';
 import 'package:usage/models/recipe.dart';
 import 'package:usage/models/view.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:usage/backend/notifications.dart';
 import '../../app/appState.dart';
 import '../../app/viewStore.dart';
 
@@ -39,7 +39,7 @@ final _notificationBell = IconButton(
     Icons.notifications_none,
     color: Colors.teal,
   ),
-  onPressed: () => debugPrint('pressed on notifications'),
+  onPressed: () => showNotification(),
 );
 
 final _avatar = IconButton(

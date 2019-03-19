@@ -7,6 +7,7 @@ import 'viewStore.dart';
 
 import '../components/scaffold/topAppBar.dart';
 import '../components/scaffold/bottomAppBar.dart';
+import 'package:usage/backend/notifications.dart';
 
 /// the only reason this is a stateful widget is because
 /// we want to dispose of the view subject from 'AppState'
@@ -21,6 +22,13 @@ class AppRoot extends StatefulWidget {
 }
 
 class _State extends State<AppRoot> {
+
+  @override
+  void initState() {
+      notificationsInit();
+      super.initState();
+    }
+
   @override
   Widget build(BuildContext context) {
     AppRoot.context = context;
