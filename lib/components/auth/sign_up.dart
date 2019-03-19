@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:usage/components/auth/sign_in.dart';
+import 'package:usage/backend/biometrics.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -44,6 +45,14 @@ class _SignUpState extends State<SignUp> {
             RaisedButton(
               onPressed: () => signUp(context),
               child: Text('Sign Up'),
+            ),
+
+            RaisedButton(
+              onPressed: () {
+                Biometrics.authenticate();
+                if(Biometrics.didSuccessfullyAuthenticate) { Navigator.pop(context); }
+              },
+              child: Text('Sign in with Biometrics'),
             ),
           ],
         ),

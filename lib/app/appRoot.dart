@@ -5,6 +5,7 @@ import 'viewStore.dart';
 import '../components/scaffold/topAppBar.dart';
 import '../components/scaffold/bottomAppBar.dart';
 import 'package:usage/backend/notifications.dart';
+import 'package:usage/backend/biometrics.dart';
 
 /// the only reason this is a stateful widget is because
 /// we want to dispose of the view subject from 'AppState'
@@ -22,6 +23,8 @@ class _State extends State<AppRoot> {
   @override
   void initState() {
     notificationsInit();
+    Biometrics.init();
+    
     super.initState();
   }
 
