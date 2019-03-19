@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:usage/app/appState.dart';
 import 'package:usage/app/dataStore.dart';
 import 'package:usage/app/logic.dart';
 import 'package:usage/models/post.dart';
@@ -55,7 +56,10 @@ class _SocialFeedState extends State<SocialFeed> {
                                 Icons.star,
                                 color: Colors.black,
                               ),
-                              onPressed: null,
+                              onPressed: () {
+                                Posts.addToSaved(index);
+                                AppState.setActiveView('social saved');
+                              },
                             ),
                           ),
                         ],
