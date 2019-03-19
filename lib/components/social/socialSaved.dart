@@ -6,7 +6,6 @@ class SavedPosts extends StatelessWidget {
     var _stream;
     return StreamBuilder(
         stream: _stream,
-//        initialData: views['SocialSaved'],
         builder: (context, snapshot) {
           return Container(
             padding: EdgeInsets.all(8.0),
@@ -27,7 +26,7 @@ class SavedPosts extends StatelessWidget {
                     textAlign: TextAlign.justify,
                     overflow: TextOverflow.ellipsis,
                     style:
-                    TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                     maxLines: 5,
                   ),
                   trailing: IconButton(

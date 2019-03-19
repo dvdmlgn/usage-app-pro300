@@ -1,6 +1,4 @@
-// import 'package:flutter/material.dart';
 import 'dart:async';
-
 import 'package:rxdart/rxdart.dart';
 import '../models/view.dart';
 import '../models/consumable.dart';
@@ -12,7 +10,6 @@ import 'dataStore.dart';
 
 class AppState {
   static final _viewSubject = PublishSubject<View>();
-
   static final consumablesSubject = PublishSubject<List<Consumable>>();
   static final groceriesSubject = PublishSubject<List<Grocery>>();
   static final postsSubject = PublishSubject<List<Post>>();

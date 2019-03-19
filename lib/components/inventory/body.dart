@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:usage/app/dataStore.dart';
 import 'package:usage/components/shared/inputField.dart';
@@ -7,7 +6,6 @@ import 'package:usage/models/consumable.dart';
 import 'package:usage/app/logic.dart';
 import 'package:usage/models/grocery.dart';
 
-//Stateful due to Futures
 class InventoryBody extends StatefulWidget {
   const InventoryBody({
     Key key,
@@ -129,14 +127,11 @@ class _InventoryBodyState extends State<InventoryBody> {
                           icon: Icon(Icons.delete),
                           onPressed: () {
                             deleteConsumableDialog(index);
-                            // Consumables.delete(index);
-                            // Navigator.pop(context);
                           },
                         ),
                         IconButton(
                             icon: Icon(Icons.list),
                             onPressed: () {
-                              //create a grocery = consumable
                               Grocery newGrocery = new Grocery(
                                   name: consumable.name,
                                   quantity: consumable.quantity);
@@ -351,9 +346,8 @@ class _InventoryBodyState extends State<InventoryBody> {
           child: Hero(
             tag: consumable.id,
             child: Image.network(
-              consumable.imageUrl, fit: BoxFit.fill,
-              // height: 20.0,
-              // width: 20.0,
+              consumable.imageUrl,
+              fit: BoxFit.fill,
             ),
           ),
           maxRadius: 15.0,

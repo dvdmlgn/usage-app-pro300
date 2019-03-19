@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:usage/app/appState.dart';
 import 'package:usage/app/dataStore.dart';

@@ -18,20 +18,6 @@ final topAppBar = AppBar(
   actions: [_leading, _notificationBell, _avatar],
 );
 
-// Widget topAppBar() => StreamBuilder(
-//   stream: AppState.activeView,
-//   initialData: views['inventory'],
-//   builder: (builder, snapshot) {
-//     return AppBar(
-//       leading: snapshot.data.leadingAction,
-//       actions: [
-//         _notificationBell,
-//         _avatar,
-//       ],
-//     );
-//   },
-// );
-
 final _notificationBell = IconButton(
   icon: Icon(
     Icons.notifications_none,
@@ -50,11 +36,6 @@ final _avatar = IconButton(
         AppRoot.context, MaterialPageRoute(builder: (context) => SignIn()));
   },
 );
-
-// final _leading = Container(
-//   color: Colors.pink,
-//   width: 200,
-// );
 
 final StreamBuilder<View> _leading = StreamBuilder(
   stream: AppState.activeView,
@@ -80,7 +61,6 @@ Future<void> fetchRecipes() async {
     ingredients = ingredients + item.name + '%2';
   }
   ingredients = ingredients.substring(0, ingredients.length - 2);
-  // print("INGREDIENTS:$ingredients");
   final response1 = await http.get(
     'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?number=2&ranking=1&ingredients=$ingredients',
     headers: {

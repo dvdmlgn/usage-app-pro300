@@ -1,4 +1,3 @@
-// import 'dart:convert';
 import 'package:usage/backend/miscella.dart';
 
 class Product {

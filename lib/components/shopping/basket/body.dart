@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:usage/app/appState.dart';
 import 'package:usage/app/dataStore.dart';
@@ -208,7 +207,6 @@ void _pushEditGroceryScreen(BuildContext context, Grocery grocery, int index) {
                     newQty = double.parse(qtyCtrl.text);
                     grocery.name = newName;
                     grocery.quantity = newQty;
-                    // setState(() {});
                     Grocery newGrocery =
                         Grocery(name: newName, quantity: newQty);
                     Groceries.edit(index, newGrocery);

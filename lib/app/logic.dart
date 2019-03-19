@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:usage/backend/transactionLog.dart';
 import 'dataStore.dart';
 import 'appState.dart';
@@ -175,7 +174,6 @@ class Groceries {
       action: 'basket to inventory',
       dataType: 'consumable',
       oldState: _grocery.jsonify(),
-      // newState:
     );
   }
 
@@ -243,17 +241,11 @@ class Posts {
   static addToSaved(int index) {
     savedPosts.add(posts[index]);
     AppState.updateSavedPostsSubject();
-
-    // not sure if we want to add this action to the transaction log
-    // - david (11 - march - 19)
   }
 
   static removeFromSaved(int index) {
     savedPosts.removeAt(index);
     AppState.updateSavedPostsSubject();
-
-    // not sure if we want to add this action to the transaction log
-    // - david (11 - march - 19)
   }
 }
 
