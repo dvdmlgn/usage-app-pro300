@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:usage/app/appState.dart';
-import 'package:usage/app/logic.dart';
 import 'package:usage/components/social/socialFeed.dart';
 import '../models/view.dart';
-import '../models/post.dart';
 import 'package:usage/components/shared/icons.dart';
 import 'package:usage/components/shared/fab.dart';
 import 'package:usage/app/appRoot.dart';
