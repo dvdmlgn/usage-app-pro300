@@ -6,7 +6,6 @@ import 'package:usage/models/view.dart';
 import 'package:usage/components/shared/icons.dart';
 import 'package:usage/components/shared/fab.dart';
 import 'package:usage/models/consumable.dart';
-
 import 'package:flutter/material.dart';
 import 'package:usage/app/appRoot.dart';
 
@@ -68,7 +67,4 @@ final _section = sections.inventory;
 
 final _meta = null;
 
-// final _leading = Container(
-//   color: Colors.pink,
-//   width: 200,
-// );
+

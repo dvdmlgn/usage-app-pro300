@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:usage/app/appRoot.dart';
@@ -57,8 +59,9 @@ class _SignInState extends State<SignIn> {
       try {
         FirebaseUser user = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: _email, password: _password);
-        Navigator.pop(context, MaterialPageRoute(builder: (context) => AppRoot()));
-    } catch (e) {
+        Navigator.pop(
+            context, MaterialPageRoute(builder: (context) => AppRoot()));
+      } catch (e) {
         print(e.message);
         showDialog(
             context: context,
