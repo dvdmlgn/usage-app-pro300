@@ -69,10 +69,6 @@ class Consumables {
     final _oldState = consumablesDummy[_index];
     consumablesDummy.removeAt(_index);
 
-    // for (var item in consumablesDummy) {
-    //   print(item.name);
-    // }
-
     AppState.updateConsumablesSubject();
 
     Transaction(
@@ -102,10 +98,9 @@ class Consumables {
     // - david (5 - march - 19)
     final _consumable = consumablesDummy[index];
     final _grocery = Grocery(
-      productId: _consumable.productId,
-      name: _consumable.name,
-      quantity: _consumable.quantity
-    );
+        productId: _consumable.productId,
+        name: _consumable.name,
+        quantity: _consumable.quantity);
 
     consumablesDummy.removeAt(index);
     groceries.add(_grocery);

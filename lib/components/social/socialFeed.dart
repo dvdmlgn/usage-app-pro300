@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:usage/app/appState.dart';
 
 // import 'package:path/path.dart';
 import 'package:usage/app/dataStore.dart';
+import 'package:usage/app/logic.dart';
 import 'package:usage/models/post.dart';
 
-List<Post> myPosts = dummyPosts;
+List<Post> myPosts = posts;
 Post passPost = Post();
 Widget _widgetEditTitle;
 Widget _widgetEditContent;
@@ -31,7 +33,7 @@ class _SocialFeedState extends State<SocialFeed> {
   Widget build(BuildContext context) {
     var _stream;
     return StreamBuilder(
-        stream: _stream,
+        stream: Posts.listenToFeed,
         builder: (context, snapshot) {
           return ListView.builder(
               itemCount: myPosts.length,
@@ -47,9 +49,9 @@ class _SocialFeedState extends State<SocialFeed> {
                       Row(
                         children: <Widget>[
                           Text(
-                            myPosts[index].author +
+                            myPosts[index].author ?? 'the name' +
                                 " posted: " +
-                                myPosts[index].title,
+                                myPosts[index].title ?? 'this time',
                             style: TextStyle(
                                 fontSize: 22.0, fontWeight: FontWeight.bold),
                           ),

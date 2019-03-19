@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:usage/app/appState.dart';
+import 'package:usage/app/logic.dart';
 import 'package:usage/components/social/socialFeed.dart';
+import 'package:usage/models/post.dart';
 import '../models/view.dart';
 import 'package:usage/components/shared/icons.dart';
 import 'package:usage/components/shared/fab.dart';
@@ -8,8 +10,8 @@ import 'package:usage/app/appRoot.dart';
 
 final TextEditingController _titleController = new TextEditingController();
 final TextEditingController _contentController = new TextEditingController();
-//final TextEditingController _ratingController = new TextEditingController();
-//String category;
+
+Post newPost = new Post();
 
 final socialFeedView = View(
     leadingAction: _leadingAction,
@@ -63,10 +65,10 @@ final _fab = Fab(
      actions: <Widget>[
        FlatButton(
            onPressed: () {
-            //  _getPost(_titleController.text, int.parse(_ratingController.text),
-            //_contentController.text, category);
-            //  _titleController.clear();            
-            //  _contentController.clear();
+              newPost.title = _titleController.text;
+              newPost.content = _contentController.text;
+              Posts.add(newPost);
+
              Navigator.pop(context);
            },
            child: Text("Save")),
@@ -92,10 +94,9 @@ final _meta = null;
 
 final _section = sections.social;
 
- void _getPost(String title, int rating, String content, String category) {
-  //  setState(() => Posts.add(Post(
-  //      title: title, rating: rating, content: content, category: category)));
- }
+// void _getPost(Post newPost) {
+//    Posts.add(newPost);
+// }
 
 
 

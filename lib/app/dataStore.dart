@@ -59,23 +59,11 @@ final groceriesDummy = <Grocery>[
 // - david (28 feb 19)
 final savedPosts = <Post>[];
 
-final dummyPosts = <Post>[
+final posts = <Post>[
   Post(
       author: "Paul",
       title: "This is a title",
       content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec tellus ac nibh commodo consequat vitae sollicitudin dolor. Mauris commodo felis et neque finibus, ac sagittis nulla cursus. Duis pharetra pulvinar diam ac tempor. Curabitur nec elit lectus. Aenean aliquam tincidunt turpis, eu lacinia eros maximus at. Morbi libero elit.",
-      tags: ["Tag", "Tag", "Tag"],
-      rating: 4,
-      timesPinned: 27),
-  Post(
-      author: "Paul",
-      title: "This is a title",
-      content:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec tellus ac nibh commodo consequat vitae sollicitudin dolor. Mauris commodo felis et neque finibus, ac sagittis nulla cursus. Duis pharetra pulvinar diam ac tempor. Curabitur nec elit lectus. Aenean aliquam tincidunt turpis, eu lacinia eros maximus at. Morbi libero elit.",
-      tags: ["Tag", "Tag", "Tag"],
-      rating: 4,
-      timesPinned: 27),
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec tellus ac nibh commodo consequat vitae sollicitudin dolor. Mauris commodo felis et neque finibus, ac sagittis nulla cursus. Duis pharetra pulvinar diam ac tempor. Curabitur nec elit lectus. Aenean aliquam tincidunt turpis, eu lacinia eros maximus at. Morbi libero elit.",
+  ),
 ];
-
-final posts = <Post>[];
