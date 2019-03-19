@@ -4,7 +4,7 @@ import 'dart:async';
 FlutterLocalNotificationsPlugin notificationsPlugin = FlutterLocalNotificationsPlugin();
 
 notificationsInit() {
-  var initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
+  var initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
   var initializationSettingsIOS = IOSInitializationSettings();
   var initializationSettings = InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
 
