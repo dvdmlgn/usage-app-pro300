@@ -64,9 +64,15 @@ class Consumables {
     );
   }
 
-  static consumed(int index) {
-    final _oldState = consumablesDummy[index];
-    consumablesDummy.removeAt(index);
+  static consumed(String id) {
+    final _index = consumablesDummy.indexWhere((e) => e.id == id);
+    final _oldState = consumablesDummy[_index];
+    consumablesDummy.removeAt(_index);
+
+    // for (var item in consumablesDummy) {
+    //   print(item.name);
+    // }
+
     AppState.updateConsumablesSubject();
 
     Transaction(
@@ -77,9 +83,10 @@ class Consumables {
     );
   }
 
-  static wasted(int index) {
-    final _oldState = consumablesDummy[index];
-    consumablesDummy.removeAt(index);
+  static wasted(String id) {
+    final _index = consumablesDummy.indexWhere((e) => e.id == id);
+    final _oldState = consumablesDummy[_index];
+    consumablesDummy.removeAt(_index);
     AppState.updateConsumablesSubject();
 
     Transaction(
