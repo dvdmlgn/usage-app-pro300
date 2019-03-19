@@ -214,6 +214,7 @@ class Posts {
 
   static edit(int index, Post newData) {
     final _oldState = posts[index];
+    newData.id = _oldState.id;
     posts[index] = newData;
     AppState.updatePostsSubject();
 
