@@ -6,6 +6,7 @@ import 'package:usage/backend/transactionLog.dart';
 
 void main() {
   group('Consumables functionality:', () {
+    
     test('consumable successfully added to Consumables list', () {
       var _consumable = Consumable(
           productId: 'nil',
