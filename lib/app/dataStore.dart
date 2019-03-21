@@ -61,9 +61,15 @@ final savedPosts = <Post>[];
 
 final posts = <Post>[
   Post(
-      author: "Paul",
-      title: "This is a title",
-      content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec tellus ac nibh commodo consequat vitae sollicitudin dolor. Mauris commodo felis et neque finibus, ac sagittis nulla cursus. Duis pharetra pulvinar diam ac tempor. Curabitur nec elit lectus. Aenean aliquam tincidunt turpis, eu lacinia eros maximus at. Morbi libero elit.",
+    author: "Paul",
+    title: "Mushroom Pie",
+    content:
+    "This is just what you need on a cold night. Serve with creamy mashed potatoes",
+  ),
+  Post(
+    author: "Elise",
+    title: "Banana Bread",
+    content:
+    "I was given this banana bread recipe years ago from my friend Heidi H, who, many years before, had begged the recipe from a ski buddy’s mother—Mrs. Hockmeyer. Thanks Heidi!",
   ),
 ];

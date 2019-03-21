@@ -29,11 +29,7 @@ class SavedPosts extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           Text(
-                            savedPosts[index].author ??
-                                'Name' +
-                                    " posted: " +
-                                    savedPosts[index].title ??
-                                'Title',
+                            "${savedPosts[index].author ?? 'Unknown'} posted: ${savedPosts[index].title ?? 'Title'}",
                             style: TextStyle(
                                 fontSize: 22.0, fontWeight: FontWeight.bold),
                           ),
